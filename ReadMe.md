@@ -1,8 +1,9 @@
 Package cmakefbc
 ================
 
-This is package cmakefbc, an extension for the build system CMake for
-the FreeBASIC programming langunage.
+This is package cmakefbc, an extension for the build system CMake to
+support the FreeBASIC programming language.
+
 
 Installation
 ============
@@ -38,6 +39,7 @@ programming language. Since you read this file you already
 Next step is to use CMake to install the extension files:
 
 ~~~{.sh}
+cd cmakefbc
 cmake .
 sudo make install
 ~~~
@@ -46,7 +48,8 @@ will copy six configuration files to the correct location in your CMake
 installation. Now your system is ready to address the FreeBASIC
 language and to compile simple projects like the fb_depends tool. This
 tool helps to build big projects with complex source file dependencies.
-We can use the source to test our CMake installation in the next step.
+We can use the tools source to test our CMake installation in the next
+step.
 
 
 Step 3 fb_depends tool
@@ -56,4 +59,11 @@ The fb_depends tool auto-generates source file dependencies for CMake,
 which cannot handle this for FreeBASIC source code yet. So it's an
 essential component of this package and should get build and installed
 if you intend to build big projects.
+
+~~~{.sh}
+cd fb_depends
+cmake .
+make
+sudo make install
+~~~
 
