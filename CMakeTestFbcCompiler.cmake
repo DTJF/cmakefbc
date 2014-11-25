@@ -25,15 +25,15 @@ IF(NOT CMAKE_Fbc_COMPILER_WORKS)
     COMPILE_DEFINITIONS "-m testFbcCompiler"
 	  OUTPUT_VARIABLE OUTPUT)
   SET(FBC_TEST_WAS_RUN 1)
-ENDIF(NOT CMAKE_Fbc_COMPILER_WORKS)
+ENDIF()
 
 IF(CMAKE_Fbc_COMPILER_WORKS)
   IF(FBC_TEST_WAS_RUN)
-    MESSAGE(STATUS "Check for working fbc compiler: ${CMAKE_Fbc_COMPILER} -- works")
+    MESSAGE(STATUS "Compiler: ${CMAKE_Fbc_COMPILER} -- works")
     FILE(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeOutput.log
       "Determining if the fbc compiler works passed with "
       "the following output:\n${OUTPUT}\n\n")
-  ENDIF(FBC_TEST_WAS_RUN)
+  ENDIF()
   SET(CMAKE_Fbc_COMPILER_WORKS 1 CACHE INTERNAL "")
   # re-configure this file CMakeFbcCompiler.cmake so that it gets
   # the value for CMAKE_SIZEOF_VOID_P
@@ -41,11 +41,11 @@ IF(CMAKE_Fbc_COMPILER_WORKS)
   IF(EXISTS ${CMAKE_SOURCE_DIR}/cmake/Modules/CMakeFbcCompiler.cmake.in)
   	CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/cmake/Modules/CMakeFbcCompiler.cmake.in
   	  ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeFbcCompiler.cmake IMMEDIATE)
-  ELSE(EXISTS ${CMAKE_SOURCE_DIR}/cmake/Modules/CMakeFbcCompiler.cmake.in)
+  ELSE()
   	CONFIGURE_FILE(${CMAKE_ROOT}/Modules/CMakeFbcCompiler.cmake.in
 	    ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeFbcCompiler.cmake IMMEDIATE)
-  ENDIF(EXISTS ${CMAKE_SOURCE_DIR}/cmake/Modules/CMakeFbcCompiler.cmake.in)
-ELSE(CMAKE_Fbc_COMPILER_WORKS)
+  ENDIF()
+ELSE()
   MESSAGE(STATUS "Check for working fbc compiler: ${CMAKE_Fbc_COMPILER} -- broken")
   MESSAGE(STATUS "To force a specific fbc compiler set the FBC environment variable")
   MESSAGE(STATUS "    ie - export FBC=\"/usr/local/bin/fbc\"")
@@ -58,4 +58,4 @@ ELSE(CMAKE_Fbc_COMPILER_WORKS)
     "The fbc compiler \"${CMAKE_Fbc_COMPILER}\" is not able to compile a simple test program.\n"
     "It fails with the following output:\n---8<---\n${OUTPUT}\n--->8---\n"
     "CMake will not be able to correctly generate this project.")
-ENDIF(CMAKE_Fbc_COMPILER_WORKS)
+ENDIF()

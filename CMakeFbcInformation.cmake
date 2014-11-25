@@ -28,11 +28,11 @@ INCLUDE(Platform/${CMAKE_SYSTEM_NAME}-${CMAKE_BASE_NAME} OPTIONAL)
 
 IF(CMAKE_USER_MAKE_RULES_OVERRIDE)
  INCLUDE(${CMAKE_USER_MAKE_RULES_OVERRIDE})
-ENDIF(CMAKE_USER_MAKE_RULES_OVERRIDE)
+ENDIF()
 
 IF(CMAKE_USER_MAKE_RULES_OVERRIDE_FBC)
  INCLUDE(${CMAKE_USER_MAKE_RULES_OVERRIDE_FBC})
-ENDIF(CMAKE_USER_MAKE_RULES_OVERRIDE_FBC)
+ENDIF()
 
 # for most systems a module is the same as a shared library
 # so unless the variable CMAKE_MODULE_EXISTS is set just
@@ -40,7 +40,7 @@ ENDIF(CMAKE_USER_MAKE_RULES_OVERRIDE_FBC)
 IF(NOT CMAKE_MODULE_EXISTS)
   SET(CMAKE_SHARED_MODULE_Fbc_FLAGS ${CMAKE_SHARED_LIBRARY_Fbc_FLAGS})
   SET(CMAKE_SHARED_MODULE_CREATE_Fbc_FLAGS ${CMAKE_SHARED_LIBRARY_CREATE_Fbc_FLAGS})
-ENDIF(NOT CMAKE_MODULE_EXISTS)
+ENDIF()
 
 SET(CMAKE_Fbc_FLAGS "$ENV{FBCFLAGS} ${CMAKE_Fbc_FLAGS_INIT}"
     CACHE STRING    "Flags for fbc compiler.")
@@ -50,7 +50,7 @@ IF(NOT CMAKE_NOT_USING_CONFIG_FLAGS)
   IF(NOT CMAKE_NO_BUILD_TYPE)
     SET (CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE_INIT} CACHE STRING
       "Choose the type of build, options are: None(CMAKE_Fbc_FLAGS used) Debug Release RelWithDebInfo MinSizeRel.")
-  ENDIF(NOT CMAKE_NO_BUILD_TYPE)
+  ENDIF()
   SET (CMAKE_Fbc_FLAGS_DEBUG "${CMAKE_Fbc_FLAGS_DEBUG_INIT}" CACHE STRING
     "Flags used by the compiler during debug builds.")
   SET (CMAKE_Fbc_FLAGS_MINSIZEREL "${CMAKE_Fbc_FLAGS_MINSIZEREL_INIT}" CACHE STRING
@@ -59,13 +59,13 @@ IF(NOT CMAKE_NOT_USING_CONFIG_FLAGS)
     "Flags used by the compiler during release builds (/MD /Ob1 /Oi /Ot /Oy /Gs will produce slightly less optimized but smaller files).")
   SET (CMAKE_Fbc_FLAGS_RELWITHDEBINFO "${CMAKE_Fbc_FLAGS_RELWITHDEBINFO_INIT}" CACHE STRING
     "Flags used by the compiler during Release with Debug Info builds.")
-ENDIF(NOT CMAKE_NOT_USING_CONFIG_FLAGS)
+ENDIF()
 
 IF(CMAKE_Fbc_STANDARD_LIBRARIES_INIT)
   SET(CMAKE_Fbc_STANDARD_LIBRARIES "${CMAKE_Fbc_STANDARD_LIBRARIES_INIT}"
     CACHE STRING "Libraries linked by defalut with all fbc applications.")
   MARK_AS_ADVANCED(CMAKE_Fbc_STANDARD_LIBRARIES)
-ENDIF(CMAKE_Fbc_STANDARD_LIBRARIES_INIT)
+ENDIF()
 
 INCLUDE(CMakeCommonLanguageInclude)
 
@@ -109,12 +109,12 @@ SET(CMAKE_SHARED_LIBRARY_Fbc_FLAGS "")
 IF(NOT CMAKE_Fbc_CREATE_SHARED_LIBRARY)
 	SET(CMAKE_Fbc_CREATE_SHARED_LIBRARY
   	"<CMAKE_Fbc_COMPILER> <CMAKE_SHARED_LIBRARY_Fbc_FLAGS> <LANGUAGE_COMPILE_FLAGS> <LINK_FLAGS> -dylib <CMAKE_SHARED_LIBRARY_SONAME_Fbc_FLAG><TARGET_SONAME> -x <TARGET> <OBJECTS> <LINK_LIBRARIES>")
-ENDIF(NOT CMAKE_Fbc_CREATE_SHARED_LIBRARY)
+ENDIF()
 
 # create a shared module just copy the shared library rule
 IF(NOT CMAKE_Fbc_CREATE_SHARED_MODULE)
   SET(CMAKE_Fbc_CREATE_SHARED_MODULE ${CMAKE_Fbc_CREATE_SHARED_LIBRARY})
-ENDIF(NOT CMAKE_Fbc_CREATE_SHARED_MODULE)
+ENDIF()
 
 # create a static library
 IF(NOT CMAKE_Fbc_CREATE_STATIC_LIBRARY)
@@ -125,23 +125,23 @@ IF(NOT CMAKE_Fbc_CREATE_STATIC_LIBRARY)
       		"<CMAKE_AR> cr <TARGET> <LINK_FLAGS> <OBJECTS> "
 		      "<CMAKE_RANLIB> <TARGET> "
 	      )
-	ELSE(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+	ELSE()
     SET(CMAKE_Fbc_CREATE_STATIC_LIBRARY
   		"<CMAKE_AR> cr <TARGET> <LINK_FLAGS> <OBJECTS> "
 		  "<CMAKE_RANLIB> <TARGET>")
-	ENDIF(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
-ENDIF(NOT CMAKE_Fbc_CREATE_STATIC_LIBRARY)
+	ENDIF()
+ENDIF()
 
 # compile a BAS file into an object file
 IF(NOT CMAKE_Fbc_COMPILE_OBJECT)
   SET(CMAKE_Fbc_COMPILE_OBJECT
     "<CMAKE_Fbc_COMPILER> <FLAGS> -c <SOURCE> -o <OBJECT>")
-ENDIF(NOT CMAKE_Fbc_COMPILE_OBJECT)
+ENDIF()
 
 IF(NOT CMAKE_Fbc_LINK_EXECUTABLE)
   SET(CMAKE_Fbc_LINK_EXECUTABLE
-    "<CMAKE_Fbc_COMPILER> <FLAGS> <CMAKE_Fbc_LINK_FLAGS> <LINK_FLAGS> -x <TARGET> <OBJECTS> <LINK_LIBRARIES>")
-ENDIF(NOT CMAKE_Fbc_LINK_EXECUTABLE)
+    "<CMAKE_Fbc_COMPILER> <FLAGS> <CMAKE_Fbc_LINK_FLAGS> <LINK_FLAGS> -x <TARGET> -m <TARGET> <OBJECTS> <LINK_LIBRARIES>")
+ENDIF()
 
 MARK_AS_ADVANCED(
 CMAKE_Fbc_FLAGS
@@ -151,14 +151,96 @@ CMAKE_Fbc_FLAGS_RELEASE
 CMAKE_Fbc_FLAGS_RELWITHDEBINFO
 )
 
-MACRO(ADD_Fbc_SRC_DEPS Tar)
-  SET(${Tar}DEPS ${CMAKE_CURRENT_LIST_DIR}/CMakeFiles/${Tar}_deps.cmake)
-  GET_TARGET_PROPERTY(_src ${Tar} SOURCES)
-  EXECUTE_PROCESS(
-    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} fb_depends ${${Tar}DEPS} ${_src}
-    )
-  INCLUDE(${${Tar}DEPS})
-  ADD_CUSTOM_TARGET(OUTPUT ${${Tar}DEPS})
-ENDMACRO(ADD_Fbc_SRC_DEPS)
+find_program(CMAKE_fb_depends fb_depends #NO_CMAKE_PATH NO_CMAKE_ENVIRONMENT_PATH
+  DOC "FreeBASIC dependencies tool.")
+
+IF(NOT CMAKE_fb_depends)
+  MESSAGE(STATUS "Tool fb_depends not available -> no Fbc extensions!")
+ELSE()
+  MACRO(ADD_Fbc_SRC_DEPS Tar)
+    SET(_file ${CMAKE_CURRENT_LIST_DIR}/CMakeFiles/${Tar}_deps.cmake)
+    GET_TARGET_PROPERTY(_src ${Tar} SOURCES)
+    EXECUTE_PROCESS(
+      COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} fb_depends ${_file} ${_src}
+      )
+    INCLUDE(${_file})
+    ADD_CUSTOM_TARGET(${Tar}_deps OUTPUT ${_file})
+  ENDMACRO(ADD_Fbc_SRC_DEPS)
+
+  IF(NOT COMMAND CMAKE_PARSE_ARGUMENTS)
+    INCLUDE(CMakeParseArguments)
+  ENDIF()
+
+  FUNCTION(BAS_2_C CFiles)
+    CMAKE_PARSE_ARGUMENTS(ARGS "NO_DEPS" "OUT_DIR;OUT_NAM;COMPILE_FLAGS" "SOURCES" ${ARGN})
+
+    IF(ARGS_OUT_DIR)
+		  GET_FILENAME_COMPONENT(_dir ${ARGS_OUT_DIR} ABSOLUTE)
+      INCLUDE_DIRECTORIES(${_dir})
+      EXECUTE_PROCESS(COMMAND ${CMAKE_COMMAND} -E make_directory ${_dir})
+    ELSE()
+      SET(_dir ${CMAKE_CURRENT_LIST_DIR})
+    ENDIF()
+
+    IF(ARGS_OUT_NAM)
+      SET(_tar ${ARGS_OUT_NAM}_deps)
+      SET(_deps ${_dir}/${ARGS_OUT_NAM}.cmake)
+    ELSE()
+      SET(_deps ${CMAKE_CURRENT_LIST_DIR}/CMakeFiles/bas2c_deps.cmake)
+    ENDIF()
+
+    IF(UNIX)
+      SEPARATE_ARGUMENTS(tmp UNIX_COMMAND ${ARGS_COMPILE_FLAGS})
+    ELSE()
+      SEPARATE_ARGUMENTS(tmp WINDOWS_COMMAND ${ARGS_COMPILE_FLAGS})
+    ENDIF()
+
+    SET(c_src "")
+    SET(fbc_src ${ARGS_SOURCES} ${ARGS_UNPARSED_ARGUMENTS})
+    FOREACH(src ${fbc_src})
+      STRING(REPLACE ".bas" ".c" c_nam ${src})
+      SET(c_file "${_dir}/${c_nam}")
+      EXECUTE_PROCESS(
+        COMMAND ${CMAKE_Fbc_COMPILER} ${tmp} -gen gcc -r ${CMAKE_CURRENT_SOURCE_DIR}/${src}
+        )
+      IF(ARGS_OUT_DIR)
+        EXECUTE_PROCESS(
+          COMMAND ${CMAKE_COMMAND} -E rename ${CMAKE_CURRENT_SOURCE_DIR}/${c_nam} ${c_file}
+          )
+      ENDIF()
+      ADD_CUSTOM_COMMAND(OUTPUT ${c_file}
+        COMMAND ${CMAKE_Fbc_COMPILER} ${tmp} -gen gcc -r ${src}
+        COMMAND ${CMAKE_COMMAND} -E rename ${c_nam} ${c_file}
+        DEPENDS ${src}
+        )
+      LIST(APPEND c_src ${c_file})
+    ENDFOREACH(src ${fbc_src})
+
+    IF(NOT ARGS_NO_DEPS)
+      EXECUTE_PROCESS(
+        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} fb_depends ${_deps} ${fbc_src}
+        )
+      INCLUDE(${_deps})
+      ADD_CUSTOM_TARGET(${_tar} OUTPUT ${_deps})
+    ENDIF()
+
+    SET(${CFiles} ${c_src} PARENT_SCOPE)
+  ENDFUNCTION(BAS_2_C)
+ENDIF()
 
 SET(CMAKE_Fbc_INFORMATION_LOADED 1)
+
+#linking:
+#  ld -m armelf_linux_eabi -o "test" -shared -htest --export-dynamic
+#     "/usr/local/bin/../lib/freebasic/linux-arm/fbextra.x"
+#     -s
+#     -L "/usr/local/bin/../lib/freebasic/linux-arm"
+#     -L "."
+#     -L "/usr/lib/gcc/arm-linux-gnueabihf/4.6"
+# "/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf/crti.o"
+# "/usr/lib/gcc/arm-linux-gnueabihf/4.6/crtbeginS.o"
+# "/usr/local/bin/../lib/freebasic/linux-arm/fbrt0pic.o"
+# "pruio_adc.bas.o" "pruio.bas.o" "pruio_c_wrapper.bas.o" "pruio_gpio.bas.o" "pruio_pwmss.bas.o" "pruio_timer.bas.o"
+# "-(" -lfbpic -ltinfo -lm -ldl -lpthread -lgcc -lgcc_eh -lc "-)"
+# "/usr/lib/gcc/arm-linux-gnueabihf/4.6/crtendS.o"
+# "/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf/crtn.o"
