@@ -155,7 +155,7 @@ find_program(CMAKE_fb_depends fb_depends #NO_CMAKE_PATH NO_CMAKE_ENVIRONMENT_PAT
   DOC "FreeBASIC dependencies tool.")
 
 IF(NOT CMAKE_fb_depends)
-  MESSAGE(STATUS "Tools fb_depends not available -> no Fbc extensions!")
+  MESSAGE(STATUS "Tool fb_depends not available -> no Fbc extensions!")
 ELSE()
   MACRO(ADD_Fbc_SRC_DEPS Tar)
     SET(_file ${CMAKE_CURRENT_LIST_DIR}/CMakeFiles/${Tar}_deps.cmake)
@@ -172,7 +172,7 @@ ELSE()
   ENDIF()
 
   FUNCTION(BAS_2_C CFiles)
-    CMAKE_PARSE_ARGUMENTS(ARGS "" "OUT_DIR;OUT_NAM;COMPILE_FLAGS" "SOURCES" ${ARGN})
+    CMAKE_PARSE_ARGUMENTS(ARGS "NO_DEPS" "OUT_DIR;OUT_NAM;COMPILE_FLAGS" "SOURCES" ${ARGN})
 
     IF(ARGS_OUT_DIR)
 		  GET_FILENAME_COMPONENT(_dir ${ARGS_OUT_DIR} ABSOLUTE)
@@ -216,11 +216,13 @@ ELSE()
       LIST(APPEND c_src ${c_file})
     ENDFOREACH(src ${fbc_src})
 
-    EXECUTE_PROCESS(
-      COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} fb_depends ${_deps} ${fbc_src}
-      )
-    INCLUDE(${_deps})
-    ADD_CUSTOM_TARGET(${_tar} OUTPUT ${_deps})
+    IF(NOT ARGS_NO_DEPS)
+      EXECUTE_PROCESS(
+        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} fb_depends ${_deps} ${fbc_src}
+        )
+      INCLUDE(${_deps})
+      ADD_CUSTOM_TARGET(${_tar} OUTPUT ${_deps})
+    ENDIF()
 
     SET(${CFiles} ${c_src} PARENT_SCOPE)
   ENDFUNCTION(BAS_2_C)
