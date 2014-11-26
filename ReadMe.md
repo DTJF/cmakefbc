@@ -1,8 +1,15 @@
 Package cmakefbc
 ================
 
-This is package cmakefbc, an extension for the build system CMake to
-support the FreeBASIC programming language.
+This is package cmakefbc, an extension for the build management system
+CMake to support the FreeBASIC (FB) programming language. If installed
+in CMake, it
+
+- checks for the FB compiler and its version,
+- tests the compiler,
+- declares internal CMake language variables (CMAKE_Fbc_...),
+- declares a macro to scan dependencies in FreeBASIC source code, and
+- declares a function to pre-compile FB source to C source.
 
 
 Installation
@@ -14,7 +21,7 @@ Three steps are necessary to install this package
   - FreeBASIC compiler, and
   - CMake build system.
 -# Install CMake FB extension.
--# Compile and install fb_depends tool.
+-# Compile and install cmake_fb_deps tool.
 
 
 Step 1 Preparation
@@ -54,27 +61,28 @@ make install
 This commands will copy six configuration files to the correct location
 in your CMake installation. Your system is ready to address the
 FreeBASIC language now and to compile simple projects like the
-fb_depends tool. Big projects may contain several source files and
+cmake_fb_deps tool. Big projects may contain several source files and
 headers and some of these source files depend on others. To re-compile
 only the related files, CMake should handle this dependencies but isn't
 prepared for FreeBASIC yet.
 
-The tool fb_depends helps to resolve dependencies in big projects with
+The tool cmake_fb_deps helps to resolve dependencies in big projects with
 complex source file trees. We can use its source to test our CMake
 installation in the next step.
 
-Step 3 fb_depends tool
+Step 3 cmake_fb_deps tool
 ----------------------
 
-The fb_depends tool auto-generates source file dependencies in a CMake
-include file. So it's an essential component of this package and should
-get build and installed if you intend to build big projects.
+The cmake_fb_deps tool auto-generates a CMake include file declaring the
+FreeBASIC source file dependencies. So it's an essential component of
+this package and should get build and installed if you intend to build
+big projects.
 
 Once you installed the CMake FB extension (step 2) you can execute the
 following commands
 
 ~~~{.sh}
-cd fb_depends
+cd cmake_fb_deps
 cmake .
 make
 sudo make install
@@ -83,7 +91,7 @@ sudo make install
 or on non LINUX systems
 
 ~~~{.sh}
-cd fb_depends
+cd cmake_fb_deps
 cmake .
 make
 make install
@@ -189,7 +197,7 @@ SET_TARGET_PROPERTIES(MyLib PROPERTIES
 
 The command `ADD_Fbc_DEPS` requires a single parameter, which is the
 name of the target. The related CMake macro reads all source files from
-the target properties and calls the fb_depends tool to create a file
+the target properties and calls the cmake_fb_deps tool to create a file
 with the dependency trees. Then this macro includes the generated file
 to your CMakeLists.txt file. The generated file also contains a custom
 command which re-builds the file when one of the source files in the
@@ -198,9 +206,9 @@ dependency tree changed.
 This mechanism ensures that only those object files get re-build that
 are related to the changed source files.
 
-\note The macro `ADD_Fbc_DEPS` is only available when the fb_depends
+\note The macro `ADD_Fbc_DEPS` is only available when the cmake_fb_deps
       tool is installed. (Otherwise you'll get a message on the initial
-      cmake call, like `Tool fb_depends not available -> no Fbc
+      cmake call, like `Tool cmake_fb_deps not available -> no Fbc
       extensions!`.
 
 Indirect Compiling
@@ -238,14 +246,14 @@ are FreeBASIC source file names to be pre-compiled.
 The function calls the FreeBASIC compiler for each FreeBASIC source
 file and pre-compiles a C source file. By default the C source files
 gets written to the same directory where the FB files are from. The
-function also creates the dependency tree file using the fb_depends
+function also creates the dependency tree file using the cmake_fb_deps
 tool and includes it in to your CMakeLists.txt file, by default using
 the file name CMakeFiles/bas2c_deps.cmake. This means you can have only
 one `BAS_2_C` command per CMakeLists.txt file, since a second call will
 oerride the dependency file from the first call.
 
 Therefor the function can be used in a more complex signature to
-customize its behavior
+customize its behavior. Here's an example
 
 ~~~{.sh}
 BAS_2_C(<C_SRC_VAR>
@@ -266,10 +274,11 @@ BAS_2_C(<C_SRC_VAR>
 Where
 
 - `NO_DEPS` is a flag to disable the dependency file generation /
-  inclusion (, which is enabled by default).
+   inclusion (, which is enabled by default).
 
 - `COMPILE_FLAGS` is a keyword followed by a single string containing
-   all options to be used when calling the FreeBASIC compiler.
+   additional options to be used when calling the FreeBASIC compiler
+   (before the required options `-gen gcc -r` and the file name).
 
 - `OUT_NAM` is a keyword followed by a single string containing the
    name of the generated dependency file. This is to avoid naming
@@ -285,11 +294,14 @@ Where
 - `SOURCES` is a keyword followed by a list of FreeBASIC source files to
    be compiled.
 
+- `C_SRC_VAR` is a the name of the variable to return the list of C
+   source file names.
+
 All further parameters (not prepended by one of the above keywords) get
 interpreted as FreeBASIC source file names.
 
-\note The function `BAS_2_C` is only available when the fb_depends
+\note The function `BAS_2_C` is only available when the cmake_fb_deps
       tool is installed. (Otherwise you'll get a message on the initial
-      cmake call, like `Tool fb_depends not available -> no Fbc
+      cmake call, like `Tool cmake_fb_deps not available -> no Fbc
       extensions!`.
 

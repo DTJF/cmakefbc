@@ -5,7 +5,7 @@
 #
 # All rights reserved.
 #
-# See Copyright.txt for details.
+# See ReadMe.md for details.
 #
 # Modified from CMake 2.6.5 CMakeTestCCompiler.cmake
 # See http://www.cmake.org/HTML/Copyright.html for details
@@ -49,8 +49,6 @@ ELSE()
   MESSAGE(STATUS "Check for working fbc compiler: ${CMAKE_Fbc_COMPILER} -- broken")
   MESSAGE(STATUS "To force a specific fbc compiler set the FBC environment variable")
   MESSAGE(STATUS "    ie - export FBC=\"/usr/local/bin/fbc\"")
-  #message(STATUS "If the fbc path is not set please use the D_PATH variable")
-  #message(STATUS "    ie - export D_PATH=\"/opt/dmd\"")
   FILE(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log
     "Determining if the fbc compiler works failed with "
     "the following output:\n${OUTPUT}\n\n")

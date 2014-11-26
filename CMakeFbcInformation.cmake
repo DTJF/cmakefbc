@@ -5,7 +5,7 @@
 #
 # All rights reserved.
 #
-# See Copyright.txt for details.
+# See ReadMe.md for details.
 #
 # Modified from CMake 2.6.5 CMakeCInformation.cmake
 # See http://www.cmake.org/HTML/Copyright.html for details
@@ -151,26 +151,26 @@ CMAKE_Fbc_FLAGS_RELEASE
 CMAKE_Fbc_FLAGS_RELWITHDEBINFO
 )
 
-find_program(CMAKE_fb_depends fb_depends #NO_CMAKE_PATH NO_CMAKE_ENVIRONMENT_PATH
-  DOC "FreeBASIC dependencies tool.")
+FIND_PROGRAM(CMAKE_Fbc_DEPS_TOOL cmake_fb_deps DOC "FreeBASIC dependencies tool.")
 
-IF(NOT CMAKE_fb_depends)
-  MESSAGE(STATUS "Tool fb_depends not available -> no Fbc extensions!")
+IF(NOT CMAKE_Fbc_DEPS_TOOL)
+  MESSAGE(STATUS "Tool cmake_fb_deps not available -> no Fbc extensions!")
 ELSE()
+  # the macro to add dependencies to a native FB target
   MACRO(ADD_Fbc_SRC_DEPS Tar)
     SET(_file ${CMAKE_CURRENT_LIST_DIR}/CMakeFiles/${Tar}_deps.cmake)
     GET_TARGET_PROPERTY(_src ${Tar} SOURCES)
     EXECUTE_PROCESS(
-      COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} fb_depends ${_file} ${_src}
+      COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} cmake_fb_deps ${_file} ${_src}
       )
     INCLUDE(${_file})
     ADD_CUSTOM_TARGET(${Tar}_deps OUTPUT ${_file})
   ENDMACRO(ADD_Fbc_SRC_DEPS)
 
+  # the function to pre-compile FB source to C
   IF(NOT COMMAND CMAKE_PARSE_ARGUMENTS)
     INCLUDE(CMakeParseArguments)
   ENDIF()
-
   FUNCTION(BAS_2_C CFiles)
     CMAKE_PARSE_ARGUMENTS(ARGS "NO_DEPS" "OUT_DIR;OUT_NAM;COMPILE_FLAGS" "SOURCES" ${ARGN})
 
@@ -198,7 +198,7 @@ ELSE()
     SET(c_src "")
     SET(fbc_src ${ARGS_SOURCES} ${ARGS_UNPARSED_ARGUMENTS})
     FOREACH(src ${fbc_src})
-      STRING(REPLACE ".bas" ".c" c_nam ${src})
+      STRING(REGEX REPLACE ".[Bb][Aa][Ss]$" ".c" c_nam ${src})
       SET(c_file "${_dir}/${c_nam}")
       EXECUTE_PROCESS(
         COMMAND ${CMAKE_Fbc_COMPILER} ${tmp} -gen gcc -r ${CMAKE_CURRENT_SOURCE_DIR}/${src}
@@ -218,7 +218,7 @@ ELSE()
 
     IF(NOT ARGS_NO_DEPS)
       EXECUTE_PROCESS(
-        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} fb_depends ${_deps} ${fbc_src}
+        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} cmake_fb_deps ${_deps} ${fbc_src}
         )
       INCLUDE(${_deps})
       ADD_CUSTOM_TARGET(${_tar} OUTPUT ${_deps})
