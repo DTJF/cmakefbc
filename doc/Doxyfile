@@ -230,11 +230,11 @@ TAB_SIZE               = 4
 # "Side Effects:". You can put \n's in the value part of an alias to insert
 # newlines.
 
-ALIASES                = "ArmRef{1}=[ARM Reference Guide, chapter \1](http://www.ti.com/lit/pdf/spruh73)" \
-                         "Email=Thomas{ dOt ]Freiherr[ aT ]gmx[DoT}net" \
+ALIASES                = "Email=Thomas{ dOt ]Freiherr[ aT ]gmx[DoT}net" \
                          "Item{1}=- <b>\1</b>:" \
-                         "BbbRef{1}=[BBB Software Reference Guide, chapter \1](https://github.com/beagleboard/BeagleBone-Black/blob/master/BBB_SRM.pdf?raw=true)" \
-                         "MpuRef{1}=[Sitara AM335x ARM Cortex-A8 Microprocessors Guide, chapter \1](http://www.openhacks.com/uploadsproductos/am3359.pdf)"
+                         "FbDeps=<A HREF=\"_pag_cmake_fb_deps.html\">cmake_fb_deps</A>" \
+                         "Tar=<A HREF=\"_pag_usage.html#SecDirect\">ADD_Fbc_SRC_DEPS</A>" \
+                         "Bas=<A HREF=\"_pag_usage.html#SecIndirect\">BAS_2_C</A>"
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"
@@ -897,7 +897,7 @@ FILTER_SOURCE_PATTERNS = *.bas=fbdoc \
 # (index.html). This can be useful if you have a project on for instance GitHub
 # and want to reuse the introduction page also for the doxygen output.
 
-USE_MDFILE_AS_MAINPAGE = ../ReadMe.md
+USE_MDFILE_AS_MAINPAGE = ../Licence.md
 
 #---------------------------------------------------------------------------
 # Configuration options related to source browsing
@@ -1928,7 +1928,7 @@ EXPAND_ONLY_PREDEF     = NO
 # The default value is: YES.
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
-SEARCH_INCLUDES        = YES
+SEARCH_INCLUDES        = NO
 
 # The INCLUDE_PATH tag can be used to specify one or more directories that
 # contain include files that are not input files but should be processed by the
