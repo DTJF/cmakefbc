@@ -2,12 +2,14 @@ $ cat .gitignore
 
 # Can ignore specific files
 Makefile
+cmakefbc.geany
+cmake_install.cmake
+install_manifest.txt
 
 # Use wildcards as well
 CMake*
+CPack*
 !CMakeLists.txt
-cmake_install.cmake
-install_manifest.txt
 
 # Can also ignore all directories and files in a directory.
 html/**/*
