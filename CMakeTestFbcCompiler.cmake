@@ -17,14 +17,22 @@
 # is set and cmake stops processing commands and will not generate
 # any makefiles or projects.
 
+IF(CMAKE_Fbc_COMPILER_FORCED)
+  # The compiler configuration was forced by the user.
+  # Assume the user has configured all compiler information.
+  SET(CMAKE_Fbc_COMPILER_WORKS 1)
+  RETURN()
+ENDIF()
+
 IF(NOT CMAKE_Fbc_COMPILER_WORKS)
   MESSAGE(STATUS "Check for working fbc compiler: ${CMAKE_Fbc_COMPILER}")
   FILE(WRITE ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/testFbcCompiler.bas
-    "END __FB_ARGC__ - 1\n")
+    "END SIZEOF(ANY PTR)\n")
 	TRY_COMPILE(CMAKE_Fbc_COMPILER_WORKS ${CMAKE_BINARY_DIR} ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/testFbcCompiler.bas
     COMPILE_DEFINITIONS "-m testFbcCompiler"
 	  OUTPUT_VARIABLE OUTPUT)
   SET(FBC_TEST_WAS_RUN 1)
+  SET(CMAKE_Fbc_SIZEOF_ANY_PTR ${CMAKE_Fbc_COMPILER_WORKS})
 ENDIF()
 
 IF(CMAKE_Fbc_COMPILER_WORKS)

@@ -1,7 +1,6 @@
 $ cat .gitignore
 
 # Can ignore specific files
-cmake_fb_deps
 Makefile
 
 # Use wildcards as well
@@ -14,4 +13,7 @@ install_manifest.txt
 html/**/*
 latex/**/*
 CMakeFiles/**/*
+
+
+cmake_fb_deps
 cmake_fb_deps/CMakeFiles/**/*

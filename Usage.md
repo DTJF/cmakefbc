@@ -165,45 +165,50 @@ Therefor the function can be used in a more complex signature to
 customize its behavior. Here's an example
 
 ~~~{.sh}
-BAS_2_C(<C_SRC_VAR>
+BAS_2_C(<c_src_var>
   SOURCES
     MyProject.bas
     File2.bas
     File3.bas
+  COMPILE_FLAGS
+    -m MyProject
+    -e
+    -w all
   OUT_DIR
     CMakeFiles/MyProject.dir
   OUT_NAM
     MyProject
-  COMPILE_FLAGS
-    "-m MyProject"
   NO_DEPS
   )
 ~~~
 
 Where
 
-- `NO_DEPS` is a flag to disable the dependency file generation /
+\Item{NO_DEPS} is a flag to disable the dependency file generation /
    inclusion (, which is enabled by default).
 
-- `COMPILE_FLAGS` is a keyword followed by a single string containing
-   additional options to be used when calling the FB compiler
-   (before the required options `-gen gcc -r` and the file name).
+\Item{OUT_NAM} is a keyword followed by a single string containing the
+   base name of the generated dependency file (suffix .cmake). This is
+   to avoid naming conflicts in case of a multiple calls of the macro
+   in the same directory (CMakeLists.txt file). It overrides the
+   default name (CMakeFiles/bas2c_deps.cmake). The file gets written in
+   the directory `OUT_DIR` (, or in the current source directory if
+   `OUT_DIR` isn't defined).
 
-- `OUT_NAM` is a keyword followed by a single string containing the
-   name of the generated dependency file. This is to avoid naming
-   conflicts in case of a multiple calls of the macro in the same
-   directory (CMakeLists.txt file). It overrides the default name
-   (CMakeFiles/bas2c_deps.cmake).
-
-- `OUT_DIR` is a keyword followed by a single string containing the
+\Item{OUT_DIR} is a keyword followed by a single string containing the
    directory where to store the C source files and the dependency file
    (when `NO_DEPS` flag unset). This directory gets created if not
    present.
 
-- `SOURCES` is a keyword followed by a list of FB source files to
+\Item{COMPILE_FLAGS} is a keyword followed by on or more strings
+   containing additional options to be used when calling the FB
+   compiler. Those options get placed before the required options `-gen
+   gcc -r` and the file name.
+
+\Item{SOURCES} is a keyword followed by a list of FB source files to
    be compiled.
 
-- `C_SRC_VAR` is a the name of the variable to return the list of C
+\Item{c_src_var} is a the name of the variable to return the list of C
    source file names.
 
 All further parameters (not prepended by one of the above keywords) get

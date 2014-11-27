@@ -35,6 +35,9 @@ only access).
 Error Messages  {#SecErrors}
 ==============
 
+In case of an error the tool ends with return value 1 and outputs one
+of the following messages at stdout:
+
 \Item{Too less parameters} The tool needs at least two parameters. Pass
    the name of the file to generate and at least on FB source file name
    to scan.
@@ -42,6 +45,15 @@ Error Messages  {#SecErrors}
 \Item{Cannot open <output>} The tool isn't able to open the output file
    with write access. Check the directory and the permissions (user
    privileges).
+
+All further exeptions (ie. when a nested source file isn't readable
+with the given path information) are handled internaly without user
+information.
+
+On non LINUX systems (with fixed stack size) this may result in segment
+fault exeptions, when the recursively scanned files are big and / or
+they include a lot of nested files. Increase the stack size at compile
+time in that case (option -t).
 
 
 Background  {#SecBackground}

@@ -172,51 +172,55 @@ ELSE()
     INCLUDE(CMakeParseArguments)
   ENDIF()
   FUNCTION(BAS_2_C CFiles)
-    CMAKE_PARSE_ARGUMENTS(ARGS "NO_DEPS" "OUT_DIR;OUT_NAM;COMPILE_FLAGS" "SOURCES" ${ARGN})
+    CMAKE_PARSE_ARGUMENTS(ARG "NO_DEPS" "OUT_DIR;OUT_NAM" "SOURCES;COMPILE_FLAGS" ${ARGN})
 
-    IF(ARGS_OUT_DIR)
-		  GET_FILENAME_COMPONENT(_dir ${ARGS_OUT_DIR} ABSOLUTE)
+    IF(ARG_OUT_DIR)
+		  GET_FILENAME_COMPONENT(_dir ${ARG_OUT_DIR} ABSOLUTE)
       INCLUDE_DIRECTORIES(${_dir})
       EXECUTE_PROCESS(COMMAND ${CMAKE_COMMAND} -E make_directory ${_dir})
     ELSE()
       SET(_dir ${CMAKE_CURRENT_LIST_DIR})
     ENDIF()
 
-    IF(ARGS_OUT_NAM)
-      SET(_tar ${ARGS_OUT_NAM}_deps)
-      SET(_deps ${_dir}/${ARGS_OUT_NAM}.cmake)
+    IF(ARG_OUT_NAM)
+      SET(_tar ${ARG_OUT_NAM}_deps)
+      SET(_deps ${_dir}/${ARG_OUT_NAM}.cmake)
     ELSE()
       SET(_deps ${CMAKE_CURRENT_LIST_DIR}/CMakeFiles/bas2c_deps.cmake)
     ENDIF()
 
-    IF(UNIX)
-      SEPARATE_ARGUMENTS(tmp UNIX_COMMAND ${ARGS_COMPILE_FLAGS})
-    ELSE()
-      SEPARATE_ARGUMENTS(tmp WINDOWS_COMMAND ${ARGS_COMPILE_FLAGS})
-    ENDIF()
+    SET(flags "")
+    FOREACH(flag ${ARG_COMPILE_FLAGS})
+      IF(UNIX)
+        SEPARATE_ARGUMENTS(tmp UNIX_COMMAND ${flag})
+      ELSE()
+        SEPARATE_ARGUMENTS(tmp WINDOWS_COMMAND ${flag})
+      ENDIF()
+      LIST(APPEND flags tmp)
+    ENDFOREACH()
 
     SET(c_src "")
-    SET(fbc_src ${ARGS_SOURCES} ${ARGS_UNPARSED_ARGUMENTS})
+    SET(fbc_src ${ARG_SOURCES} ${ARG_UNPARSED_ARGUMENTS})
     FOREACH(src ${fbc_src})
       STRING(REGEX REPLACE ".[Bb][Aa][Ss]$" ".c" c_nam ${src})
       SET(c_file "${_dir}/${c_nam}")
       EXECUTE_PROCESS(
-        COMMAND ${CMAKE_Fbc_COMPILER} ${tmp} -gen gcc -r ${CMAKE_CURRENT_SOURCE_DIR}/${src}
+        COMMAND ${CMAKE_Fbc_COMPILER} ${flags} -gen gcc -r ${CMAKE_CURRENT_SOURCE_DIR}/${src}
         )
-      IF(ARGS_OUT_DIR)
+      IF(ARG_OUT_DIR)
         EXECUTE_PROCESS(
           COMMAND ${CMAKE_COMMAND} -E rename ${CMAKE_CURRENT_SOURCE_DIR}/${c_nam} ${c_file}
           )
       ENDIF()
       ADD_CUSTOM_COMMAND(OUTPUT ${c_file}
-        COMMAND ${CMAKE_Fbc_COMPILER} ${tmp} -gen gcc -r ${src}
+        COMMAND ${CMAKE_Fbc_COMPILER} ${flags} -gen gcc -r ${src}
         COMMAND ${CMAKE_COMMAND} -E rename ${c_nam} ${c_file}
         DEPENDS ${src}
         )
       LIST(APPEND c_src ${c_file})
     ENDFOREACH(src ${fbc_src})
 
-    IF(NOT ARGS_NO_DEPS)
+    IF(NOT ARG_NO_DEPS)
       EXECUTE_PROCESS(
         COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} cmake_fb_deps ${_deps} ${fbc_src}
         )
