@@ -25,7 +25,6 @@ IF(CMAKE_Fbc_COMPILER_FORCED)
 ENDIF()
 
 IF(NOT CMAKE_Fbc_COMPILER_WORKS)
-  MESSAGE(STATUS "Check for working fbc compiler: ${CMAKE_Fbc_COMPILER}")
   FILE(WRITE ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/testFbcCompiler.bas
     "?__FB_SIGNATURE__;\nEND SIZEOF(ANY PTR)\n")
 	TRY_RUN(CMAKE_Fbc_SIZEOF_ANY_PTR CMAKE_Fbc_COMPILER_WORKS ${CMAKE_BINARY_DIR} ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/testFbcCompiler.bas
@@ -36,6 +35,7 @@ IF(NOT CMAKE_Fbc_COMPILER_WORKS)
   SET(CMAKE_Fbc_COMPILER_WORKS ${CMAKE_Fbc_COMPILER_WORKS})
   UNSET(CMAKE_Fbc_COMPILER_WORKS CACHE)
   SET(Fbc_TEST_WAS_RUN 1)
+  MESSAGE(STATUS "Check for working compiler: ${CMAKE_Fbc_COMPILER} ==> ${CMAKE_Fbc_COMPILER_ID}")
 ENDIF()
 
 IF(CMAKE_Fbc_COMPILER_WORKS)
@@ -48,7 +48,7 @@ IF(CMAKE_Fbc_COMPILER_WORKS)
 
   # fix for cmake < 2.8.10
   IF(NOT CMAKE_PLATFORM_INFO_DIR)
-    set(CMAKE_PLATFORM_INFO_DIR ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY})
+    SET(CMAKE_PLATFORM_INFO_DIR ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY})
   ENDIF()
 
   # Re-configure to save learned information.
@@ -57,7 +57,9 @@ IF(CMAKE_Fbc_COMPILER_WORKS)
     ${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake
     @ONLY IMMEDIATE # IMMEDIATE must be here for compatibility mode <= 2.0
     )
-  INCLUDE(${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake)ELSE()
+  INCLUDE(${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake)
+
+ELSE()
   MESSAGE(STATUS "Check for working fbc compiler: ${CMAKE_Fbc_COMPILER} -- broken")
   MESSAGE(STATUS "To force a specific fbc compiler set the FBC environment variable")
   MESSAGE(STATUS "    ie - export FBC=\"/usr/local/bin/fbc\"")
