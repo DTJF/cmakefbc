@@ -5,7 +5,7 @@
 #
 # All rights reserved.
 #
-# See Copyright.txt for details.
+# See ReadMe.md for details.
 #
 # Modified from CMake 2.6.5 CMakeCInformation.cmake
 # See http://www.cmake.org/HTML/Copyright.html for details
@@ -32,14 +32,6 @@ ENDIF()
 
 IF(CMAKE_USER_MAKE_RULES_OVERRIDE_FBC)
  INCLUDE(${CMAKE_USER_MAKE_RULES_OVERRIDE_FBC})
-ENDIF()
-
-# for most systems a module is the same as a shared library
-# so unless the variable CMAKE_MODULE_EXISTS is set just
-# copy the values from the LIBRARY variables
-IF(NOT CMAKE_MODULE_EXISTS)
-  SET(CMAKE_SHARED_MODULE_Fbc_FLAGS ${CMAKE_SHARED_LIBRARY_Fbc_FLAGS})
-  SET(CMAKE_SHARED_MODULE_CREATE_Fbc_FLAGS ${CMAKE_SHARED_LIBRARY_CREATE_Fbc_FLAGS})
 ENDIF()
 
 SET(CMAKE_Fbc_FLAGS "$ENV{FBCFLAGS} ${CMAKE_Fbc_FLAGS_INIT}"
@@ -98,17 +90,25 @@ INCLUDE(CMakeCommonLanguageInclude)
 
 #SET(CMAKE_OUTPUT_Fbc_FLAG "-o")
 SET(CMAKE_SHARED_LIBRARY_Fbc_FLAGS "")
-#SET(CMAKE_SHARED_LIBRARY_CREATE_Fbc_FLAGS "-dylib")
+SET(CMAKE_SHARED_LIBRARY_CREATE_Fbc_FLAGS "-dylib")
 #SET(CMAKE_INCLUDE_FLAG_FBC "-I")
 #SET(CMAKE_INCLUDE_FLAG_Fbc_SEP " ")
 #SET(CMAKE_LIBRARY_PATH_FLAG "-L")
 #SET(CMAKE_LINK_LIBRARY_FLAG "-l")
 #SET(CMAKE_Fbc_VERSION_FLAG "")
 
+# for most systems a module is the same as a shared library
+# so unless the variable CMAKE_MODULE_EXISTS is set just
+# copy the values from the LIBRARY variables
+IF(NOT CMAKE_MODULE_EXISTS)
+  SET(CMAKE_SHARED_MODULE_Fbc_FLAGS ${CMAKE_SHARED_LIBRARY_Fbc_FLAGS})
+  SET(CMAKE_SHARED_MODULE_CREATE_Fbc_FLAGS ${CMAKE_SHARED_LIBRARY_CREATE_Fbc_FLAGS})
+ENDIF()
+
 # create a shared library
 IF(NOT CMAKE_Fbc_CREATE_SHARED_LIBRARY)
 	SET(CMAKE_Fbc_CREATE_SHARED_LIBRARY
-  	"<CMAKE_Fbc_COMPILER> <CMAKE_SHARED_LIBRARY_Fbc_FLAGS> <LANGUAGE_COMPILE_FLAGS> <LINK_FLAGS> -dylib <CMAKE_SHARED_LIBRARY_SONAME_Fbc_FLAG><TARGET_SONAME> -x <TARGET> <OBJECTS> <LINK_LIBRARIES>")
+  	"<CMAKE_Fbc_COMPILER> <CMAKE_SHARED_LIBRARY_Fbc_FLAGS> <LANGUAGE_COMPILE_FLAGS> <LINK_FLAGS> <CMAKE_SHARED_LIBRARY_CREATE_Fbc_FLAGS> <CMAKE_SHARED_LIBRARY_SONAME_Fbc_FLAG><TARGET_SONAME> -x <TARGET> <OBJECTS> <LINK_LIBRARIES>")
 ENDIF()
 
 # create a shared module just copy the shared library rule
@@ -140,7 +140,7 @@ ENDIF()
 
 IF(NOT CMAKE_Fbc_LINK_EXECUTABLE)
   SET(CMAKE_Fbc_LINK_EXECUTABLE
-    "<CMAKE_Fbc_COMPILER> <FLAGS> <CMAKE_Fbc_LINK_FLAGS> <LINK_FLAGS> -x <TARGET> -m <TARGET> <OBJECTS> <LINK_LIBRARIES>")
+    "<CMAKE_Fbc_COMPILER> <FLAGS> <CMAKE_Fbc_LINK_FLAGS> <LINK_FLAGS> -x <TARGET> <OBJECTS> <LINK_LIBRARIES>")
 ENDIF()
 
 MARK_AS_ADVANCED(
@@ -151,74 +151,78 @@ CMAKE_Fbc_FLAGS_RELEASE
 CMAKE_Fbc_FLAGS_RELWITHDEBINFO
 )
 
-find_program(CMAKE_fb_depends fb_depends #NO_CMAKE_PATH NO_CMAKE_ENVIRONMENT_PATH
-  DOC "FreeBASIC dependencies tool.")
+FIND_PROGRAM(CMAKE_Fbc_DEPS_TOOL cmake_fb_deps DOC "FreeBASIC dependencies tool.")
 
-IF(NOT CMAKE_fb_depends)
-  MESSAGE(STATUS "Tool fb_depends not available -> no Fbc extensions!")
+IF(NOT CMAKE_Fbc_DEPS_TOOL)
+  MESSAGE(STATUS "Tool cmake_fb_deps not available -> no Fbc extensions!")
 ELSE()
+  # the macro to add dependencies to a native FB target
   MACRO(ADD_Fbc_SRC_DEPS Tar)
     SET(_file ${CMAKE_CURRENT_LIST_DIR}/CMakeFiles/${Tar}_deps.cmake)
     GET_TARGET_PROPERTY(_src ${Tar} SOURCES)
     EXECUTE_PROCESS(
-      COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} fb_depends ${_file} ${_src}
+      COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} cmake_fb_deps ${_file} ${_src}
       )
     INCLUDE(${_file})
     ADD_CUSTOM_TARGET(${Tar}_deps OUTPUT ${_file})
   ENDMACRO(ADD_Fbc_SRC_DEPS)
 
+  # the function to pre-compile FB source to C
   IF(NOT COMMAND CMAKE_PARSE_ARGUMENTS)
     INCLUDE(CMakeParseArguments)
   ENDIF()
-
   FUNCTION(BAS_2_C CFiles)
-    CMAKE_PARSE_ARGUMENTS(ARGS "NO_DEPS" "OUT_DIR;OUT_NAM;COMPILE_FLAGS" "SOURCES" ${ARGN})
+    CMAKE_PARSE_ARGUMENTS(ARG "NO_DEPS" "OUT_DIR;OUT_NAM" "SOURCES;COMPILE_FLAGS" ${ARGN})
 
-    IF(ARGS_OUT_DIR)
-		  GET_FILENAME_COMPONENT(_dir ${ARGS_OUT_DIR} ABSOLUTE)
+    IF(ARG_OUT_DIR)
+		  GET_FILENAME_COMPONENT(_dir ${ARG_OUT_DIR} ABSOLUTE)
       INCLUDE_DIRECTORIES(${_dir})
       EXECUTE_PROCESS(COMMAND ${CMAKE_COMMAND} -E make_directory ${_dir})
     ELSE()
       SET(_dir ${CMAKE_CURRENT_LIST_DIR})
     ENDIF()
 
-    IF(ARGS_OUT_NAM)
-      SET(_tar ${ARGS_OUT_NAM}_deps)
-      SET(_deps ${_dir}/${ARGS_OUT_NAM}.cmake)
+    IF(ARG_OUT_NAM)
+      SET(_tar ${ARG_OUT_NAM}_deps)
+      SET(_deps ${_dir}/${ARG_OUT_NAM}.cmake)
     ELSE()
       SET(_deps ${CMAKE_CURRENT_LIST_DIR}/CMakeFiles/bas2c_deps.cmake)
     ENDIF()
 
-    IF(UNIX)
-      SEPARATE_ARGUMENTS(tmp UNIX_COMMAND ${ARGS_COMPILE_FLAGS})
-    ELSE()
-      SEPARATE_ARGUMENTS(tmp WINDOWS_COMMAND ${ARGS_COMPILE_FLAGS})
-    ENDIF()
+    SET(flags "")
+    FOREACH(flag ${ARG_COMPILE_FLAGS})
+      IF(UNIX)
+        SEPARATE_ARGUMENTS(tmp UNIX_COMMAND ${flag})
+      ELSE()
+        SEPARATE_ARGUMENTS(tmp WINDOWS_COMMAND ${flag})
+      ENDIF()
+      LIST(APPEND flags tmp)
+    ENDFOREACH()
 
     SET(c_src "")
-    SET(fbc_src ${ARGS_SOURCES} ${ARGS_UNPARSED_ARGUMENTS})
+    SET(fbc_src ${ARG_SOURCES} ${ARG_UNPARSED_ARGUMENTS})
     FOREACH(src ${fbc_src})
-      STRING(REPLACE ".bas" ".c" c_nam ${src})
+      STRING(REGEX REPLACE ".[Bb][Aa][Ss]$" ".c" c_nam ${src})
       SET(c_file "${_dir}/${c_nam}")
       EXECUTE_PROCESS(
-        COMMAND ${CMAKE_Fbc_COMPILER} ${tmp} -gen gcc -r ${CMAKE_CURRENT_SOURCE_DIR}/${src}
+        COMMAND ${CMAKE_Fbc_COMPILER} ${flags} -gen gcc -r ${CMAKE_CURRENT_SOURCE_DIR}/${src}
         )
-      IF(ARGS_OUT_DIR)
+      IF(ARG_OUT_DIR)
         EXECUTE_PROCESS(
           COMMAND ${CMAKE_COMMAND} -E rename ${CMAKE_CURRENT_SOURCE_DIR}/${c_nam} ${c_file}
           )
       ENDIF()
       ADD_CUSTOM_COMMAND(OUTPUT ${c_file}
-        COMMAND ${CMAKE_Fbc_COMPILER} ${tmp} -gen gcc -r ${src}
+        COMMAND ${CMAKE_Fbc_COMPILER} ${flags} -gen gcc -r ${src}
         COMMAND ${CMAKE_COMMAND} -E rename ${c_nam} ${c_file}
         DEPENDS ${src}
         )
       LIST(APPEND c_src ${c_file})
     ENDFOREACH(src ${fbc_src})
 
-    IF(NOT ARGS_NO_DEPS)
+    IF(NOT ARG_NO_DEPS)
       EXECUTE_PROCESS(
-        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} fb_depends ${_deps} ${fbc_src}
+        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} cmake_fb_deps ${_deps} ${fbc_src}
         )
       INCLUDE(${_deps})
       ADD_CUSTOM_TARGET(${_tar} OUTPUT ${_deps})
@@ -229,18 +233,3 @@ ELSE()
 ENDIF()
 
 SET(CMAKE_Fbc_INFORMATION_LOADED 1)
-
-#linking:
-#  ld -m armelf_linux_eabi -o "test" -shared -htest --export-dynamic
-#     "/usr/local/bin/../lib/freebasic/linux-arm/fbextra.x"
-#     -s
-#     -L "/usr/local/bin/../lib/freebasic/linux-arm"
-#     -L "."
-#     -L "/usr/lib/gcc/arm-linux-gnueabihf/4.6"
-# "/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf/crti.o"
-# "/usr/lib/gcc/arm-linux-gnueabihf/4.6/crtbeginS.o"
-# "/usr/local/bin/../lib/freebasic/linux-arm/fbrt0pic.o"
-# "pruio_adc.bas.o" "pruio.bas.o" "pruio_c_wrapper.bas.o" "pruio_gpio.bas.o" "pruio_pwmss.bas.o" "pruio_timer.bas.o"
-# "-(" -lfbpic -ltinfo -lm -ldl -lpthread -lgcc -lgcc_eh -lc "-)"
-# "/usr/lib/gcc/arm-linux-gnueabihf/4.6/crtendS.o"
-# "/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf/crtn.o"

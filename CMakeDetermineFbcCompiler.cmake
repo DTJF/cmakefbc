@@ -5,7 +5,7 @@
 #
 # All rights reserved.
 #
-# See Copyright.txt for details.
+# See ReadMe.md for details.
 #
 # Modified from CMake 2.6.5 CMakeDetermineCCompiler.cmake
 # See http://www.cmake.org/HTML/Copyright.html for details
@@ -17,9 +17,7 @@
 # use environment variable FBC first if defined by user, next use
 # the cmake variable CMAKE_GENERATOR_FBC which can be defined by a generator
 # as a default compiler
-
 IF(NOT CMAKE_Fbc_COMPILER)
-
   # prefer the environment variable FBC
   IF($ENV{FBC} MATCHES ".+")
     GET_FILENAME_COMPONENT(CMAKE_Fbc_COMPILER_INIT $ENV{FBC} PROGRAM PROGRAM_ARGS CMAKE_Fbc_FLAGS_ENV_INIT)
@@ -68,14 +66,20 @@ FILE(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeOutput.log
   "Determining fbc compiler as ${CMAKE_Fbc_COMPILER}\n\n")
 
 
+## configure variables set in this file for fast reload later on
+#IF(EXISTS ${CMAKE_SOURCE_DIR}/cmake/Modules/CMakeFbcCompiler.cmake.in)
+	#CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/cmake/Modules/CMakeFbcCompiler.cmake.in
+               #"${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake" @ONLY IMMEDIATE)
+#ELSE()
+	#CONFIGURE_FILE(${CMAKE_ROOT}/Modules/CMakeFbcCompiler.cmake.in
+               #"${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake" @ONLY IMMEDIATE)
+#ENDIF()
+
 # configure variables set in this file for fast reload later on
-IF(EXISTS ${CMAKE_SOURCE_DIR}/cmake/Modules/CMakeFbcCompiler.cmake.in)
-	CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/cmake/Modules/CMakeFbcCompiler.cmake.in
-               "${CMAKE_PLATFORM_ROOT_BIN}/CMakeFbcCompiler.cmake" IMMEDIATE)
-ELSE()
-	CONFIGURE_FILE(${CMAKE_ROOT}/Modules/CMakeFbcCompiler.cmake.in
-               "${CMAKE_PLATFORM_ROOT_BIN}/CMakeFbcCompiler.cmake" IMMEDIATE)
-ENDIF()
+CONFIGURE_FILE(${CMAKE_ROOT}/Modules/CMakeFbcCompiler.cmake.in
+  ${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake
+  @ONLY IMMEDIATE # IMMEDIATE must be here for compatibility mode <= 2.0
+  )
 
 MARK_AS_ADVANCED(CMAKE_AR)
 SET(CMAKE_Fbc_COMPILER_ENV_VAR "FBC")
