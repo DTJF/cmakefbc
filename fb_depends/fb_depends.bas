@@ -13,7 +13,7 @@ Usage
 '/
 
 
-/'* \mainpage libpruio
+/'* \mainpage fb_depends
 
 Welcome to *fb_depends* tool,
 
