@@ -46,6 +46,11 @@ IF(CMAKE_Fbc_COMPILER_WORKS)
       "the following output:\n${OUTPUT}\n\n")
   ENDIF()
 
+  # fix for cmake < 2.8.10
+  IF(NOT CMAKE_PLATFORM_INFO_DIR)
+    set(CMAKE_PLATFORM_INFO_DIR ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY})
+  ENDIF()
+
   # Re-configure to save learned information.
   CONFIGURE_FILE(
     ${CMAKE_ROOT}/Modules/CMakeFbcCompiler.cmake.in
