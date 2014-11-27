@@ -27,12 +27,15 @@ ENDIF()
 IF(NOT CMAKE_Fbc_COMPILER_WORKS)
   MESSAGE(STATUS "Check for working fbc compiler: ${CMAKE_Fbc_COMPILER}")
   FILE(WRITE ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/testFbcCompiler.bas
-    "END SIZEOF(ANY PTR)\n")
-	TRY_COMPILE(CMAKE_Fbc_COMPILER_WORKS ${CMAKE_BINARY_DIR} ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/testFbcCompiler.bas
+    "?__FB_SIGNATURE__;\nEND SIZEOF(ANY PTR)\n")
+	TRY_RUN(CMAKE_Fbc_SIZEOF_ANY_PTR CMAKE_Fbc_COMPILER_WORKS ${CMAKE_BINARY_DIR} ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/testFbcCompiler.bas
     COMPILE_DEFINITIONS "-m testFbcCompiler"
-	  OUTPUT_VARIABLE OUTPUT)
-  SET(FBC_TEST_WAS_RUN 1)
-  SET(CMAKE_Fbc_SIZEOF_ANY_PTR ${CMAKE_Fbc_COMPILER_WORKS})
+	  RUN_OUTPUT_VARIABLE CMAKE_Fbc_COMPILER_ID
+	  COMPILE_OUTPUT_VARIABLE OUTPUT
+    )
+  SET(CMAKE_Fbc_COMPILER_WORKS ${CMAKE_Fbc_COMPILER_WORKS})
+  UNSET(CMAKE_Fbc_COMPILER_WORKS CACHE)
+  SET(Fbc_TEST_WAS_RUN 1)
 ENDIF()
 
 IF(CMAKE_Fbc_COMPILER_WORKS)
@@ -42,18 +45,14 @@ IF(CMAKE_Fbc_COMPILER_WORKS)
       "Determining if the fbc compiler works passed with "
       "the following output:\n${OUTPUT}\n\n")
   ENDIF()
-  SET(CMAKE_Fbc_COMPILER_WORKS 1 CACHE INTERNAL "")
-  # re-configure this file CMakeFbcCompiler.cmake so that it gets
-  # the value for CMAKE_SIZEOF_VOID_P
-  # configure variables set in this file for fast reload later on
-  IF(EXISTS ${CMAKE_SOURCE_DIR}/cmake/Modules/CMakeFbcCompiler.cmake.in)
-  	CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/cmake/Modules/CMakeFbcCompiler.cmake.in
-  	  ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeFbcCompiler.cmake IMMEDIATE)
-  ELSE()
-  	CONFIGURE_FILE(${CMAKE_ROOT}/Modules/CMakeFbcCompiler.cmake.in
-	    ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeFbcCompiler.cmake IMMEDIATE)
-  ENDIF()
-ELSE()
+
+  # Re-configure to save learned information.
+  CONFIGURE_FILE(
+    ${CMAKE_ROOT}/Modules/CMakeFbcCompiler.cmake.in
+    ${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake
+    @ONLY IMMEDIATE # IMMEDIATE must be here for compatibility mode <= 2.0
+    )
+  INCLUDE(${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake)ELSE()
   MESSAGE(STATUS "Check for working fbc compiler: ${CMAKE_Fbc_COMPILER} -- broken")
   MESSAGE(STATUS "To force a specific fbc compiler set the FBC environment variable")
   MESSAGE(STATUS "    ie - export FBC=\"/usr/local/bin/fbc\"")

@@ -66,14 +66,20 @@ FILE(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeOutput.log
   "Determining fbc compiler as ${CMAKE_Fbc_COMPILER}\n\n")
 
 
+## configure variables set in this file for fast reload later on
+#IF(EXISTS ${CMAKE_SOURCE_DIR}/cmake/Modules/CMakeFbcCompiler.cmake.in)
+	#CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/cmake/Modules/CMakeFbcCompiler.cmake.in
+               #"${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake" @ONLY IMMEDIATE)
+#ELSE()
+	#CONFIGURE_FILE(${CMAKE_ROOT}/Modules/CMakeFbcCompiler.cmake.in
+               #"${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake" @ONLY IMMEDIATE)
+#ENDIF()
+
 # configure variables set in this file for fast reload later on
-IF(EXISTS ${CMAKE_SOURCE_DIR}/cmake/Modules/CMakeFbcCompiler.cmake.in)
-	CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/cmake/Modules/CMakeFbcCompiler.cmake.in
-               "${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake" @ONLY IMMEDIATE)
-ELSE()
-	CONFIGURE_FILE(${CMAKE_ROOT}/Modules/CMakeFbcCompiler.cmake.in
-               "${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake" @ONLY IMMEDIATE)
-ENDIF()
+CONFIGURE_FILE(${CMAKE_ROOT}/Modules/CMakeFbcCompiler.cmake.in
+  ${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake
+  @ONLY IMMEDIATE # IMMEDIATE must be here for compatibility mode <= 2.0
+  )
 
 MARK_AS_ADVANCED(CMAKE_AR)
 SET(CMAKE_Fbc_COMPILER_ENV_VAR "FBC")

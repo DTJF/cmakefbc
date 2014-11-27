@@ -34,14 +34,6 @@ IF(CMAKE_USER_MAKE_RULES_OVERRIDE_FBC)
  INCLUDE(${CMAKE_USER_MAKE_RULES_OVERRIDE_FBC})
 ENDIF()
 
-# for most systems a module is the same as a shared library
-# so unless the variable CMAKE_MODULE_EXISTS is set just
-# copy the values from the LIBRARY variables
-IF(NOT CMAKE_MODULE_EXISTS)
-  SET(CMAKE_SHARED_MODULE_Fbc_FLAGS ${CMAKE_SHARED_LIBRARY_Fbc_FLAGS})
-  SET(CMAKE_SHARED_MODULE_CREATE_Fbc_FLAGS ${CMAKE_SHARED_LIBRARY_CREATE_Fbc_FLAGS})
-ENDIF()
-
 SET(CMAKE_Fbc_FLAGS "$ENV{FBCFLAGS} ${CMAKE_Fbc_FLAGS_INIT}"
     CACHE STRING    "Flags for fbc compiler.")
 
@@ -98,17 +90,25 @@ INCLUDE(CMakeCommonLanguageInclude)
 
 #SET(CMAKE_OUTPUT_Fbc_FLAG "-o")
 SET(CMAKE_SHARED_LIBRARY_Fbc_FLAGS "")
-#SET(CMAKE_SHARED_LIBRARY_CREATE_Fbc_FLAGS "-dylib")
+SET(CMAKE_SHARED_LIBRARY_CREATE_Fbc_FLAGS "-dylib")
 #SET(CMAKE_INCLUDE_FLAG_FBC "-I")
 #SET(CMAKE_INCLUDE_FLAG_Fbc_SEP " ")
 #SET(CMAKE_LIBRARY_PATH_FLAG "-L")
 #SET(CMAKE_LINK_LIBRARY_FLAG "-l")
 #SET(CMAKE_Fbc_VERSION_FLAG "")
 
+# for most systems a module is the same as a shared library
+# so unless the variable CMAKE_MODULE_EXISTS is set just
+# copy the values from the LIBRARY variables
+IF(NOT CMAKE_MODULE_EXISTS)
+  SET(CMAKE_SHARED_MODULE_Fbc_FLAGS ${CMAKE_SHARED_LIBRARY_Fbc_FLAGS})
+  SET(CMAKE_SHARED_MODULE_CREATE_Fbc_FLAGS ${CMAKE_SHARED_LIBRARY_CREATE_Fbc_FLAGS})
+ENDIF()
+
 # create a shared library
 IF(NOT CMAKE_Fbc_CREATE_SHARED_LIBRARY)
 	SET(CMAKE_Fbc_CREATE_SHARED_LIBRARY
-  	"<CMAKE_Fbc_COMPILER> <CMAKE_SHARED_LIBRARY_Fbc_FLAGS> <LANGUAGE_COMPILE_FLAGS> <LINK_FLAGS> -dylib <CMAKE_SHARED_LIBRARY_SONAME_Fbc_FLAG><TARGET_SONAME> -x <TARGET> <OBJECTS> <LINK_LIBRARIES>")
+  	"<CMAKE_Fbc_COMPILER> <CMAKE_SHARED_LIBRARY_Fbc_FLAGS> <LANGUAGE_COMPILE_FLAGS> <LINK_FLAGS> <CMAKE_SHARED_LIBRARY_CREATE_Fbc_FLAGS> <CMAKE_SHARED_LIBRARY_SONAME_Fbc_FLAG><TARGET_SONAME> -x <TARGET> <OBJECTS> <LINK_LIBRARIES>")
 ENDIF()
 
 # create a shared module just copy the shared library rule
@@ -140,7 +140,7 @@ ENDIF()
 
 IF(NOT CMAKE_Fbc_LINK_EXECUTABLE)
   SET(CMAKE_Fbc_LINK_EXECUTABLE
-    "<CMAKE_Fbc_COMPILER> <FLAGS> <CMAKE_Fbc_LINK_FLAGS> <LINK_FLAGS> -x <TARGET> -m <TARGET> <OBJECTS> <LINK_LIBRARIES>")
+    "<CMAKE_Fbc_COMPILER> <FLAGS> <CMAKE_Fbc_LINK_FLAGS> <LINK_FLAGS> -x <TARGET> <OBJECTS> <LINK_LIBRARIES>")
 ENDIF()
 
 MARK_AS_ADVANCED(
@@ -233,18 +233,3 @@ ELSE()
 ENDIF()
 
 SET(CMAKE_Fbc_INFORMATION_LOADED 1)
-
-#linking:
-#  ld -m armelf_linux_eabi -o "test" -shared -htest --export-dynamic
-#     "/usr/local/bin/../lib/freebasic/linux-arm/fbextra.x"
-#     -s
-#     -L "/usr/local/bin/../lib/freebasic/linux-arm"
-#     -L "."
-#     -L "/usr/lib/gcc/arm-linux-gnueabihf/4.6"
-# "/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf/crti.o"
-# "/usr/lib/gcc/arm-linux-gnueabihf/4.6/crtbeginS.o"
-# "/usr/local/bin/../lib/freebasic/linux-arm/fbrt0pic.o"
-# "pruio_adc.bas.o" "pruio.bas.o" "pruio_c_wrapper.bas.o" "pruio_gpio.bas.o" "pruio_pwmss.bas.o" "pruio_timer.bas.o"
-# "-(" -lfbpic -ltinfo -lm -ldl -lpthread -lgcc -lgcc_eh -lc "-)"
-# "/usr/lib/gcc/arm-linux-gnueabihf/4.6/crtendS.o"
-# "/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf/crtn.o"
