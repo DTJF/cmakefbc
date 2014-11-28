@@ -29,13 +29,14 @@ programming language. Since you read this file you already
 - downloaded the *cmakefbc* package, and
 - unpacked the archive.
 
-Next step is to use CMake to install the extension files (omit `sudo`
-on non LINUX systems):
+Next step is to use CMake to install the extension files (`make
+install` needs admin privileges on LINUX systems, ie. prepend `sudo` on
+Debian / Ubuntu):
 
 ~~~{.sh}
 cd cmakefbc
 cmake .
-sudo make install
+make install
 ~~~
 
 This commands will copy six configuration files to the correct location
@@ -56,18 +57,20 @@ Step 3 cmake_fb_deps tool  {#SecStep3}
 
 The cmake_fb_deps tool auto-generates a CMake include file declaring
 the FB source file dependencies. So it's an essential component of this
-package and should get build and installed if you intend to use the
+package and should get build and installed, if you intend to use the
 \Tar and \Bas features and / or build big projects.
 
 Once you installed the CMake FB extension (step 2) you can execute the
-following commands (omit `sudo` on non LINUX systems)
+following commands (`make install` needs admin privileges on LINUX
+systems, ie. prepend `sudo` on Debian / Ubuntu):
 
 ~~~{.sh}
 cd cmake_fb_deps
 cmake .
 make
-sudo make install
+make install
 ~~~
 
-to generate the build system (`cmake .`), compile the tool (`make`) and
-install it on your system.
+to generate the build system (command `cmake .`), compile the tool
+(command `make`) and install (command `make install`) it on your
+system.
