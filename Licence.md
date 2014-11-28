@@ -8,6 +8,9 @@ language. If installed in CMake, it
 - declares a macro to scan dependencies in FB source code, and
 - declares a function to pre-compile FB source to C source.
 
+Find the online documentation at
+http://users.freebasic-portal.de/tjf/Projekte/cmakefbc/doc/html/.
+
 
 Licence  {#SecLicence}
 =======
