@@ -9,7 +9,7 @@ documentation (see http://http://www.cmake.org/documentation/ for
 details). Find here some specials regarding the FB adaptions.
 
 This package binds the FB compiler in to the CMake build system.
-It supports two ways to use the compiler:
+It supports two ways how to use the FB compiler:
 
 - Direct compiling (.bas to binaries), and
 - indirect compiling (.bas to .c).
@@ -51,9 +51,9 @@ SET_TARGET_PROPERTIES(MyProject PROPERTIES
 ~~~
 
 This example generates a project named *MyProject* that compiles an
-executable also named *MyProject* (or *MyProject.exe* on non-LINUX
-systems). Find detailed information on the commands in the [CMake
-Documentation](http://www.cmake.org/cmake/help/v3.0/index.html).
+executable, which is also named *MyProject* (or *MyProject.exe* on
+non-LINUX systems). Find detailed information on the commands in the
+[CMake Documentation](http://www.cmake.org/cmake/help/v3.0/index.html).
 
 The language specification in the `PROJECT` line is `Fbc` (in camel
 case with capital first letter). All compiler variables are specified
@@ -71,10 +71,10 @@ CMake scans dependency trees for source files, but only for native
 languages (C, C++, RC, ASM, Fortran and Java). This is a useful feature
 since an object file only gets re-build when one of the related source
 files changed. This package provides an external solution for this
-feature. Therefor, in contrast to the CMake documentation, only the
+feature. Therefor, and in contrast to the CMake documentation, only the
 compilable source files (*.bas) gets specified in an `ADD_EXECUTABLE`
-or `ADD_LIBRARY` command and a further command builds the dependency
-trees for all source files of that target (it also work for
+or `ADD_LIBRARY` command. A further command builds the dependency trees
+later for all source files of that target (it also work for
 `ADD_CUSTOM_TARGTET` command):
 
 ~~~{.sh}
@@ -104,8 +104,8 @@ the name of the target. The related CMake macro reads all source files
 from the target properties and calls the \FbDeps tool to create a file
 with the dependency trees. Then, this macro includes the generated file
 in to your CMakeLists.txt file. The generated file also contains a
-custom command which re-builds the file when one of the source files in
-the dependency tree changed.
+custom command which re-builds the file (itself) when one of the source
+files in the dependency tree changed.
 
 This mechanism ensures that only those object files get re-build that
 are related to the changed source files.
@@ -119,12 +119,12 @@ are related to the changed source files.
 Indirect Compiling  {#SecIndirect}
 ==================
 
-Indirect compiling uses the FB compiler to generate C source
-code form the .bas files and then uses a C compiler to generate the
-object files from each C source file to build the binary of a top level
-target (executable or library). So after pre-compiling the .bas files,
-the further proceeding is exactly the same as for each native C
-project.
+Indirect compiling uses the FB compiler to generate C source code form
+the .bas files and then uses a C compiler tool chain to generate the
+object files from each C source file to finally build the binary of a
+top level target (executable or library). So after pre-compiling the
+.bas files, the further proceeding is exactly the same as for each
+native C project.
 
 Both languages get specified for such a project. A minimal
 CMakeLists.txt file looks like

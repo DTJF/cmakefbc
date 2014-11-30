@@ -12,7 +12,7 @@ Feel free to send your ideas to the author (Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT 
 cmakefbc-0.0 {#SecV-0-0}
 ============
 
-Released on 2014 November, ??.
+Released on 2014 November, 30.
 
 
 
