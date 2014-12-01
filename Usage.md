@@ -3,12 +3,13 @@ Usage  {#PagUsage}
 \tableofcontents
 
 The CMake build system is a powerful tool to build and test a project
-and pack it in archives or installers Describing all features is for
-beyond the scope of this documentation. Find here some specials
-regarding building project with the FB support.
+and to pack it in to archives or installers. Describing all features of
+this build management system is far beyond the scope of this
+documentation (see http://http://www.cmake.org/documentation/ for
+details). Find here some specials regarding the FB adaptions.
 
 This package binds the FB compiler in to the CMake build system.
-It supports two ways to use the compiler:
+It supports two ways how to use the FB compiler:
 
 - Direct compiling (.bas to binaries), and
 - indirect compiling (.bas to .c).
@@ -20,7 +21,7 @@ a 64 bit FB version).
 
 Indirect compiling may be beneficial when porting a project to new
 platforms or when packing Debian packages (.deb) with source code. In
-most cases it's more convenient to compile direct, since you'll have
+most cases it's more convenient to compile directly, since you'll have
 less files in your project folders.
 
 
@@ -50,9 +51,9 @@ SET_TARGET_PROPERTIES(MyProject PROPERTIES
 ~~~
 
 This example generates a project named *MyProject* that compiles an
-executable also named *MyProject* (or *MyProject.exe* on non-LINUX
-systems). Find detailed information on the commands in the [CMake
-Documentation](http://www.cmake.org/cmake/help/v3.0/index.html).
+executable, which is also named *MyProject* (or *MyProject.exe* on
+non-LINUX systems). Find detailed information on the commands in the
+[CMake Documentation](http://www.cmake.org/cmake/help/v3.0/index.html).
 
 The language specification in the `PROJECT` line is `Fbc` (in camel
 case with capital first letter). All compiler variables are specified
@@ -70,10 +71,10 @@ CMake scans dependency trees for source files, but only for native
 languages (C, C++, RC, ASM, Fortran and Java). This is a useful feature
 since an object file only gets re-build when one of the related source
 files changed. This package provides an external solution for this
-feature. Therefor, in contrast to the CMake documentation, only the
+feature. Therefor, and in contrast to the CMake documentation, only the
 compilable source files (*.bas) gets specified in an `ADD_EXECUTABLE`
-or `ADD_LIBRARY` command and a further command builds the dependency
-trees for all source files of that target (it also work for
+or `ADD_LIBRARY` command. A further command builds the dependency trees
+later for all source files of that target (it also work for
 `ADD_CUSTOM_TARGTET` command):
 
 ~~~{.sh}
@@ -98,13 +99,13 @@ SET_TARGET_PROPERTIES(MyLib PROPERTIES
   )
 ~~~
 
-The command `ADD_Fbc_SRC_DEPS` requires a single parameter, which is
+This `ADD_Fbc_SRC_DEPS` command requires a single parameter, which is
 the name of the target. The related CMake macro reads all source files
 from the target properties and calls the \FbDeps tool to create a file
-with the dependency trees. Then this macro includes the generated file
-to your CMakeLists.txt file. The generated file also contains a custom
-command which re-builds the file when one of the source files in the
-dependency tree changed.
+with the dependency trees. Then, this macro includes the generated file
+in to your CMakeLists.txt file. The generated file also contains a
+custom command which re-builds the file (itself) when one of the source
+files in the dependency tree changed.
 
 This mechanism ensures that only those object files get re-build that
 are related to the changed source files.
@@ -118,12 +119,12 @@ are related to the changed source files.
 Indirect Compiling  {#SecIndirect}
 ==================
 
-Indirect compiling uses the FB compiler to generate C source
-code form the .bas files and then uses a C compiler to generate the
-object files from each C source file to build the binary of a top level
-target (executable or library). So after pre-compiling the .bas files,
-the further proceeding is exactly the same as for each native C
-project.
+Indirect compiling uses the FB compiler to generate C source code form
+the .bas files and then uses a C compiler tool chain to generate the
+object files from each C source file to finally build the binary of a
+top level target (executable or library). So after pre-compiling the
+.bas files, the further proceeding is exactly the same as for each
+native C project.
 
 Both languages get specified for such a project. A minimal
 CMakeLists.txt file looks like
@@ -153,16 +154,15 @@ are FB source file names to be pre-compiled.
 
 The function calls the FB compiler for each FB source file and
 pre-compiles a C source file. By default the C source files gets
-written to the same directory where the FB files are from. The function
-also creates the dependency tree file using the
-\FbDeps tool and includes it in to your
-CMakeLists.txt file, by default using the file name
-CMakeFiles/bas2c_deps.cmake. This means you can have only one `BAS_2_C`
-command per CMakeLists.txt file, since a second call will oerride the
-dependency file from the first call.
+written to the same directory where the FB files are from. This
+function also creates the dependency tree file using the \FbDeps tool
+and includes it in to your CMakeLists.txt file. By default the file is
+named CMakeFiles/bas2c_deps.cmake. This means you can have only one
+default `BAS_2_C` command per CMakeLists.txt file, since a second call
+will oerride the dependency file from the first call.
 
-Therefor the function can be used in a more complex signature to
-customize its behavior. Here's an example
+Therefor the function can also be used in a more complex signature to
+customize its behavior, like
 
 ~~~{.sh}
 BAS_2_C(<c_src_var>
@@ -182,37 +182,37 @@ BAS_2_C(<c_src_var>
   )
 ~~~
 
-Where
+Where the argument separators have the following meanings
 
-\Item{NO_DEPS} is a flag to disable the dependency file generation /
+\Item{NO_DEPS} A flag to disable the dependency file generation /
    inclusion (, which is enabled by default).
 
-\Item{OUT_NAM} is a keyword followed by a single string containing the
+\Item{OUT_NAM} A keyword followed by a single string containing the
    base name of the generated dependency file (suffix .cmake). This is
-   to avoid naming conflicts in case of a multiple calls of the macro
+   to avoid naming conflicts in case of multiple calls of the macro
    in the same directory (CMakeLists.txt file). It overrides the
    default name (CMakeFiles/bas2c_deps.cmake). The file gets written in
    the directory `OUT_DIR` (, or in the current source directory if
    `OUT_DIR` isn't defined).
 
-\Item{OUT_DIR} is a keyword followed by a single string containing the
+\Item{OUT_DIR} A keyword followed by a single string containing the
    directory where to store the C source files and the dependency file
-   (when `NO_DEPS` flag unset). This directory gets created if not
+   (unless `NO_DEPS` flag is set). This directory gets created if not
    present.
 
-\Item{COMPILE_FLAGS} is a keyword followed by on or more strings
+\Item{COMPILE_FLAGS} A keyword followed by on or more strings
    containing additional options to be used when calling the FB
-   compiler. Those options get placed before the required options `-gen
-   gcc -r` and the file name.
+   compiler. Those options get placed before the mandatory options
+   `-gen gcc -r` and the file name.
 
-\Item{SOURCES} is a keyword followed by a list of FB source files to
+\Item{SOURCES} A keyword followed by a list of FB source files to
    be compiled.
 
-\Item{c_src_var} is a the name of the variable to return the list of C
+\Item{c_src_var} The name of the variable to return the list of C
    source file names.
 
-All further parameters (not prepended by one of the above keywords) get
-interpreted as FB source file names.
+All further parameters (not prepended by one of the above separators)
+get interpreted as FB source file names.
 
 \note The function `BAS_2_C` is only available when the cmake_fb_deps
       tool is installed. (Otherwise you'll get a message on the initial

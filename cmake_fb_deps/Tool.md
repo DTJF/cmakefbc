@@ -42,7 +42,7 @@ of the following messages at stdout:
    the name of the file to generate and at least on FB source file name
    to scan.
 
-\Item{Cannot open <output>} The tool isn't able to open the output file
+\Item{Cannot open `<output>`} The tool isn't able to open the output file
    with write access. Check the directory and the permissions (user
    privileges).
 
