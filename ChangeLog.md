@@ -9,6 +9,12 @@ Further Development {#SecFurtherVev}
 Feel free to send your ideas to the author (Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT }net).
 
 
+cmakefbc-0.2 {#SecV-0-2}
+============
+
+Released on 2015 January, ??.
+
+
 cmakefbc-0.0 {#SecV-0-0}
 ============
 
@@ -25,7 +31,7 @@ Thanks go to:
 
 - Bill Hoffman, Ken Martin, Brad King, Dave Cole, Alexander Neundorf,
   Clinton Stimpson for developing the CMake tool and publishing it
-  under an open licence (the documentation has optimization for
+  under an open licence (the documentation has optimization
   potential).
 
 - Dimitri van Heesch for creating the Doxygen tool, which is used to
