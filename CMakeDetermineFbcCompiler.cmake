@@ -15,7 +15,7 @@
 # NOTE, a generator may set CMAKE_Fbc_COMPILER before
 # loading this file to force a compiler.
 # use environment variable FBC first if defined by user, next use
-# the cmake variable CMAKE_GENERATOR_FBC which can be defined by a generator
+# the cmake variable CMAKE_GENERATOR_Fbc which can be defined by a generator
 # as a default compiler
 IF(NOT CMAKE_Fbc_COMPILER)
   # prefer the environment variable FBC
@@ -31,9 +31,9 @@ IF(NOT CMAKE_Fbc_COMPILER)
   ENDIF()
 
   # next try prefer the compiler specified by the generator
-  IF(CMAKE_GENERATOR_FBC)
+  IF(CMAKE_GENERATOR_Fbc)
     IF(NOT CMAKE_Fbc_COMPILER_INIT)
-      SET(CMAKE_Fbc_COMPILER_INIT ${CMAKE_GENERATOR_FBC})
+      SET(CMAKE_Fbc_COMPILER_INIT ${CMAKE_GENERATOR_Fbc})
     ENDIF()
   ENDIF()
 
@@ -71,7 +71,7 @@ IF(NOT CMAKE_PLATFORM_INFO_DIR)
 ENDIF()
 
 # configure variables set in this file for fast reload later on
-CONFIGURE_FILE(${CMAKE_ROOT}/Modules/CMakeFbcCompiler.cmake.in
+CONFIGURE_FILE(${CMAKE_MODULE_PATH}/CMakeFbcCompiler.cmake.in
   ${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake
   @ONLY IMMEDIATE # IMMEDIATE must be here for compatibility mode <= 2.0
   )
