@@ -10,9 +10,10 @@
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.3)
 
-# Uncomment the next two lines if you want to test without installation
+# Uncomment the next two lines to perform a standard build.
 #SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
-#ADD_SUBDIRECTORY(cmake_fb_deps)
+LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+ADD_SUBDIRECTORY(cmake_fb_deps)
 
 PROJECT(cmakefbc NONE)
 

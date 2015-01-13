@@ -34,7 +34,7 @@ library) and also to link the object files in to a binary. Just one
 language gets specified for the project. A minimal CMakeLists.txt file
 looks like
 
-~~~{.sh}
+~~~{.cmake}
 # declare the required CMake version (optional)
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
@@ -77,7 +77,7 @@ or `ADD_LIBRARY` command. A further command builds the dependency trees
 later for all source files of that target (it also work for
 `ADD_CUSTOM_TARGTET` command):
 
-~~~{.sh}
+~~~{.cmake}
 # declare the required CMake version (optional)
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
@@ -129,7 +129,7 @@ native C project.
 Both languages get specified for such a project. A minimal
 CMakeLists.txt file looks like
 
-~~~{.sh}
+~~~{.cmake}
 # declare the required CMake version (optional)
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
@@ -164,7 +164,7 @@ will oerride the dependency file from the first call.
 Therefor the function can also be used in a more complex signature to
 customize its behavior, like
 
-~~~{.sh}
+~~~{.cmake}
 BAS_2_C(<c_src_var>
   SOURCES
     MyProject.bas
@@ -208,7 +208,7 @@ Where the argument separators have the following meanings
 \Item{SOURCES} A keyword followed by a list of FB source files to
    be compiled.
 
-\Item{c_src_var} The name of the variable to return the list of C
+\Item{<c_src_var>} The name of the variable to return the list of C
    source file names.
 
 All further parameters (not prepended by one of the above separators)
@@ -228,7 +228,7 @@ When shipping the soucre code, the recipient needs the new CMake macro
 set to manage your project. Unfortunately these macros do not come with
 CMake at the moment (effective 2015, Jan.).
 
-This means you have to include the macros to your source code. Therefor
+This means you have to include the macros to your project. Therefor
 just copy the folder *cmake* to the root directory of your project and
 add the following line at the beginning of your root CMakeLists.txt
 file (right under `CMAKE_MINIMUM_REQUIRED(...)`)
