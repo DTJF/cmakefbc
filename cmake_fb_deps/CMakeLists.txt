@@ -1,4 +1,4 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.3)
 
 # declare the project name and the language (compiler) to use
 PROJECT(cmake_fb_deps Fbc)
@@ -12,11 +12,10 @@ SET_TARGET_PROPERTIES(cmake_fb_deps PROPERTIES
   )
 
 
-# you may want to install in the directory of the CMake executable
-#GET_FILENAME_COMPONENT(dir ${CMAKE_COMMAND} PATH)
-
-# or use the standard
+# You may want to install in the standard directory
 SET(dir bin)
+# or use the CMake executable path
+#GET_FILENAME_COMPONENT(dir ${CMAKE_COMMAND} PATH)
 
 # declare installation rule
 INSTALL(

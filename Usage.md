@@ -217,5 +217,29 @@ get interpreted as FB source file names.
 \note The function `BAS_2_C` is only available when the cmake_fb_deps
       tool is installed. (Otherwise you'll get a message on the initial
       cmake call, like `Tool cmake_fb_deps not available -> no Fbc
-      extensions!`.
+      extensions!` and you'll find a similar entry in
+      CMakeFiles/CMakeOutput.log.
 
+
+Shipping  {#SecShipping}
+========
+
+When shipping the soucre code, the recipient needs the new CMake macro
+set to manage your project. Unfortunately these macros do not come with
+CMake at the moment (effective 2015, Jan.).
+
+This means you have to include the macros to your source code. Therefor
+just copy the folder *cmake* to the root directory of your project and
+add the following line at the beginning of your root CMakeLists.txt
+file (right under `CMAKE_MINIMUM_REQUIRED(...)`)
+
+~~~{.cmake}
+SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+~~~
+
+This makes CMake to search for macro files in the specified directory
+first.
+
+\note The `CMAKE_MODULE_PATH` has higher priority than the `CMAKE_ROOT`
+      folder, so that the default macros get disabled when similar
+      named macros are present in this path.
