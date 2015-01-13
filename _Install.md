@@ -161,7 +161,7 @@ in the `CMakeLists.txt` file in the root directory, like
 
 ~~~{.cmake}
 # Uncomment the next two lines to perform a standard build.
-SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 ADD_SUBDIRECTORY(cmake_fb_deps)
 ~~~
 

@@ -234,7 +234,7 @@ add the following line at the beginning of your root CMakeLists.txt
 file (right under `CMAKE_MINIMUM_REQUIRED(...)`)
 
 ~~~{.cmake}
-SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 ~~~
 
 This makes CMake to search for macro files in the specified directory
