@@ -1,6 +1,6 @@
 Welcome to package cmakefbc, an extension for the CMake build
 management system to support the FreeBASIC (FB) programming language.
-Following links give further information
+Find further information at the following links
 
 - [about CMake](http://www.cmake.org), and
 
@@ -16,7 +16,7 @@ The package includes
   - declares a function to pre-compile FB source to C source.
 
 - the tool cmake_fb_deps.bas to scan dependency trees in FreeBASIC
-  source code.
+  source code and integrate them in to a project.
 
 Find the online documentation at
 http://users.freebasic-portal.de/tjf/Projekte/cmakefbc/doc/html/.

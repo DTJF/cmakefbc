@@ -11,8 +11,10 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.3)
 
 # Uncomment the next two lines to perform a standard build.
-#LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/")
-#ADD_SUBDIRECTORY(cmake_fb_deps)
+LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+ADD_SUBDIRECTORY(cmake_fb_deps)
+
+ADD_SUBDIRECTORY(doc)
 
 PROJECT(cmakefbc NONE)
 
