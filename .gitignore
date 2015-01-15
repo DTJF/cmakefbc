@@ -14,7 +14,4 @@ CPack*
 doc/html/**/*
 doc/latex/**/*
 CMakeFiles/**/*
-
-
-cmake_fb_deps
 cmake_fb_deps/CMakeFiles/**/*
