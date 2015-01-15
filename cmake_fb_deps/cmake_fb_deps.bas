@@ -2,7 +2,7 @@
 \brief The source code of the tool cmake_fb_deps.
 \since 0.0
 
-Copyright (C) 2014, Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT }net
+Copyright (C) 2014-2015, Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT }net
 
 Licence GPLv3
 

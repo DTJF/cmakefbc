@@ -11,18 +11,18 @@ details). Find here some specials regarding the FB adaptions.
 This package binds the FB compiler in to the CMake build system.
 It supports two ways how to use the FB compiler:
 
-- Direct compiling (.bas to binaries), and
+- Direct compiling (.bas to binaries = object files), and
 - indirect compiling (.bas to .c).
 
 For direct compiling only the FB compiler is necessary (and its
-tools). In contrast for indirect compiling you'll need a further C
+tools). In contrast, for indirect compiling you'll need a further C
 compiler to be installed on your system (which is the case when you use
 a 64 bit FB version).
 
-Indirect compiling may be beneficial when porting a project to new
-platforms or when packing Debian packages (.deb) with source code. In
-most cases it's more convenient to compile directly, since you'll have
-less files in your project folders.
+The later (indirect compiling) may be beneficial when porting a project
+to new platforms or when packing Debian packages (.deb) with source
+code. But in most cases it's more convenient to compile directly, since
+you'll have less files in your project folders.
 
 
 Direct Compiling  {#SecDirect}
@@ -228,10 +228,11 @@ When shipping the soucre code, the recipient needs the new CMake macro
 set to manage your project. Unfortunately these macros do not come with
 CMake at the moment (effective 2015, Jan.).
 
-This means you have to include the macros to your project. Therefor
-just copy the folder *cmake* to the root directory of your project and
-add the following line at the beginning of your root CMakeLists.txt
-file (right under `CMAKE_MINIMUM_REQUIRED(...)`)
+This means you have to include the macros to your project, as it is
+done in this package. Therefor just copy the folder *cmake* to the root
+directory of your project and add the following line at the beginning
+of your root CMakeLists.txt file (right under
+`CMAKE_MINIMUM_REQUIRED(...)`)
 
 ~~~{.cmake}
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/")
