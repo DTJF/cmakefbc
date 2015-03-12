@@ -2,51 +2,55 @@
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.3)
 
-SET(src
-  "Doxyfile"
-  "../_Licence.md"
-  "../_Install.md"
-  "../_Usage.md"
-  "../cmake_fb_deps/_Tool.md"
-  "../_ChangeLog.md"
-  )
+SET(inp ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile)
 SET(lfn ${CMAKE_CURRENT_SOURCE_DIR}/fb-doc.lfn)
-SET(tar ${CMAKE_CURRENT_BINARY_DIR}/html)
-SET(res ${tar}/index.html)
+SET(res ${CMAKE_CURRENT_BINARY_DIR}/html/index.html)
+IF(CMAKE_CURRENT_BINARY_DIR STREQUAL
+   CMAKE_CURRENT_SOURCE_DIR)
+  SET(doxyconf ${CMAKE_BINARY_DIR}/CMakeFiles/Doxyfile)
+ELSE()
+  SET(doxyconf ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+ENDIF()
 
-ADD_CUSTOM_COMMAND(OUTPUT lfn
+IF(UNIX)
+SET(com cat)
+ELSE()
+SET(com type)
+ENDIF()
+
+ADD_CUSTOM_COMMAND(OUTPUT ${lfn}
   COMMAND fbdoc -l
   DEPENDS ../cmake_fb_deps/cmake_fb_deps.bas
   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
   )
 
-#ADD_CUSTOM_COMMAND(OUTPUT res
-  #COMMAND doxygen
-  #COMMAND fbdoc -s
-  #COMMAND ${CMAKE_COMMAND} -E remove_directory ${tar}
-  #COMMAND ${CMAKE_COMMAND} -E rename html ${tar}
-  #DEPENDS lfn ${src}
-  #WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-  #)
+ADD_CUSTOM_COMMAND(OUTPUT ${doxyconf}
+  COMMAND ${CMAKE_COMMAND} -E copy ${inp} ${doxyconf}
+  COMMAND ${com} DoxyExtension >> ${doxyconf}
+  DEPENDS ${inp} ${CMAKE_CURRENT_SOURCE_DIR}/DoxyExtension.in
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+  )
 
-IF(UNIX)
-SET(com) "( cat Doxyfile ; echo \"OUTPUT_DIRECTORY=${tar}\" ) | doxygen -"
-ELSE()
-SET(com) "( type Doxyfile & echo \"OUTPUT_DIRECTORY=${tar}\" ) | doxygen -"
-ENDIF()
-ADD_CUSTOM_COMMAND(OUTPUT res
-  COMMAND ${com}
+ADD_CUSTOM_COMMAND(OUTPUT ${res}
+  COMMAND doxygen ${doxyconf}
   COMMAND fbdoc -s
-  DEPENDS lfn ${src}
+  DEPENDS ${lfn} ${inp} ${doxyconf}
+    ../ReadMe.md
+    ../_Install.md
+    ../_Usage.md
+    ../_ChangeLog.md
+    ../cmake_fb_deps/_Tool.md
   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
   )
 
+
 # declare the target name and the source file[s]
-ADD_CUSTOM_TARGET(doc DEPENDS lfn res)
-SET_TARGET_PROPERTIES(doc PROPERTIES EXCLUDE_FROM_ALL 1)
+ADD_CUSTOM_TARGET(doc DEPENDS ${lfn} ${doxyconf} ${res})
 
 # declare installation rule
-INSTALL(
-  DIRECTORY ${tar}
-  DESTINATION doc/${CMAKE_PROJECT_NAME}
-  )
+#INSTALL(
+  #DIRECTORY ${tar}
+  #DESTINATION share/doc/${CMAKE_PROJECT_NAME}
+  #)
+
+CONFIGURE_FILE(DoxyExtension.in DoxyExtension @ONLY)

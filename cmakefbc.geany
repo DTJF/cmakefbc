@@ -22,15 +22,23 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=7
-FILE_NAME_0=0;None;0;EUTF-8;0;1;0;%2Frun%2Fuser%2F1000%2Fgvfs%2Fsftp%3Ahost%3D10.0.0.22%2Cuser%3Ddebian%2Fhome%2Fdebian%2FProjekte%2Fcmakefbc%2FCMakeCache.txt;0;2
-FILE_NAME_1=0;CMake;0;EUTF-8;0;1;0;%2Frun%2Fuser%2F1000%2Fgvfs%2Fsftp%3Ahost%3D10.0.0.22%2Cuser%3Ddebian%2Fhome%2Fdebian%2FProjekte%2Fcmakefbc%2FCMakeDetermineFbcCompiler.cmake;0;2
-FILE_NAME_2=0;None;0;EUTF-8;0;1;0;%2Frun%2Fuser%2F1000%2Fgvfs%2Fsftp%3Ahost%3D10.0.0.22%2Cuser%3Ddebian%2Fhome%2Fdebian%2FProjekte%2Fcmakefbc%2FCMakeFbcCompiler.cmake.in;0;2
-FILE_NAME_3=0;CMake;0;EUTF-8;0;1;0;%2Frun%2Fuser%2F1000%2Fgvfs%2Fsftp%3Ahost%3D10.0.0.22%2Cuser%3Ddebian%2Fhome%2Fdebian%2FProjekte%2Fcmakefbc%2FCMakeFbcInformation.cmake;0;2
-FILE_NAME_4=0;CMake;0;EUTF-8;0;1;0;%2Frun%2Fuser%2F1000%2Fgvfs%2Fsftp%3Ahost%3D10.0.0.22%2Cuser%3Ddebian%2Fhome%2Fdebian%2FProjekte%2Fcmakefbc%2FCMakeLists.txt;0;2
-FILE_NAME_5=0;CMake;0;EUTF-8;0;1;0;%2Frun%2Fuser%2F1000%2Fgvfs%2Fsftp%3Ahost%3D10.0.0.22%2Cuser%3Ddebian%2Fhome%2Fdebian%2FProjekte%2Fcmakefbc%2FCMakeTestFbcCompiler.cmake;0;2
-FILE_NAME_6=0;CMake;0;EUTF-8;0;1;0;%2Frun%2Fuser%2F1000%2Fgvfs%2Fsftp%3Ahost%3D10.0.0.22%2Cuser%3Ddebian%2Fhome%2Fdebian%2FProjekte%2Fcmakefbc%2FPlatform%2FLinux-fbc.cmake;0;2
-FILE_NAME_7=0;CMake;0;EUTF-8;0;1;0;%2Frun%2Fuser%2F1000%2Fgvfs%2Fsftp%3Ahost%3D10.0.0.22%2Cuser%3Ddebian%2Fhome%2Fdebian%2FProjekte%2Fcmakefbc%2FPlatform%2FWindows-fbc.cmake;0;2
+current_page=15
+FILE_NAME_0=115;CMake;0;EUTF-8;0;1;0;%2Fhome%2Ftom%2FProjekte%2Ffb%2Fcmakefbc%2FCMakeLists.txt;0;2
+FILE_NAME_1=452;Markdown;0;EUTF-8;0;1;0;%2Fhome%2Ftom%2FProjekte%2Ffb%2Fcmakefbc%2FLicence.md;0;2
+FILE_NAME_2=129;CMake;0;EUTF-8;0;1;0;%2Fhome%2Ftom%2FProjekte%2Ffb%2Fcmakefbc%2Fcmake_fb_deps%2FCMakeLists.txt;0;2
+FILE_NAME_3=4291;Markdown;0;EUTF-8;0;1;0;%2Fhome%2Ftom%2FProjekte%2Ffb%2Fcmakefbc%2FInstall.md;0;2
+FILE_NAME_4=6175;Markdown;0;EUTF-8;0;1;0;%2Fhome%2Ftom%2FProjekte%2Ffb%2Fcmakefbc%2FUsage.md;0;2
+FILE_NAME_5=0;FreeBasic;0;EUTF-8;0;1;0;%2Fhome%2Ftom%2FProjekte%2Ffb%2Fcmakefbc%2Fcmake_fb_deps%2Fcmake_fb_deps.bas;0;2
+FILE_NAME_6=1205;Markdown;0;EUTF-8;0;1;0;%2Fhome%2Ftom%2FProjekte%2Ffb%2Fcmakefbc%2Fcmake_fb_deps%2FTool.md;0;2
+FILE_NAME_7=231;None;0;EUTF-8;0;1;0;%2Fhome%2Ftom%2FProjekte%2Ffb%2Fcmakefbc%2F.gitignore;0;2
+FILE_NAME_8=289;Markdown;0;EUTF-8;0;1;0;%2Fhome%2Ftom%2FProjekte%2Ffb%2Fcmakefbc%2FChangeLog.md;0;2
+FILE_NAME_9=529;XML;0;EUTF-8;0;1;0;%2Fhome%2Ftom%2FProjekte%2Ffb%2Fcmakefbc%2Fdoc%2Fcmakefbc.xml;0;2
+FILE_NAME_10=0;CMake;0;EUTF-8;0;1;0;%2Fhome%2Ftom%2FProjekte%2Ffb%2Fcmakefbc%2Fcmake%2FModules%2FCMakeDetermineFbcCompiler.cmake;0;2
+FILE_NAME_11=0;None;0;EUTF-8;0;1;0;%2Fhome%2Ftom%2FProjekte%2Ffb%2Fcmakefbc%2Fcmake%2FModules%2FCMakeFbcCompiler.cmake.in;0;2
+FILE_NAME_12=0;CMake;0;EUTF-8;0;1;0;%2Fhome%2Ftom%2FProjekte%2Ffb%2Fcmakefbc%2Fcmake%2FModules%2FCMakeFbcInformation.cmake;0;2
+FILE_NAME_13=0;CMake;0;EUTF-8;0;1;0;%2Fhome%2Ftom%2FProjekte%2Ffb%2Fcmakefbc%2Fcmake%2FModules%2FCMakeTestFbcCompiler.cmake;0;2
+FILE_NAME_14=0;CMake;0;EUTF-8;0;1;0;%2Fhome%2Ftom%2FProjekte%2Ffb%2Fcmakefbc%2Fcmake%2FModules%2FPlatform%2FLinux-fbc.cmake;0;2
+FILE_NAME_15=0;CMake;0;EUTF-8;0;1;0;%2Fhome%2Ftom%2FProjekte%2Ffb%2Fcmakefbc%2Fcmake%2FModules%2FPlatform%2FWindows-fbc.cmake;0;2
 
 [VTE]
-last_dir=/run/user/1000/gvfs/sftp:host=10.0.0.22,user=debian/home/debian/Projekte/cmakefbc/Platform
+last_dir=/home/tom/Projekte/fb/cmakefbc/cmake/Modules/Platform

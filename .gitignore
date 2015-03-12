@@ -11,6 +11,7 @@ CMakeCache.txt
 CPack*
 
 # Can also ignore all directories and files in a directory.
+build/**/*
 doc/html/**/*
 doc/latex/**/*
 CMakeFiles/**/*

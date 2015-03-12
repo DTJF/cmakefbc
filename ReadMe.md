@@ -15,14 +15,15 @@ The package includes
   - declares a macro to scan dependencies in FB source code, and
   - declares a function to pre-compile FB source to C source.
 
-- the tool cmake_fb_deps.bas to scan dependency trees in FreeBASIC
-  source code and integrate them in to a project.
+- the tool cmake_fb_deps.bas to
+  - scan the dependency files in FreeBASIC source trees and
+  - integrate them in to a projects build tree.
 
 Find the online documentation at
 http://users.freebasic-portal.de/tjf/Projekte/cmakefbc/doc/html/.
 
 
-Licence  {#SecLicence}
+Licence
 =======
 
 Copyright (C) 2014-2015, Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT }net

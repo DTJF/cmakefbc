@@ -9,6 +9,16 @@ Further Development {#SecFurtherVev}
 Feel free to send your ideas to the author (Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT }net).
 
 
+cmakefbc-0.4 {#SecV-0-4}
+============
+
+- cmake_fb_deps.bas: Improved path handling
+- cmake_fb_deps.bas: Warnings when #INCLUDE file not present (warns for each standard header)
+- doc/CMakeLists.txt: out-of-source build for documentation
+
+Released on 2015 March, ???.
+
+
 cmakefbc-0.2 {#SecV-0-2}
 ============
 
