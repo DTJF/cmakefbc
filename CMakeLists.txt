@@ -10,12 +10,6 @@
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.3)
 
-# Uncomment the next two lines to perform a standard build.
-LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/")
-ADD_SUBDIRECTORY(cmake_fb_deps)
-
-ADD_SUBDIRECTORY(doc)
-
 # constants
 SET(PROJ_NAME "cmakefbc"           CACHE STRING "project name" FORCE)
 SET(PROJ_DESC "CMake support for FreeBASIC programming language" CACHE STRING "project description" FORCE)
@@ -26,6 +20,12 @@ SET(PROJ_WEBS "http://www.freebasic-portal.de" CACHE STRING "project website" FO
 SET(PROJ_LICE "GPLv3"              CACHE STRING "project licence" FORCE)
 STRING(TIMESTAMP tmp "%Y" UTC)
 SET(PROJ_YEAR "${tmp}"             CACHE STRING "project year" FORCE)
+
+# Uncomment the next two lines to perform a standard build.
+LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+ADD_SUBDIRECTORY(cmake_fb_deps)
+
+ADD_SUBDIRECTORY(doc)
 
 PROJECT(${PROJ_NAME} NONE)
 

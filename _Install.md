@@ -221,7 +221,7 @@ sudo xargs rm < install_manifest.txt
 ~~~
 
 
-Documentation Build  {#SecBuild1}
+Documentation Build  {#SecBuildDoc}
 ===================
 
 The package is prepared to build a documentation in form of a html
