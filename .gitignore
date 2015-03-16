@@ -6,6 +6,7 @@ cmakefbc.geany
 cmake_install.cmake
 install_manifest.txt
 CMakeCache.txt
+cmake_fb_deps/cmake_fb_deps
 
 # Use wildcards as well
 CPack*

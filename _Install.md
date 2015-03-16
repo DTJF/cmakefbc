@@ -19,9 +19,10 @@ Preparation  {#SecPrepare}
 Before you can use (or install) the *cmakefbc* package you have to have
 a working installation of some programming tools,
 
-- the FB compiler (see http://www.freebasic.net) and
-
-- the CMake build system (see http://www.cmake.org).
+- the [FB compiler](http://www.freebasic.net),
+- the [CMake build system](http://www.cmake.org),
+- the [Doxygen backend](http://www.cmake.org) (optional for documentation) and
+- the [fb-doc package](http://www.cmake.org) (optional for documentation).
 
 It's beyond the scope of this guide to describe the installation for
 those programming tools. Follow the installation instructions in the
@@ -31,7 +32,8 @@ above links.
 Standard Build  {#SecStandard}
 ==============
 
-The package is prepared to perform a standard build by
+The package is prepared to perform a standard build by (execute in root
+folder of the package)
 
 ~~~{.sh}
 cmake .
@@ -41,7 +43,7 @@ sudo make install
 
 This will use the shipped CMake macros to build a subproject called
 cmake_fb_deps, before both components, the CMake macros and the tool
-cmake_fb_deps, gets installed on your system.
+cmake_fb_deps, get installed on your system.
 
 The output, when executing the above command tripple, should look like
 (on Debian LINUX)
@@ -217,3 +219,19 @@ To uninstall the package remove the files listed in the file(s)
 ~~~{.sh}
 sudo xargs rm < install_manifest.txt
 ~~~
+
+
+Documentation Build  {#SecBuild1}
+===================
+
+The package is prepared to build a documentation in form of a html
+tree. This gets created by the Doxygen generator and the fb-doc tool to
+filter the FreeBASIC source code. Generate html files in folder
+doc/html by executing
+
+~~~{.sh}
+make doc
+~~~
+
+You can customize the output or generate additional LaTeX or XML output
+by adapting the configuration file Doxyfile in folder doc.
