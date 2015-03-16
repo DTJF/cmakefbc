@@ -6,7 +6,8 @@ Find further information on that components at the following links
 
 - [about FreeBASIC](http://www.freebasic.net)
 
-The package includes
+The package is [hosted at GitLab](https://gitlab.com/TJF/cmakefbc) and
+it includes
 
 - CMake macros to extend the CMake system, and
   - checks for the FB compiler and its version,
