@@ -27,7 +27,7 @@ http://users.freebasic-portal.de/tjf/Projekte/cmakefbc/doc/html/.
 Licence
 =======
 
-Copyright (C) 2014-2015, Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT }net
+Copyright (C) 2014-\Year, \Email
 
 This bundle is free software; you can redistribute the sources and/or
 modify them under the terms of the GNU General Public License version 3

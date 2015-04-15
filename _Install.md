@@ -21,8 +21,8 @@ a working installation of some programming tools,
 
 - the [FB compiler](http://www.freebasic.net),
 - the [CMake build system](http://www.cmake.org),
-- the [Doxygen backend](http://www.cmake.org) (optional for documentation) and
-- the [fb-doc package](http://www.cmake.org) (optional for documentation).
+- the [Doxygen](http://www.doxygen.org/) (optional for documentation) and
+- the [fb-doc package](https://github.com/dtjf/fb-doc) (optional for documentation).
 
 It's beyond the scope of this guide to describe the installation for
 those programming tools. Follow the installation instructions in the
@@ -65,7 +65,7 @@ Linking Fbc executable cmake_fb_deps
 [100%] Built target cmake_fb_deps
 
 cmakefbc$ sudo make install
-[sudo] password for tom:
+[sudo] password for username:
 [100%] Built target cmake_fb_deps
 Install the project...
 -- Install configuration: ""
@@ -81,21 +81,40 @@ Install the project...
 ~~~
 
 
+Out-Of-Source Build  {#SecInsOOS}
+===================
+
+The standard build generates the makefiles and all CMake stuff in the
+source tree. In order to keep the source tree clean, you also can build
+the software in a separate tree. Therefor go to the root directory of
+the unpacked package, generate a new `build` directory and start the
+process in that directory
+
+~~~{.sh}
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+~~~
+
+The output is similar to the above listing, but this build process
+doesn't polute the source tree.
+
+
 Testing Build  {#SecBuild1}
 =============
 
-This installation instruction installs the CMake macros first and then
-uses those macros to build the subproject cmake_fb_deps, so that the
-just installed macros get tested. This method is required when you
-don't want to install the cmake_fb_deps tool (omit step 3 in that
-case).
+The above instructions build the subproject cmake_fb_deps first, by
+using the local CMake macros in the folder `cmake/Modules`. Here's an
+other installation method, which installs the CMake macros first, and
+then uses this fresh install to build the subproject.
 
 Step 1 Preparation  {#SubSecStep1}
 ------------------
 
-In the just unpacked package directory, load the file `CMakeLists.txt`
-from the root directory in to an editor, comment the following lines,
-like
+In the just unpacked package root directory, load the file
+`CMakeLists.txt` in to an editor, and comment the following lines
 
 ~~~{.cmake}
 # Uncomment the next two lines to perform a standard build.
@@ -103,13 +122,13 @@ like
 #ADD_SUBDIRECTORY(cmake_fb_deps)
 ~~~
 
-and save the result. This removes the subproject cmake_fb_deps from the
-build tree.
+Then save the result (overriding the existend file). This removes the
+subproject cmake_fb_deps from the build tree.
 
 Step 2 CMake FB Extension Macros  {#SubSecStep2}
 --------------------------------
 
-Now use CMake to add the supporting macros for FB programming language
+Now use CMake to add the its macros for FB programming language support
 by executing the command sequence
 
 ~~~{.sh}
@@ -150,8 +169,8 @@ CMake Modules directory and subfolder Platform. The CMake build
 management system is now ready to address the FB language, and to
 compile simple projects like the \FbDeps tool. Big projects may contain
 several source files and headers and some of those source files depend
-on others. CMake should handle this dependencies to re-compile only the
-related files, but isn't prepared for FB dependencies yet.
+on others. In order to let CMake handle this dependencies to re-compile
+only the related files, a further tool is necessary.
 
 The tool \FbDeps helps to resolve FB dependencies in big projects with
 complex source file trees. We compile its source with CMake in the next
@@ -224,9 +243,10 @@ sudo xargs rm < install_manifest.txt
 Documentation Build  {#SecBuildDoc}
 ===================
 
-The package is prepared to build a documentation in form of a html
-tree. This gets created by the Doxygen generator and the fb-doc tool to
-filter the FreeBASIC source code. Generate html files in folder
+The package is prepared to build a documentation in form of a html tree
+(including the document you're currently reading). This gets created by
+the [Doxygen generator](http://www.doxygen.org/)) and the fb-doc tool
+to filter the FreeBASIC source code. Generate html files in folder
 doc/html by executing
 
 ~~~{.sh}
@@ -234,4 +254,4 @@ make doc
 ~~~
 
 You can customize the output or generate additional LaTeX or XML output
-by adapting the configuration file Doxyfile in folder doc.
+by adapting the configuration file Doxyfile in the folder `doc`.

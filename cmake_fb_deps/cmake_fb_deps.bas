@@ -2,7 +2,7 @@
 \brief The source code of the tool cmake_fb_deps.
 \since 0.0
 
-Copyright (C) 2014-2015, Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT }net
+Copyright (C) 2014-\Year, \Email
 
 Licence GPLv3
 
@@ -19,10 +19,11 @@ CONST DirUp = ".." & SLASH  '*< The sequence to step a directory up.
 DIM SHARED AS STRING DEPS _ '*< A global variable to collect file specific dependency file names.
                , ALL_DEPS _ '*< A global variable to collect all dependency file names.
                , BAS_FOLD   '*< A global variable containing the folder of the current bas file.
-#define BNRY_NAME LEFT(__FILE__, LEN(__FILE__) - 4)
-'#define SKIP_FILE(_E_,_N_) ?BNRY_NAME & ": skipping file " & _N_ & " (" & *_E_ & ")"
-#define SKIP_FILE(_E_,_N_) ?COMMAND(0) & ": skipping file " & _N_ & " (" & *_E_ & ")"
-#define GEN_ERROR(_T_) ?BNRY_NAME & ": " & _T_
+
+'* Generate output in case of skipping a file
+#DEFINE SKIP_FILE(_E_,_N_) ?COMMAND(0) & ": skipping file " & _N_ & " (" & *_E_ & ")"
+'* Generate output for an error message
+#DEFINE GEN_ERROR(_T_) ?COMMAND(0) & ": " & _T_
 
 
 /'* \brief Add a file name two a directory.
@@ -86,15 +87,15 @@ FUNCTION Scan(BYREF Fnam AS STRING) AS ZSTRING PTR
     CASE ASC(!"_")
       SELECT CASE AS CONST c[i + 1] ' whitespace behind?
       CASE ASC(" "), ASC(!"\t"), ASC(!"\v") ', ASC(!"\n"), ASC(!"\l"), ASC(!"\r")
-      case else :                                             exit select
+      CASE ELSE :                                             EXIT SELECT
       END SELECT
 
-      if i then
+      IF i THEN
         SELECT CASE AS CONST c[i - 1] ' whitespace before?
         CASE ASC(" "), ASC(!"\t"), ASC(!"\v") ', ASC(!"\n"), ASC(!"\l"), ASC(!"\r")
-        case else :                                           exit select
+        CASE ELSE :                                           EXIT SELECT
         END SELECT
-      end if
+      END IF
       i += 2 : WHILE c[i] > ASC(!"\n") : i += 1 : WEND ' skip white spaces
     CASE ASC(!"\n")
       IF fl ANDALSO _
@@ -125,12 +126,12 @@ FUNCTION Scan(BYREF Fnam AS STRING) AS ZSTRING PTR
         END SELECT
       LOOP : IF 0 = fl THEN EXIT SELECT
       VAR inam = absNam(fold, LEFT(PEEK(ZSTRING, x), c + i - x))
-      var r = Scan(inam)
-      IF r then '                        got an error, try fallback path
+      VAR r = Scan(inam)
+      IF r THEN '                        got an error, try fallback path
         inam = absNam(BAS_FOLD, LEFT(PEEK(ZSTRING, x), c + i - x))
         r = Scan(inam)
-        if r then SKIP_FILE(r, inam) :        /' no chance '/ exit select
-      end if
+        IF r THEN SKIP_FILE(r, inam) :        /' no chance '/ EXIT SELECT
+      END IF
 
       inam = ";" & inam & ";"
       IF 0 = INSTR(DEPS, inam) THEN DEPS &= MID(inam, 2) ELSE EXIT SELECT
@@ -179,12 +180,12 @@ VAR fl = 1 '*< A flag if to interpret a string as file name to include.
 ALL_DEPS = ";"
 FOR i AS INTEGER = 2 TO __FB_ARGC__ - 1
   DEPS = ";"
-  var fnam = absNam(CURDIR(), COMMAND(i))
+  VAR fnam = absNam(CURDIR(), COMMAND(i)) '*< Full path / name of the file in process
   BAS_FOLD = LEFT(fnam, INSTRREV(fnam, SLASH) - 1)
-  var r = Scan(fnam)
-  IF r then
+  VAR r = Scan(fnam)  '*< Result of scanning process (<> 0 = error)
+  IF r THEN
     SKIP_FILE(r, fnam)
-  elseif LEN(DEPS) > 1 THEN
+  ELSEIF LEN(DEPS) > 1 THEN
     IF fl THEN ' write preamble (only once)
       PRINT #fnr, ""
       PRINT #fnr, "IF(NOT COMMAND ADD_FILE_DEPENDENCIES)"

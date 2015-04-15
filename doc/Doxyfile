@@ -231,6 +231,7 @@ TAB_SIZE               = 2
 # newlines.
 
 ALIASES                = "Email=Thomas{ dOt ]Freiherr[ aT ]gmx[DoT}net" \
+                         "Year=2015" \
                          "Item{1}=- <b>\1</b>:" \
                          "FbDeps=<A HREF=\"_pag_cmake_fb_deps.html\">cmake_fb_deps</A>" \
                          "Tar=<A HREF=\"_pag_usage.html#SecDirect\">ADD_Fbc_SRC_DEPS</A>" \
@@ -847,7 +848,7 @@ EXAMPLE_RECURSIVE      = NO
 # that contain images that are to be included in the documentation (see the
 # \image command).
 
-IMAGE_PATH             = img
+IMAGE_PATH             =
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should
 # invoke to filter for each input file. Doxygen will invoke the filter program

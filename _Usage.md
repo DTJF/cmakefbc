@@ -208,7 +208,7 @@ Where the argument separators have the following meanings
 \Item{SOURCES} A keyword followed by a list of FB source files to
    be compiled.
 
-\Item{<c_src_var>} The name of the variable to return the list of C
+\Item{`c_src_var`} The name of the variable to return the list of C
    source file names.
 
 All further parameters (not prepended by one of the above separators)

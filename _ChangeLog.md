@@ -13,7 +13,7 @@ cmakefbc-0.4 {#SecV-0-4}
 ============
 
 - cmake_fb_deps.bas: Improved path handling
-- cmake_fb_deps.bas: Warnings when #INCLUDE file not present (warns for each standard header)
+- cmake_fb_deps.bas: Warnings when #`INCLUDE` file not present (warns for each standard header)
 - doc/CMakeLists.txt: out-of-source build for documentation
 
 Released on 2015 March, 16.

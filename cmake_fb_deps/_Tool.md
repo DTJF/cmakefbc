@@ -2,25 +2,25 @@ Tool cmake_fb_deps  {#PagCmakeFbDeps}
 ==================
 \tableofcontents
 
-*cmake_fb_deps* is a tool that is
+*cmake_fb_deps* is a tool that
 
-- designed to be used with CMake extension *cmakefbc* (this package),
+- is designed to be used with CMake extension *cmakefbc* (this package),
 - to scan dependencies in FreeBASIC source code, and
 - generate a CMake include file to declare and up-date this dependencies in a project.
 
-Find build and install instructions in section \ref SecStep3.
+Find build and install instructions in section \ref SubSecStep3.
 
 
 Usage  {#SecUsage}
 =====
 
-Usually this tool doesn't get called by the user. Instead it gets
-called by the macro \Tar or by the function \Bas.
+Usually this tool doesn't get called directly by the user. Instead it
+gets called by the CMake macro \Tar or by the function \Bas.
 
 The calling signature is
 
 ~~~{.sh}
-./cmake_fb_deps <output> <input1> [[<input2>] <input3> ...]
+./cmake_fb_deps <output> <input1> [<input2> [<input3> [...]]]
 ~~~
 
 At least two arguments are required:
