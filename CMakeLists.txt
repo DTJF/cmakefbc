@@ -18,8 +18,7 @@ SET(PROJ_AUTH "TJF"                CACHE STRING "project authors" FORCE)
 SET(PROJ_MAIL "Thomas.Freiherr@gmx.net"  CACHE STRING "project mail address" FORCE)
 SET(PROJ_WEBS "http://www.freebasic-portal.de" CACHE STRING "project website" FORCE)
 SET(PROJ_LICE "GPLv3"              CACHE STRING "project licence" FORCE)
-STRING(TIMESTAMP tmp "%Y" UTC)
-SET(PROJ_YEAR "${tmp}"             CACHE STRING "project year" FORCE)
+SET(PROJ_YEAR "2015"               CACHE STRING "project year" FORCE)
 
 # Uncomment the next two lines to perform a standard build.
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/")
