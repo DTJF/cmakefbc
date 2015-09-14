@@ -146,10 +146,13 @@ IF(CMAKE_Fbc_COMPILER_WORKS)
   IF(NOT CMAKE_PLATFORM_INFO_DIR)
     SET(CMAKE_PLATFORM_INFO_DIR ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY})
   ENDIF()
+  IF(NOT CMAKE_MODULE_PATH)
+    SET(CMAKE_MODULE_PATH ${CMAKE_ROOT})
+  ENDIF()
 
   # Re-configure to save learned information.
   CONFIGURE_FILE(
-    ${CMAKE_ROOT}/Modules/CMakeFbcCompiler.cmake.in
+    ${CMAKE_MODULE_PATH}/Modules/CMakeFbcCompiler.cmake.in
     ${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake
     @ONLY IMMEDIATE # IMMEDIATE must be here for compatibility mode <= 2.0
     )
