@@ -8,7 +8,7 @@ SET(res ${CMAKE_CURRENT_BINARY_DIR}/html/index.html)
 
 IF(CMAKE_CURRENT_BINARY_DIR STREQUAL
    CMAKE_CURRENT_SOURCE_DIR)
-  SET(doxyconf ${CMAKE_BINARY_DIR}/CMakeFiles/Doxyfile)
+  SET(doxyconf ${CMAKE_CURRENT_SOURCE_DIR}/CMakeFiles/Doxyfile)
 ELSE()
   SET(doxyconf ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
 ENDIF()

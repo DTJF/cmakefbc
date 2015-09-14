@@ -63,9 +63,9 @@ CMake has internal dependency checking for a bunch of programming
 languages (C, CXX, RC, ASM, Fortran, Java). Unfortunately FreeBASIC
 isn't supported yet (effective December 2014). This means CMake does
 re-compile a target (object file) when the source code changed (*.bas).
-But it doesn't re-compile the target when related code included by
-#`INCLUDE` statements changed (*.bi or nested *.bas files). Those
-dependencies have to get managed by an external solution.
+But it doesn't re-compile the target when related code changed, which
+may get included by #`INCLUDE` statements (*.bi or nested *.bas files).
+Those dependencies have to get managed by an external solution.
 
 The cmake_fb_deps tool is the central component of such an external
 solution. It scans one or more FreeBASIC source code files and
@@ -106,7 +106,7 @@ If none of the FB source files contains an #`INCLUDE` file, the
 dependency file gets still created, but contains only a comment (the
 first line of the above example).
 
-The tool doesn't support conditional compiling yet. All nested source
-dependencies get specified, even if the #`INCLUDE` statement is in a
-preprocessor #`IF` block that doesn't get compiled on the current
-system.
+\note The tool doesn't support conditional compiling yet. All nested
+      source dependencies get specified, even if the #`INCLUDE`
+      statement is in a preprocessor #`IF` block that doesn't get
+      compiled on the current system.

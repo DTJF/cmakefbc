@@ -16,7 +16,7 @@ SET(PROJ_DESC "CMake support for FreeBASIC programming language" CACHE STRING "p
 SET(PROJ_VERS "0.4"                CACHE STRING "project version" FORCE)
 SET(PROJ_AUTH "TJF"                CACHE STRING "project authors" FORCE)
 SET(PROJ_MAIL "Thomas.Freiherr@gmx.net"  CACHE STRING "project mail address" FORCE)
-SET(PROJ_WEBS "http://www.freebasic-portal.de" CACHE STRING "project website" FORCE)
+SET(PROJ_WEBS "https://github.com/dtjf/fb-doc" CACHE STRING "project website" FORCE)
 SET(PROJ_LICE "GPLv3"              CACHE STRING "project licence" FORCE)
 SET(PROJ_YEAR "2015"               CACHE STRING "project year" FORCE)
 

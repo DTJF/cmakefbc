@@ -34,7 +34,7 @@ Released on 2015 January, 15.
 cmakefbc-0.0 {#SecV-0-0}
 ============
 
-Released on 2014 November, 30.
+Initial release on 2014 November, 30.
 
 
 
