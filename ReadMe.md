@@ -10,11 +10,11 @@ The package is [hosted at GitHub](https://github.com/DTJF/cmakefbc) and
 it includes
 
 - CMake macros to extend the CMake system, and
-  - checks for the FB compiler and its version,
-  - tests the compiler,
-  - declares internal CMake language variables (CMAKE_Fbc_...),
-  - declares a macro to scan dependencies in FB source code, and
-  - declares a function to pre-compile FB source to C source.
+  - check for the FB compiler and its version,
+  - test the compiler,
+  - declare internal CMake language variables (CMAKE_Fbc_...),
+  - declare a macro to scan dependencies in FB source code, and
+  - declare a function to pre-compile FB source to C source.
 
 - the tool cmake_fb_deps.bas to
   - scan the dependency files in FreeBASIC source trees and

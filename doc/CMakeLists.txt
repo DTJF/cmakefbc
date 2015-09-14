@@ -36,6 +36,7 @@ ADD_CUSTOM_COMMAND(OUTPUT ${res}
   COMMAND doxygen ${doxyconf}
   COMMAND fbdoc -s ${doxyconf}
   DEPENDS ${lfn} ${inp} ${doxyconf}
+    ../CMakeLists.txt
     ../ReadMe.md
     ../_Install.md
     ../_Usage.md
@@ -46,7 +47,6 @@ ADD_CUSTOM_COMMAND(OUTPUT ${res}
 
 
 # declare the target name and the source file[s]
-#ADD_CUSTOM_TARGET(doc DEPENDS ${lfn} ${doxyconf} ${res})
 ADD_CUSTOM_TARGET(doc DEPENDS ${res})
 
 # declare installation rule

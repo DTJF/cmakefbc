@@ -6,7 +6,14 @@ Changelog & Credits {#PagChangelog}
 Further Development {#SecFurtherVev}
 ===================
 
-Feel free to send your ideas to the author (Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT }net).
+Feel free to send your ideas to the author (\Email).
+
+
+cmakefbc-0.4.2 {#SecV-0-4-2}
+==============
+
+- doc: minor fixes and improvements
+- install: bug CMAKE_MODULE_PATH fixed for old versions (< 2.8.10)
 
 
 cmakefbc-0.4 {#SecV-0-4}
