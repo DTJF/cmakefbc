@@ -13,7 +13,7 @@ cmakefbc-0.4.2 {#SecV-0-4-2}
 ==============
 
 - doc: minor fixes and improvements
-- bugfix: ReadMe.md aliases \Year & \Email replaced by text
+- bugfix: ReadMe.md aliases replaced by text
 - install: bug CMAKE_MODULE_PATH fixed for old versions (< 2.8.10)
 
 

@@ -70,12 +70,13 @@ In the above example there's just one FB source file in the
 CMake scans dependency trees for source files, but only for native
 languages (C, C++, RC, ASM, Fortran and Java). This is a useful feature
 since an object file only gets re-build when one of the related source
-files changed. This package provides an external solution for this
-feature. Therefor, and in contrast to the CMake documentation, only the
-compilable source files (*.bas) gets specified in an `ADD_EXECUTABLE`
-or `ADD_LIBRARY` command. A further command builds the dependency trees
-later for all source files of that target (it also work for
-`ADD_CUSTOM_TARGTET` command):
+files changed. Since FB isn't a native language, this package has to
+provide an external solution for this feature. Therefor, and in
+contrast to the CMake documentation, only the compilable source files
+(*.bas) gets specified in an `ADD_EXECUTABLE` or `ADD_LIBRARY` command
+(it also works for the `ADD_CUSTOM_TARGTET` command). The command
+`ADD_Fbc_SRC_DEPS` builds the dependency trees later for all source
+files of that target:
 
 ~~~{.cmake}
 # declare the required CMake version (optional)
@@ -224,9 +225,9 @@ get interpreted as FB source file names.
 Shipping  {#SecShipping}
 ========
 
-When shipping the soucre code, the recipient needs the new CMake macro
-set to manage your project. Unfortunately these macros do not come with
-CMake at the moment (effective 2015, Jan.).
+When shipping your project, the recipient needs the new CMake macros to
+manage your project. Unfortunately these macros do not come with CMake
+at the moment (effective 2015, Jan.).
 
 This means you have to include the macros to your project, as it is
 done in this package. Therefor just copy the folder *cmake* to the root

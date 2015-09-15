@@ -1,4 +1,4 @@
-Welcome to package cmakefbc, an extension for the CMake build
+Welcome to project cmakefbc, an extension for the CMake build
 management system to support the FreeBASIC (FB) programming language.
 Find further information on that components at the following links
 
@@ -27,7 +27,7 @@ http://users.freebasic-portal.de/tjf/Projekte/cmakefbc/doc/html/.
 Licence
 =======
 
-Copyright (C) 2014-2015, Thomas{ doT ]Freiherr[ At ]gmx[ DoT }net
+GPLv3: Copyright (C) 2014-2015, Thomas{ doT ]Freiherr[ At ]gmx[ DoT }net
 
 This bundle is free software; you can redistribute the sources and/or
 modify them under the terms of the GNU General Public License version 3
