@@ -73,6 +73,9 @@ $ cd cmakefbc/
 cmakefbc$ cmake .
 -- Tool cmake_fb_deps not available -> no Fbc extensions!
 -- Check for working Fbc compiler OK ==> /usr/local/bin/fbc (FreeBASIC 1.01.0)
+-- Check for working fb-doc tool OK ==> /usr/local/bin/fb-doc (0.4.0)
+-- Found Doxygen: /usr/bin/doxygen (found version "1.8.6")
+-- FB_DOCUMENTATION configured: SELFDEP;PROJDATA;LFN targets doc;doc_www;doc_htm;doc_pdf
 -- Configuring done
 -- Generating done
 -- Build files have been written to: .../cmakefbc
@@ -89,15 +92,15 @@ cmakefbc$ sudo make install
 Install the project...
 -- Install configuration: ""
 -- Installing: /usr/share/cmake-2.8/Modules
+-- Installing: /usr/share/cmake-2.8/Modules/UseFb-Doc.cmake
 -- Installing: /usr/share/cmake-2.8/Modules/CMakeTestFbcCompiler.cmake
 -- Installing: /usr/share/cmake-2.8/Modules/CMakeFbcCompiler.cmake.in
 -- Installing: /usr/share/cmake-2.8/Modules/Platform
 -- Installing: /usr/share/cmake-2.8/Modules/Platform/Windows-fbc.cmake
 -- Installing: /usr/share/cmake-2.8/Modules/Platform/Linux-fbc.cmake
 -- Installing: /usr/share/cmake-2.8/Modules/CMakeDetermineFbcCompiler.cmake
--- Installing: /usr/share/cmake-2.8/Modules/CMakeFbcInformation.cmake
 -- Installing: /usr/share/cmake-2.8/Modules/FindFb-Doc.cmake
--- Installing: /usr/share/cmake-2.8/Modules/UseFb-Doc.cmake
+-- Installing: /usr/share/cmake-2.8/Modules/CMakeFbcInformation.cmake
 -- Installing: /usr/local/bin/cmake_fb_deps
 ~~~
 

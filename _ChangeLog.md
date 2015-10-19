@@ -30,9 +30,10 @@ Here's a list of the published versions:
 
 ## cmakefbc-0.4.2 {#SecV-0-4-2}
 
+- new: CMake script files FindFb-Doc.cmake and UseFb-Doc.cmake
 - doc: new page Files and Folders, minor fixes and improvements
 - listing: documentational comments stripped
-- bugfix: ReadMe.md aliases replaced by text
+- bugfix: ReadMe.md.in file replaces aliases by text (for GitHub start page)
 - install: bug CMAKE_MODULE_PATH fixed for old versions (< 2.8.10)
 
 

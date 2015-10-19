@@ -144,7 +144,7 @@ FB_DOCUMENTATION(
   NO_SELFDEP
   NO_PROJDATA
   DOXYFILE MyCustomDoxyfile
-  MIRROR_CMD BatchScrpt.sh
+  MIRROR_CMD BatchScript.sh
   DEPENDS
     ../ReadMe.md
     ../_Install.md
@@ -206,7 +206,7 @@ STRIP_FROM_INC_PATH    = xyz/abc
   further option for \Doxygen).
 
 \Item{MIRROR_CMD} A keyword followed by a single string containing the
-  command to mirror the local HTML tree to a webserver (`BatchScrpt.sh`
+  command to mirror the local HTML tree to a webserver (`BatchScript.sh`
   in the above example). See \ref SubSubSecDocWww for details.
 
 \Item{BAS_SRC} A keyword followed by a list (on or more strings)

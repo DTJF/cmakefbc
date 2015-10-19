@@ -43,8 +43,10 @@ FUNCTION(FB_DOCUMENTATION)
     FILE(APPEND ${errfile} "${msg}\n\n")
     RETURN()
   ENDIF()
+  SET(msg "")
   IF(NOT ARG_NO_SELFDEP) #             add doc script to dependency list
     LIST(APPEND ARG_DEPENDS CMakeLists.txt)
+    LIST(APPEND msg "SELFDEP")
   ENDIF()
 
   SET(doxyext ${CMAKE_CURRENT_BINARY_DIR}/DoxyExtension) # ext file name
@@ -63,6 +65,7 @@ ALIASES += \"Mail=${PROJ_MAIL}\" \\
            \"Webs=${PROJ_WEBS}\"
 "
       )
+    LIST(APPEND msg "PROJDATA")
   ENDIF()
   FILE(WRITE ${doxyext} #                           write extension file
 "
@@ -81,8 +84,6 @@ FILTER_SOURCE_PATTERNS = *.bas=${FbDoc_EXECUTABLE} \\
   ADD_CUSTOM_TARGET(doc) #                           generate target doc
 
   IF(NOT ARG_NO_LFN) #                          generate file fb-doc.lfn
-    #SET(msg "FB_DOCUMENTATION: generate list of function names")
-    #FILE(APPEND ${logfile} "${msg}\n\n")
     SET(lfn ${CMAKE_CURRENT_SOURCE_DIR}/fb-doc.lfn)
     LIST(APPEND ARG_DEPENDS ${lfn})
     ADD_CUSTOM_COMMAND(OUTPUT ${lfn}
@@ -90,6 +91,7 @@ FILTER_SOURCE_PATTERNS = *.bas=${FbDoc_EXECUTABLE} \\
       DEPENDS ${ARG_BAS_SRC}
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
       )
+    LIST(APPEND msg "LFN")
   ENDIF()
   SET(targets "doc")
   SET(nout
@@ -103,7 +105,7 @@ GENERATE_RTF     = NO
       )
   IF(NOT ARG_NO_WWW) # generate target doc_www (mirror local tree to server)
     IF(NOT ARG_MIRROR_CMD)
-      SET(ARG_MIRROR_CMD "MirrorDoc.sh '--reverse --delete --verbose ${CMAKE_CURRENT_BINARY_DIR}/html public_html/Projekte/${PROJ_NAME}/doc/html'")
+      SET(ARG_MIRROR_CMD MirrorDoc.sh '--reverse --delete --verbose ${CMAKE_CURRENT_BINARY_DIR}/html public_html/Projekte/${PROJ_NAME}/doc/html')
     ENDIF()
     SET(wwwfile ${CMAKE_CURRENT_BINARY_DIR}/DocWWW.time)
     ADD_CUSTOM_COMMAND(OUTPUT ${wwwfile}
@@ -161,6 +163,6 @@ LATEX_OUTPUT     = latex
     ADD_DEPENDENCIES(doc DEPENDS doc_pdf)
     LIST(APPEND targets "doc_pdf")
   ENDIF()
-  #FILE(APPEND ${logfile} "FB_DOCUMENTATION configured (targets: ${targets})\n\n")
+  MESSAGE(STATUS "FB_DOCUMENTATION configured: ${msg} targets ${targets}")
 ENDFUNCTION(FB_DOCUMENTATION)
 
