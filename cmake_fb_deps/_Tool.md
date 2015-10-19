@@ -4,9 +4,9 @@ Tool cmake_fb_deps  {#PagCmakeFbDeps}
 
 *cmake_fb_deps* is a tool that
 
-- is designed to be used with CMake extension *cmakefbc* (this package),
-- to scan dependencies in FreeBASIC source code, and
-- generate a CMake include file to declare and up-date this dependencies in a project.
+- is designed to be used with \CMake extension \Proj (this package),
+- to scan dependencies in \FB source code, and
+- generate a \CMake include file to declare and up-date this dependencies in a project.
 
 Find build and install instructions in section \ref SubSecStep3.
 
@@ -15,7 +15,7 @@ Usage  {#SecUsage}
 =====
 
 Usually this tool doesn't get called directly by the user. Instead it
-gets called by the CMake macro \Tar or by the function \Bas.
+gets called by the \CMake macro \Tar or by the function \Bas.
 
 The calling signature is
 
@@ -59,25 +59,25 @@ time in that case (option -t).
 Background  {#SecBackground}
 ==========
 
-CMake has internal dependency checking for a bunch of programming
-languages (C, CXX, RC, ASM, Fortran, Java). Unfortunately FreeBASIC
-isn't supported yet (effective December 2014). This means CMake does
+\CMake has internal dependency checking for a bunch of programming
+languages (C, CXX, RC, ASM, Fortran, Java). Unfortunately \FB
+isn't supported yet (effective December 2014). This means \CMake does
 re-compile a target (object file) when the source code changed (*.bas).
 But it doesn't re-compile the target when related code changed, which
 may get included by #`INCLUDE` statements (*.bi or nested *.bas files).
 Those dependencies have to get managed by an external solution.
 
 The cmake_fb_deps tool is the central component of such an external
-solution. It scans one or more FreeBASIC source code files and
-generates a dependency file to be included in the CMake project
+solution. It scans one or more \FB source code files and
+generates a dependency file to be included in the \CMake project
 declarations (files named CMakeList.txt). Each FB source file gets an
-entry in the CMake include file, if it contains nested source files.
+entry in the \CMake include file, if it contains nested source files.
 This entry lists all nested FB source file names (including absolute
-path) in CMake syntax. Only nested code in the project gets scanned,
+path) in \CMake syntax. Only nested code in the project gets scanned,
 and headers in the FB include directory get skipped (ie. like
 "dir.bi").
 
-Before the dependency entries the CMake macro `ADD_FILE_DEPENDENCIES`
+Before the dependency entries the \CMake macro `ADD_FILE_DEPENDENCIES`
 gets loaded (if not present) and behind the entries a custom command
 gets generated, that updates the dependency file (itself) in case of
 any change of one of the nested FB source files. The custom command

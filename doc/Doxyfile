@@ -142,7 +142,7 @@ INLINE_INHERITED_MEMB  = NO
 # shortest path that makes the file name unique will be used
 # The default value is: YES.
 
-FULL_PATH_NAMES        = YES
+FULL_PATH_NAMES        = NO
 
 # The STRIP_FROM_PATH tag can be used to strip a user-defined part of the path.
 # Stripping is only done if one of the specified strings matches the left-hand
@@ -230,12 +230,14 @@ TAB_SIZE               = 2
 # "Side Effects:". You can put \n's in the value part of an alias to insert
 # newlines.
 
-ALIASES                = "Email=Thomas{ dOt ]Freiherr[ aT ]gmx[DoT}net" \
-                         "Year=2015" \
+ALIASES                = "FbDoc=[fb-doc](http://github.com/DTJF/fb-doc)" \
+                         "Doxygen=[Doxygen](http://www.doxygen.org/)" \
+                         "CMake=[CMake](http://www.cmake.org)" \
+                         "FB=[FreeBASIC](http://www.freebasic.net)" \
                          "Item{1}=- <b>\1</b>:" \
-                         "FbDeps=<A HREF=\"_pag_cmake_fb_deps.html\">cmake_fb_deps</A>" \
-                         "Tar=<A HREF=\"_pag_usage.html#SecDirect\">ADD_Fbc_SRC_DEPS</A>" \
-                         "Bas=<A HREF=\"_pag_usage.html#SecIndirect\">BAS_2_C</A>"
+                         "FbDeps=[cmake_fb_deps](#PagCmakeFbDeps)" \
+                         "Tar=[ADD_Fbc_SRC_DEPS](#SecDirect)" \
+                         "Bas=[BAS_2_C](#SecIndirect)"
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"
@@ -758,7 +760,8 @@ WARN_LOGFILE           =
 # spaces.
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = ../
+INPUT                  = ../cmake_fb_deps/ \
+                         ../
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -786,7 +789,7 @@ FILE_PATTERNS          = *.bi \
 # be searched for input files as well.
 # The default value is: NO.
 
-RECURSIVE              = YES
+RECURSIVE              = NO
 
 # The EXCLUDE tag can be used to specify files and/or directories that should be
 # excluded from the INPUT source files. This way you can easily exclude a

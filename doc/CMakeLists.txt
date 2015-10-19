@@ -2,57 +2,21 @@
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.3)
 
-SET(inp ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile)
-SET(lfn ${CMAKE_CURRENT_SOURCE_DIR}/fb-doc.lfn)
-SET(res ${CMAKE_CURRENT_BINARY_DIR}/html/index.html)
-
-IF(CMAKE_CURRENT_BINARY_DIR STREQUAL
-   CMAKE_CURRENT_SOURCE_DIR)
-  SET(doxyconf ${CMAKE_CURRENT_SOURCE_DIR}/CMakeFiles/Doxyfile)
-ELSE()
-  SET(doxyconf ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+IF(NOT COMMAND FB_DOCUMENTATION)
+  INCLUDE(UseFb-Doc)
 ENDIF()
 
-IF(UNIX)
-SET(com cat)
-ELSE()
-SET(com type)
-ENDIF()
-
-ADD_CUSTOM_COMMAND(OUTPUT ${lfn}
-  COMMAND fbdoc -l
-  DEPENDS ../cmake_fb_deps/cmake_fb_deps.bas
-  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+FB_DOCUMENTATION(
+BAS_SRC
+  ../cmake_fb_deps/cmake_fb_deps.bas
+DEPENDS
+  ../ReadMe.md
+  ../_Install.md
+  ../_Usage.md
+  ../_ChangeLog.md
+  ../_FileFold.md
+  ../cmake_fb_deps/_Tool.md
+  Doxyfile
+  cmakefbc.xml
+  ../CMakeLists.txt
   )
-
-ADD_CUSTOM_COMMAND(OUTPUT ${doxyconf}
-  COMMAND ${CMAKE_COMMAND} -E copy ${inp} ${doxyconf}
-  COMMAND ${com} DoxyExtension >> ${doxyconf}
-  DEPENDS ${inp} ${CMAKE_CURRENT_SOURCE_DIR}/DoxyExtension.in
-  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-  )
-
-ADD_CUSTOM_COMMAND(OUTPUT ${res}
-  COMMAND doxygen ${doxyconf}
-  COMMAND fbdoc -s ${doxyconf}
-  DEPENDS ${lfn} ${inp} ${doxyconf}
-    ../CMakeLists.txt
-    ../ReadMe.md
-    ../_Install.md
-    ../_Usage.md
-    ../_ChangeLog.md
-    ../cmake_fb_deps/_Tool.md
-  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-  )
-
-
-# declare the target name and the source file[s]
-ADD_CUSTOM_TARGET(doc DEPENDS ${res})
-
-# declare installation rule
-#INSTALL(
-  #DIRECTORY ${tar}
-  #DESTINATION share/doc/${CMAKE_PROJECT_NAME}
-  #)
-
-CONFIGURE_FILE(DoxyExtension.in DoxyExtension @ONLY)

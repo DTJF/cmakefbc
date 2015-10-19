@@ -2,14 +2,14 @@ Usage  {#PagUsage}
 =====
 \tableofcontents
 
-The CMake build system is a powerful tool to build and test a project
+The \CMake build system is a powerful tool to build and test a project
 and to pack it in to archives or installers. Describing all features of
 this build management system is far beyond the scope of this
-documentation (see http://http://www.cmake.org/documentation/ for
+documentation (see http://www.cmake.org/documentation/ for
 details). Find here some specials regarding the FB adaptions.
 
-This package binds the FB compiler in to the CMake build system.
-It supports two ways how to use the FB compiler:
+This package binds the FB compiler in to the \CMake build management
+system. It supports two ways how to use the FB compiler:
 
 - Direct compiling (.bas to binaries = object files), and
 - indirect compiling (.bas to .c).
@@ -25,8 +25,7 @@ code. But in most cases it's more convenient to compile directly, since
 you'll have less files in your project folders.
 
 
-Direct Compiling  {#SecDirect}
-================
+# Direct Compiling  {#SecDirect}
 
 Direct compiling uses the FB compiler to generate the object files from
 each source file specified for a top level target (executable or
@@ -67,12 +66,12 @@ In the above example there's just one FB source file in the
       to specify the compile flag `-m` to tell the FB compiler where to
       find the main code.
 
-CMake scans dependency trees for source files, but only for native
+\CMake scans dependency trees for source files, but only for native
 languages (C, C++, RC, ASM, Fortran and Java). This is a useful feature
 since an object file only gets re-build when one of the related source
 files changed. Since FB isn't a native language, this package has to
 provide an external solution for this feature. Therefor, and in
-contrast to the CMake documentation, only the compilable source files
+contrast to the \CMake documentation, only the compilable source files
 (*.bas) gets specified in an `ADD_EXECUTABLE` or `ADD_LIBRARY` command
 (it also works for the `ADD_CUSTOM_TARGTET` command). The command
 `ADD_Fbc_SRC_DEPS` builds the dependency trees later for all source
@@ -101,7 +100,7 @@ SET_TARGET_PROPERTIES(MyLib PROPERTIES
 ~~~
 
 This `ADD_Fbc_SRC_DEPS` command requires a single parameter, which is
-the name of the target. The related CMake macro reads all source files
+the name of the target. The related \CMake macro reads all source files
 from the target properties and calls the \FbDeps tool to create a file
 with the dependency trees. Then, this macro includes the generated file
 in to your CMakeLists.txt file. The generated file also contains a
@@ -117,8 +116,7 @@ are related to the changed source files.
       Fbc extensions!`.
 
 
-Indirect Compiling  {#SecIndirect}
-==================
+# Indirect Compiling  {#SecIndirect}
 
 Indirect compiling uses the FB compiler to generate C source code form
 the .bas files and then uses a C compiler tool chain to generate the
@@ -222,11 +220,10 @@ get interpreted as FB source file names.
       CMakeFiles/CMakeOutput.log.
 
 
-Shipping  {#SecShipping}
-========
+# Shipping  {#SecShipping}
 
 When shipping your project, the recipient needs the new CMake macros to
-manage your project. Unfortunately these macros do not come with CMake
+manage your project. Unfortunately these macros do not come with \CMake
 at the moment (effective 2015, Jan.).
 
 This means you have to include the macros to your project, as it is
@@ -239,7 +236,7 @@ of your root CMakeLists.txt file (right under
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 ~~~
 
-This makes CMake to search for macro files in the specified directory
+This makes \CMake to search for macro files in the specified directory
 first.
 
 \note The `CMAKE_MODULE_PATH` has higher priority than the `CMAKE_ROOT`

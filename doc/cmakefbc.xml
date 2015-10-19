@@ -4,11 +4,12 @@
   <navindex>
     <tab type="mainpage" visible="yes" title="cmakefbc"/>
     <tab type="pages" visible="no" title="" intro=""/>
-    <tab type="usergroup" title="Tutorial">
+    <tab type="usergroup" title="Description">
       <tab type="user" url="@ref PagInstall" title="Installation"/>
       <tab type="user" url="@ref PagUsage" title="Usage"/>
       <tab type="user" url="@ref PagCmakeFbDeps" title="Tool cmake_fb_deps"/>
-      <tab type="user" url="@ref PagChangelog" title="Changelog &amp; Credits"/>
+      <tab type="user" url="@ref PagFileFold" title="Files and Folders"/>
+      <tab type="user" url="@ref PagChangelog" title="Changelog and Credits"/>
     </tab>
 
     <tab type="modules" visible="yes" title="" intro=""/>

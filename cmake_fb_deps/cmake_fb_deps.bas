@@ -2,7 +2,7 @@
 \brief The source code of the tool cmake_fb_deps.
 \since 0.0
 
-Copyright (C) 2014-\Year, \Email
+Copyright (C) 2014-\Year, \Mail
 
 Licence GPLv3
 

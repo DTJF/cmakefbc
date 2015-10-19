@@ -1,2 +1,3 @@
 *.bas linguist-language=FreeBASIC
+*.bi linguist-language=FreeBASIC
 src/doc/* linguist-documentation
