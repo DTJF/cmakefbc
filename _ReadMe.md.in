@@ -1,23 +1,26 @@
-Welcome to project @PROJ_NAME@, an extension for the \CMake build
-management system to support the \FB (FB) programming language.
+Welcome to project @PROJ_NAME@, an extension for the CMake build
+management system to support the FreeBASIC (FB) programming language.
 Find further information on that components at the following links
 
-- about \CMake, and
-- about \FB
+- about [CMake](http://www.cmake.org), and
+- about [FreeBASIC](http://www.freebasic.net)
 
-The package is [hosted at GitHub](@PROJ_WEBS@) and
-it includes
+The package is [hosted at GitHub](@PROJ_WEBS@) and it includes
 
-- \CMake macros to extend the CMake system, in order to
+- CMake macros to extend the CMake build management system, in order to
   - check for the FB compiler and its version,
   - test the compiler,
-  - declare internal \CMake language variables (CMAKE_Fbc_...),
+  - declare internal CMake language variables (CMAKE_Fbc_...),
   - declare a macro to scan dependencies in FB source code, and
   - declare a function to pre-compile FB source to C source.
 
-- the tool \FbDeps to
-  - scan the dependency files in \FB source trees and
+- the tool [cmake_fb_deps](#PagCmakeFbDeps) to
+  - scan the dependency files in FB source trees and
   - integrate them in to a projects build tree.
+
+- a CMake script and a  macro for the tool [fb-doc](http://github.com/DTJF/fb-doc) to
+  - find the executable and
+  - use it to build the documentation with the [Doxygen](http://www.doxygen.org/) generator
 
 Find the online documentation at
 http://users.freebasic-portal.de/tjf/Projekte/cmakefbc/doc/html/.

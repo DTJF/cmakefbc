@@ -21,7 +21,7 @@ a working installation of some programming tools
 
 - the [GIT version control system](http://http://git-scm.com/),
 - the \CMake build system, and
-- the [FB compiler](http://www.freebasic.net).
+- the \FB compiler.
 
 And you may want to install these optional packages in order to be able
 to adapt the documentation
@@ -128,19 +128,20 @@ the build process don't polute the source tree.
 ## Documentation Build  {#SubSecBuildDoc}
 
 In both cases (in-source or out-of-source build) the package is
-prepared to build a documentation in form of a html tree (including the
-document you're currently reading). This gets created by the \Doxygen
-generator and the \FbDoc tool to extract (filter) the documentation
-context from the \FB source code. Generate html files in subfolder
-doc/html by executing
+prepared to build a documentation in form of a PDF file and a HTML tree
+(including the document you're currently reading). This gets created by
+the \Doxygen generator, using the \FbDoc tool to extract (filter) the
+documentation context from the \FB source code. Generate PDF and HTML
+files by executing
 
 ~~~{.sh}
 make doc
 ~~~
 
-You can customize the output or generate additional LaTeX or XML output
-by adapting the Doxygen configuration file `Doxyfile` in the folder
-`doc`.
+Find the output in file `cmakefbc.pdf` and the HTML startpage in file
+`doc/html/index.html`. You can customize the output by adapting the
+Doxygen configuration file `Doxyfile` in the folder `doc`. Find further
+information on the documentation build in section \ref SubSecMacroUse.
 
 
 # Testing Build  {#SecBuild1}
@@ -152,7 +153,7 @@ and then uses this fresh install to build the subproject.
 
 ## Step 1 Preparation  {#SubSecStep1}
 
-In the just unpacked package root directory, load the file
+In the fresh unpacked package root directory, load the file
 `CMakeLists.txt` in to an editor, and comment the following lines
 
 ~~~{.cmake}
@@ -167,8 +168,8 @@ subproject cmake_fb_deps from the build tree.
 
 ## Step 2 CMake FB Extension Macros  {#SubSecStep2}
 
-Now use \CMake to install the macros for FB programming language support
-by executing the command sequence
+Now use \CMake to install the macros for \FB programming language
+support by executing the command sequence
 
 ~~~{.sh}
 cd cmakefbc
@@ -204,28 +205,28 @@ Install the project...
 -- Installing: /usr/share/cmake-2.8/Modules/Platform/Windows-fbc.cmake
 ~~~
 
-The lines starting with the text `-- Installing:` indicate that six
+The lines starting with the text `-- Installing:` indicate that eight
 configuration files have been copied to the correct location in to the
-\CMake Modules directory and its subfolder Platform. The \CMake build
-management system is now ready to address the FB language, and to
+\CMake `Modules` directory and its subfolder `Platform`. The \CMake build
+management system is now ready to address the \FB language, and to
 compile simple projects like the \FbDeps tool. Big projects may contain
 several source files and headers and some of those source files depend
 on others. In order to let \CMake handle this dependencies to re-compile
 only the related files, a further tool is necessary.
 
-The tool \FbDeps helps to resolve FB dependencies in big projects with
+The tool \FbDeps helps to resolve \FB dependencies in big projects with
 complex source file trees. We compile its source with \CMake in the next
 step, and thereby test the newly installed configuration files.
 
 
 ## Step 3 cmake_fb_deps tool  {#SubSecStep3}
 
-The cmake_fb_deps tool auto-generates a \CMake include file declaring
-the FB source file dependencies. So it's an essential component of this
+The \FbDeps tool auto-generates a \CMake include file declaring the \FB
+source file dependencies. So it's an essential component of this
 package and should get build and installed, if you intend to use the
 \Tar and \Bas features to build big projects.
 
-Once you installed the \CMake FB extension macros (step 2), you can use
+Once you installed the \CMake \FB extension macros (step 2), you can use
 \CMake to build the executable of this tool by executing those commands
 
 ~~~{.sh}
@@ -266,7 +267,7 @@ Install the project...
 ~~~
 
 Now your CMake installation is complete. It's ready to use all features
-of this package and to build complex FB projects on your system.
+of this package and to build complex \FB projects on your system.
 
 
 # Uninstall  {#SecUninstall}
