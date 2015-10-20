@@ -12,7 +12,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8.3)
 # constants
 SET(PROJ_NAME "cmakefbc"           CACHE STRING "project name" FORCE)
 SET(PROJ_DESC "CMake support for FreeBASIC programming language" CACHE STRING "project description" FORCE)
-SET(PROJ_VERS "0.4.2"              CACHE STRING "project version" FORCE)
+SET(PROJ_VERS "0.4.3"              CACHE STRING "project version" FORCE)
 SET(PROJ_AUTH "DTJF"               CACHE STRING "project authors" FORCE)
 SET(PROJ_MAIL "Thomas{ doT ]Freiherr[ At ]gmx[ DoT }net"  CACHE STRING "project mail address" FORCE)
 SET(PROJ_WEBS "https://github.com/DTJF/cmakefbc" CACHE STRING "project website" FORCE)
