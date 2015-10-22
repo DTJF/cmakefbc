@@ -131,7 +131,7 @@ FUNCTION Scan(BYREF Fnam AS STRING) AS ZSTRING PTR
       IF r THEN '                        got an error, try fallback path
         inam = absNam(BAS_FOLD, snam)
         r = Scan(inam)
-        IF r THEN SKIP_FILE(r, snam) :        /' no chance '/ EXIT SELECT
+        IF r THEN SKIP_FILE(r, snam & " (from " & Fnam & ")") : EXIT SELECT ' no chance
       END IF
 
       inam = ";" & inam & ";"
