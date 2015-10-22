@@ -75,11 +75,11 @@ IF(NOT CMAKE_PLATFORM_INFO_DIR)
   SET(CMAKE_PLATFORM_INFO_DIR ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY})
 ENDIF()
 IF(NOT CMAKE_MODULE_PATH)
-  SET(CMAKE_MODULE_PATH ${CMAKE_ROOT})
+  SET(CMAKE_MODULE_PATH ${CMAKE_ROOT}/Modules/)
 ENDIF()
 
 # configure variables set in this file for fast reload later on
-CONFIGURE_FILE(${CMAKE_MODULE_PATH}/CMakeFbcCompiler.cmake.in
+CONFIGURE_FILE(${CMAKE_MODULE_PATH}CMakeFbcCompiler.cmake.in
   ${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake
   @ONLY IMMEDIATE # IMMEDIATE must be here for compatibility mode <= 2.0
   )
