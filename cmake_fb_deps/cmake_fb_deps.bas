@@ -125,12 +125,13 @@ FUNCTION Scan(BYREF Fnam AS STRING) AS ZSTRING PTR
         CASE ASC("""") : IF c[i + 1] = ASC("""") THEN i += 1 ELSE EXIT DO
         END SELECT
       LOOP : IF 0 = fl THEN EXIT SELECT
-      VAR inam = absNam(fold, LEFT(PEEK(ZSTRING, x), c + i - x))
+      VAR snam = LEFT(PEEK(ZSTRING, x), c + i - x) _
+        , inam = absNam(fold, snam)
       VAR r = Scan(inam)
       IF r THEN '                        got an error, try fallback path
-        inam = absNam(BAS_FOLD, LEFT(PEEK(ZSTRING, x), c + i - x))
+        inam = absNam(BAS_FOLD, snam)
         r = Scan(inam)
-        IF r THEN SKIP_FILE(r, inam) :        /' no chance '/ EXIT SELECT
+        IF r THEN SKIP_FILE(r, snam) :        /' no chance '/ EXIT SELECT
       END IF
 
       inam = ";" & inam & ";"
