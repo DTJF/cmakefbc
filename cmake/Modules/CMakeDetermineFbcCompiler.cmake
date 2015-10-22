@@ -79,7 +79,7 @@ IF(NOT CMAKE_MODULE_PATH)
 ENDIF()
 
 # configure variables set in this file for fast reload later on
-CONFIGURE_FILE(${CMAKE_MODULE_PATH}CMakeFbcCompiler.cmake.in
+CONFIGURE_FILE(${CMAKE_MODULE_PATH}/CMakeFbcCompiler.cmake.in
   ${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake
   @ONLY IMMEDIATE # IMMEDIATE must be here for compatibility mode <= 2.0
   )
