@@ -22,7 +22,7 @@ IF(NOT FbDoc_WORKS)
   )
 
   IF(FbDoc_EXECUTABLE EQUAL "")
-    MESSAGE(FATAL_ERROR "${fbdoc} tool not found! (tried command ${fbdoc})")
+    MESSAGE(STATUS "${fbdoc} tool not found! (tried command ${fbdoc})")
     FILE(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log
       "Finding the ${fbdoc} tool failed!")
     RETURN()
@@ -36,7 +36,7 @@ IF(NOT FbDoc_WORKS)
     )
 
   IF(NOT (result EQUAL "0"))
-    MESSAGE(FATAL_ERROR "${fbdoc} tool not executable! (tried command ${fbdoc})")
+    MESSAGE(STATUS "${fbdoc} tool not executable! (tried command ${fbdoc})")
     FILE(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log
       "Executing the ${fbdoc} tool failed!")
     RETURN()

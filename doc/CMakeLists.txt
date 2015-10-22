@@ -11,12 +11,13 @@ BAS_SRC
   ../cmake_fb_deps/cmake_fb_deps.bas
 DEPENDS
   ../ReadMe.md
-  ../_Install.md
-  ../_Usage.md
-  ../_ChangeLog.md
-  ../_FileFold.md
-  ../cmake_fb_deps/_Tool.md
+  ../_1_Install.md
+  ../_2_Usage.md
+  ../cmake_fb_deps/_3_Tool.md
+  ../_4_FileFold.md
+  ../_9_ChangeLog.md
   Doxyfile
+  cmakefbc.css
   cmakefbc.xml
   ../CMakeLists.txt
   )
