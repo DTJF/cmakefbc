@@ -8,6 +8,7 @@ install_manifest.txt
 CMakeCache.txt
 cmake_fb_deps/cmake_fb_deps
 fbp.txt
+doc/fb-doc.lfn
 
 # Use wildcards as well
 CPack*

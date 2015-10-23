@@ -142,15 +142,8 @@ IF(CMAKE_Fbc_COMPILER_WORKS)
       "the following output:\n${OUTPUT}\n\n")
   ENDIF()
 
-  #SET(conf_file ${CMAKE_ROOT}/Modules/CMakeFbcCompiler.cmake.in)
-  #IF(NOT EXISTS ${conf_file})
-#message(STATUS "TestFbc --> kein ${conf_file}")
-    #SET(conf_file ${CMAKE_SOURCE_DIR}/cmake/Modules/CMakeFbcCompiler.cmake.in)
-  #ENDIF()
-
-  GET_FILENAME_COMPONENT(modpath ${CMAKE_CURRENT_LIST_FILE} PATH)
-
   # Re-configure to save learned information.
+  GET_FILENAME_COMPONENT(modpath ${CMAKE_CURRENT_LIST_FILE} PATH)
   CONFIGURE_FILE(
     ${modpath}/CMakeFbcCompiler.cmake.in
     ${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake
