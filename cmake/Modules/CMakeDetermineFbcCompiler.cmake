@@ -70,21 +70,9 @@ SET(CMAKE_COMPILER_IS_FBC 1)
 FILE(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeOutput.log
   "Determining fbc compiler as ${CMAKE_Fbc_COMPILER}\n\n")
 
-# fix for CMake < 2.8.10
-#IF(CMAKE_PLATFORM_INFO_DIR)
-  #SET(pdir ${CMAKE_PLATFORM_INFO_DIR})
-#ELSE
-  #SET(pdir ${CMAKE_BINARY_DIR}/${CMAKE_FILES_DIRECTORY})
-#ENDIF()
-#IF(CMAKE_MODULE_PATH)
-  #SET(mdir ${CMAKE_MODULE_PATH}
-#ELSE
-  #SET(mdir ${CMAKE_ROOT}/Modules/)
-#ENDIF()
-
 SET(conf_file ${CMAKE_ROOT}/Modules/CMakeFbcCompiler.cmake.in)
 IF(NOT EXISTS conf_file)
-  SET(conf_file CMakeFbcCompiler.cmake.in)
+  SET(conf_file ${CMAKE_SOURCE_DIR}/cmake/Modules/CMakeFbcCompiler.cmake.in)
 ENDIF()
 
 # configure variables set in this file for fast reload later on
