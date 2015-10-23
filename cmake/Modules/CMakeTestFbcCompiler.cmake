@@ -143,7 +143,7 @@ IF(CMAKE_Fbc_COMPILER_WORKS)
   ENDIF()
 
   SET(conf_file ${CMAKE_ROOT}/Modules/CMakeFbcCompiler.cmake.in)
-  IF(NOT EXISTS conf_file)
+  IF(NOT EXISTS ${conf_file})
     SET(conf_file ${CMAKE_SOURCE_DIR}/cmake/Modules/CMakeFbcCompiler.cmake.in)
   ENDIF()
 
