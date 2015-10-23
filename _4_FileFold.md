@@ -216,7 +216,8 @@ STRIP_FROM_INC_PATH    = xyz/abc
 
 \Item{DEPENDS} A keyword followed by a list (on or more strings)
   containing file names the build process depend on. List your input
-  files here (*.md) and also files used to configure the build process.
+  files here (`*.md`) and also files used to configure the build
+  process.
   \note Those file names are used to specify the dependencies (only).
         The list doesn't affect the `INPUT` configuration, neither for
         \Doxygen nor for \FbDoc (in modi `--list-mode` or

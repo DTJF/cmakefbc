@@ -200,8 +200,8 @@ Install the project...
 -- Installing: /usr/share/cmake-2.8/Modules/CMakeDetermineFbcCompiler.cmake
 -- Installing: /usr/share/cmake-2.8/Modules/FindFb-Doc.cmake
 -- Installing: /usr/share/cmake-2.8/Modules/UseFb-Doc.cmake
--- Installing: /usr/share/cmake-2.8/Modules/Platform/Linux-fbc.cmake
--- Installing: /usr/share/cmake-2.8/Modules/Platform/Windows-fbc.cmake
+-- Installing: /usr/share/cmake-2.8/Modules/Platform/Linux-Fbc.cmake
+-- Installing: /usr/share/cmake-2.8/Modules/Platform/Windows-Fbc.cmake
 ~~~
 
 The lines starting with the text `-- Installing:` indicate that eight

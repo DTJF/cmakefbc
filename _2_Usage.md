@@ -49,8 +49,8 @@ SET_TARGET_PROPERTIES(MyProject PROPERTIES
   )
 ~~~
 
-This example generates a project named *MyProject* that compiles an
-executable, which is also named *MyProject* (or *MyProject.exe* on
+This example generates a project named `MyProject` that compiles an
+executable, which is also named `MyProject` (or `MyProject.exe` on
 non-LINUX systems). Find detailed information on the commands in the
 [CMake Documentation](http://www.cmake.org/cmake/help/v3.0/index.html).
 
@@ -72,10 +72,10 @@ since an object file only gets re-build when one of the related source
 files changed. Since FB isn't a native language, this package has to
 provide an external solution for this feature. Therefor, and in
 contrast to the \CMake documentation, only the compilable source files
-(*.bas) gets specified in an `ADD_EXECUTABLE` or `ADD_LIBRARY` command
-(it also works for the `ADD_CUSTOM_TARGTET` command). The command
-`ADD_Fbc_SRC_DEPS` builds the dependency trees later for all source
-files of that target:
+(`*.bas`) gets specified in an `ADD_EXECUTABLE` or `ADD_LIBRARY`
+command (it also works for the `ADD_CUSTOM_TARGTET` command). The
+command `ADD_Fbc_SRC_DEPS` builds the dependency trees later for all
+source files of that target:
 
 ~~~{.cmake}
 # declare the required CMake version (optional)
@@ -222,15 +222,14 @@ get interpreted as FB source file names.
 
 # Shipping  {#SecShipping}
 
-When shipping your project, the recipient needs the new CMake macros to
-manage your project. Unfortunately these macros do not come with \CMake
-at the moment (effective 2015, Jan.).
+When shipping your project, the recipient needs the new CMake macros in
+order to manage your project. Since they do not come with the original
+\CMake install yet (effective 2015, Jan.), you have to include the
+macros to your project (as it is done in this package).
 
-This means you have to include the macros to your project, as it is
-done in this package. Therefor just copy the folder *cmake* to the root
-directory of your project and add the following line at the beginning
-of your root CMakeLists.txt file (right under
-`CMAKE_MINIMUM_REQUIRED(...)`)
+Therefor just copy the folder `cmake` to the root directory of your
+project and add the following line at the beginning of your root
+CMakeLists.txt file (right below `CMAKE_MINIMUM_REQUIRED(...)`)
 
 ~~~{.cmake}
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/")
