@@ -82,10 +82,14 @@ FILE(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeOutput.log
   #SET(mdir ${CMAKE_ROOT}/Modules/)
 #ENDIF()
 
+SET(conf_file ${CMAKE_ROOT}/Modules/CMakeFbcCompiler.cmake.in)
+IF(NOT EXISTS conf_file)
+  SET(conf_file CMakeFbcCompiler.cmake.in)
+ENDIF()
+
 # configure variables set in this file for fast reload later on
 CONFIGURE_FILE(
-  #${mdir}/CMakeFbcCompiler.cmake.in
-  ${CMAKE_ROOT}/Modules/CMakeFbcCompiler.cmake.in
+  ${conf_file}
   ${CMAKE_PLATFORM_INFO_DIR}/CMakeFbcCompiler.cmake
   @ONLY IMMEDIATE # IMMEDIATE must be here for compatibility mode <= 2.0
   )
