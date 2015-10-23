@@ -70,6 +70,11 @@ SET(CMAKE_COMPILER_IS_FBC 1)
 FILE(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeOutput.log
   "Determining fbc compiler as ${CMAKE_Fbc_COMPILER}\n\n")
 
+# fix for CMake < 2.8.10
+IF(NOT CMAKE_PLATFORM_INFO_DIR)
+  SET(CMAKE_PLATFORM_INFO_DIR ${CMAKE_BINARY_DIR}/${CMAKE_FILES_DIRECTORY})
+ENDIF()
+
 SET(conf_file ${CMAKE_ROOT}/Modules/CMakeFbcCompiler.cmake.in)
 IF(NOT EXISTS conf_file)
   SET(conf_file ${CMAKE_SOURCE_DIR}/cmake/Modules/CMakeFbcCompiler.cmake.in)
