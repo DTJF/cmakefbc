@@ -13,9 +13,9 @@ DEPENDS
   ../ReadMe.md
   ../_1_Install.md
   ../_2_Usage.md
-  ../cmake_fb_deps/_3_Tool.md
-  ../_4_FileFold.md
-  ../_9_ChangeLog.md
+  ../_3_Tool.md
+  ../_A_FileFold.md
+  ../_z_ChangeLog.md
   Doxyfile
   cmakefbc.css
   cmakefbc.xml

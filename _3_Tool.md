@@ -11,8 +11,7 @@ Tool cmake_fb_deps  {#PagCmakeFbDeps}
 Find build and install instructions in section \ref SubSecStep3.
 
 
-Usage  {#SecUsage}
-=====
+# Usage  {#SecUsage}
 
 Usually this tool doesn't get called directly by the user. Instead it
 gets called by the \CMake macro \Tar or by the function \Bas.
@@ -32,8 +31,7 @@ All further arguments are treated as FB source file names to scan (read
 only access).
 
 
-Error Messages  {#SecErrors}
-==============
+# Error Messages  {#SecErrors}
 
 In case of an error the tool ends with return value 1 and outputs one
 of the following messages at stdout:
@@ -56,8 +54,7 @@ they include a lot of nested files. Increase the stack size at compile
 time in that case (option -t).
 
 
-Background  {#SecBackground}
-==========
+# Background  {#SecBackground}
 
 \CMake has internal dependency checking for a bunch of programming
 languages (C, CXX, RC, ASM, Fortran, Java). Unfortunately \FB
@@ -110,3 +107,29 @@ first line of the above example).
       source dependencies get specified, even if the #`INCLUDE`
       statement is in a preprocessor #`IF` block that doesn't get
       compiled on the current system.
+
+
+# Limits  {#SecLimits}
+
+This external dependency check has some limitations though:
+
+\Item{Conditional compiling} currently the \FbDeps tool doesn't support
+  conditional compiling. This means it'll add each file found in a
+  #`INCLUDE` statement to the list of dependencies, regardless if the
+  code will get compiled or is excluded because of a preprocessor
+  statement like #`IF 0`. In everyday work this isn't a big deal since
+  mostly just the files for the current subset of the code get changed.
+  The philosophy is: better get five dependencies too much than a
+  single unchecked.
+
+\Item{Deleting / Moving file names} When a file listed in the
+  dependencies get removed (or renamed), CMake checks the dependencies
+  before the next build and neither finds the file nor knows a rule on
+  how to build it. This gets reported like
+~~~{.sh}
+make[2]: *** No rule to build target src/bas/<filename>,
+  necessary to build »src/bas/CMakeFiles/solar.dir/<otherfilename>.o«.  Finish.
+~~~
+  In order to avoid this issue you can build the target before you
+  delete or rename the old file. Or you can force a new dependency
+  check by executing `cmake` before the `make` command.
