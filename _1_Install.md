@@ -138,7 +138,7 @@ make doc
 ~~~
 
 Find the output in file `cmakefbc.pdf` and the HTML startpage in file
-`doc/html/index.html`. You can customize the output by adapting the
+`doxy/html/index.html`. You can customize the output by adapting the
 Doxygen configuration file `Doxyfile` in the folder `doc`. Find further
 information on the documentation build in section \ref SubSecMacroUse.
 

@@ -10,6 +10,7 @@ FB_DOCUMENTATION(
 BAS_SRC
   ../cmake_fb_deps/cmake_fb_deps.bas
 DEPENDS
+  ../CMakeLists.txt
   ../ReadMe.md
   ../_1_Install.md
   ../_2_Usage.md
@@ -19,5 +20,4 @@ DEPENDS
   Doxyfile
   cmakefbc.css
   cmakefbc.xml
-  ../CMakeLists.txt
   )

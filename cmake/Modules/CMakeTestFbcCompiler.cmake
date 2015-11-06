@@ -28,7 +28,7 @@ IF(NOT CMAKE_Fbc_COMPILER_WORKS)
   SET(testfile testFbcCompiler)
   SET(testpath ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp)
   FILE(WRITE ${testpath}/${testfile}.bas
-    "?__FB_SIGNATURE__;\nSCREEN 100,100\nEND SIZEOF(ANY PTR)\n")
+    "?__FB_VERSION__;\nSCREEN 100,100\nEND SIZEOF(ANY PTR)\n")
   EXECUTE_PROCESS(
     COMMAND fbc -v -m ${testfile} ${testfile}.bas
     WORKING_DIRECTORY ${testpath}

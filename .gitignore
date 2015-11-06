@@ -8,14 +8,14 @@ install_manifest.txt
 CMakeCache.txt
 cmake_fb_deps/cmake_fb_deps
 fbp.txt
-doc/fb-doc.lfn
+doxy/fb-doc.lfn
 
 # Use wildcards as well
 CPack*
 
 # Can also ignore all directories and files in a directory.
 build/**/*
-doc/html/**/*
-doc/latex/**/*
+doxy/html/**/*
+doxy/latex/**/*
 CMakeFiles/**/*
 cmake_fb_deps/CMakeFiles/**/*

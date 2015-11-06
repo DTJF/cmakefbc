@@ -21,7 +21,7 @@ DIM SHARED AS STRING DEPS _ '*< A global variable to collect file specific depen
                , BAS_FOLD   '*< A global variable containing the folder of the current bas file.
 
 '* Generate output in case of skipping a file
-#DEFINE SKIP_FILE(_E_,_N_) ?COMMAND(0) & ": skipping file " & _N_ & " (" & *_E_ & ")"
+#DEFINE SKIP_FILE(_E_,_N_,_M_) ?COMMAND(0) & ": skipping " & _N_ & " (" & *_E_ & _M_ & ")"
 '* Generate output for an error message
 #DEFINE GEN_ERROR(_T_) ?COMMAND(0) & ": " & _T_
 
@@ -72,9 +72,9 @@ Scan a file for #`INCLUDE` statements, and do
 '/
 FUNCTION Scan(BYREF Fnam AS STRING) AS ZSTRING PTR
   VAR fnr = FREEFILE
-  IF OPEN(Fnam FOR INPUT AS fnr) THEN              RETURN @"Open failed"
+  IF OPEN(Fnam FOR INPUT AS fnr) THEN              RETURN @"open failed"
   VAR le = LOF(fnr), p = ALLOCATE(le)
-  IF 0 = p THEN                    CLOSE #fnr : RETURN @ "Out of memory"
+  IF 0 = p THEN                    CLOSE #fnr : RETURN @ "out of memory"
 
   VAR  c = CAST(UBYTE PTR, p) _
     , fl = 0 _
@@ -131,7 +131,7 @@ FUNCTION Scan(BYREF Fnam AS STRING) AS ZSTRING PTR
       IF r THEN '                        got an error, try fallback path
         inam = absNam(BAS_FOLD, snam)
         r = Scan(inam)
-        IF r THEN SKIP_FILE(r, snam & " (from " & Fnam & ")") : EXIT SELECT ' no chance
+        IF r THEN SKIP_FILE(r, snam, " in " & Fnam)        : EXIT SELECT ' no chance
       END IF
 
       inam = ";" & inam & ";"
@@ -185,7 +185,7 @@ FOR i AS INTEGER = 2 TO __FB_ARGC__ - 1
   BAS_FOLD = LEFT(fnam, INSTRREV(fnam, SLASH) - 1)
   VAR r = Scan(fnam)  '*< Result of scanning process (<> 0 = error)
   IF r THEN
-    SKIP_FILE(r, fnam)
+    SKIP_FILE(r, fnam, " from input list")
   ELSEIF LEN(DEPS) > 1 THEN
     IF fl THEN ' write preamble (only once)
       PRINT #fnr, ""
