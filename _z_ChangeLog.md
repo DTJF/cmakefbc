@@ -33,6 +33,7 @@ Here's a list of the published versions:
 - new: CMake script files for fb-doc: FindFb-Doc.cmake; UseFb-Doc.cmake
 - new: doc page Files and Folders (+ minor fixes and improvements)
 - new: documentational comments stripped in listing
+- new: flag NO_SYNTAX in UseFb-Doc
 - bugfix: ReadMe.md.in file replaces aliases by text (for GitHub start page)
 - bugfix: file in folder Platform renamed (camel case -> consistent shema)
 - bugfix: install CMAKE_MODULE_PATH issue fixed

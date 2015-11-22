@@ -143,6 +143,7 @@ FB_DOCUMENTATION(
   NO_LFN
   NO_SELFDEP
   NO_PROJDATA
+  NO_SYNTAX
   DOXYFILE MyCustomDoxyfile
   MIRROR_CMD BatchScript.sh
   DEPENDS
@@ -197,6 +198,11 @@ STRIP_FROM_INC_PATH    = xyz/abc
   default `ALIASES` get declared (`Mail=${PROJ_MAIL}`,
   `Proj=*${PROJ_NAME}*`, `Year=${PROJ_YEAR}`, `Webs=${PROJ_WEBS}`). Set
   the flag to suppress this.
+
+\Item{NO_SYNTAX} A flag to drop the default syntax highlighting in
+  source code listings. Set this to skip the `fb-doc -s` execution
+  after the `doxygen` run, ie. when you don't include source listings
+  or when you want to check the intermediate format generation.
 
 \Item{DOXYFILE} A keyword followed by a single string containing the
   name of the \Doxygen configuration file (`MyCustomDoxyfile` in the
