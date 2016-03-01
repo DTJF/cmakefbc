@@ -80,6 +80,7 @@ ALIASES += \"Mail=${PROJ_MAIL}\" \\
   FILE(WRITE ${doxyext} #                           write extension file
 "
 @INCLUDE = ${ARG_DOXYFILE}
+EXTENSION_MAPPING      = bi=C++ bas=C++
 OUTPUT_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}
 FILTER_PATTERNS        = *.bas=${FbDoc_EXECUTABLE} \\
                           *.bi=${FbDoc_EXECUTABLE}
@@ -122,7 +123,7 @@ GENERATE_RTF     = NO
       COMMAND ${ARG_MIRROR_CMD}
       )
     ADD_CUSTOM_TARGET(doc_www DEPENDS ${wwwfile})
-    ADD_DEPENDENCIES(doc_www DEPENDS doc_htm)
+    ADD_DEPENDENCIES(doc_www doc_htm)
     SET(ARG_NO_HTM)
     LIST(APPEND targets "doc_www")
   ENDIF()
@@ -145,7 +146,7 @@ HTML_OUTPUT      = html
       VERBATIM
       )
     ADD_CUSTOM_TARGET(doc_htm DEPENDS ${htmfile})
-    ADD_DEPENDENCIES(doc DEPENDS doc_htm)
+    ADD_DEPENDENCIES(doc doc_htm)
     LIST(APPEND targets "doc_htm")
   ENDIF()
   IF(NOT ARG_NO_PDF) #                           generate target doc_pdf
@@ -170,7 +171,7 @@ LATEX_OUTPUT     = latex
       VERBATIM
       )
     ADD_CUSTOM_TARGET(doc_pdf DEPENDS ${pdffile})
-    ADD_DEPENDENCIES(doc DEPENDS doc_pdf)
+    ADD_DEPENDENCIES(doc doc_pdf)
     LIST(APPEND targets "doc_pdf")
   ENDIF()
   MESSAGE(STATUS "found ${DOXYGEN_EXECUTABLE}-${DOXYGEN_VERSION}")

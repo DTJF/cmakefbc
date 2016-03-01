@@ -1,4 +1,4 @@
-# Note: this script needs an fb-doc version (0.4), which may not be published yet.
+# Note: this script needs an fb-doc version >= 0.4.
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.3)
 
