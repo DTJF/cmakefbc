@@ -79,4 +79,7 @@ Thanks go to:
 - Dimitri van Heesch for creating the \Doxygen tool, which is used to
   generate this documentation.
 
+- Arend Lammertink for providing Debian packages for armhf architecture
+  and hosting them on his server.
+
 - All others I forgot to mention.
