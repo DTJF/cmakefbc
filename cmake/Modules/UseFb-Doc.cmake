@@ -121,6 +121,7 @@ GENERATE_RTF     = NO
     SET(wwwfile ${CMAKE_CURRENT_BINARY_DIR}/DocWWW.time)
     ADD_CUSTOM_COMMAND(OUTPUT ${wwwfile}
       COMMAND ${ARG_MIRROR_CMD}
+      COMMAND ${CMAKE_COMMAND} -E touch ${wwwfile}
       )
     ADD_CUSTOM_TARGET(doc_www DEPENDS ${wwwfile})
     ADD_DEPENDENCIES(doc_www doc_htm)
