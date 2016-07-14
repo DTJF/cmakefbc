@@ -9,6 +9,7 @@ ADD_EXECUTABLE(cmake_fb_deps cmake_fb_deps.bas)
 # define the compiler options (should have -m for executables)
 SET_TARGET_PROPERTIES(cmake_fb_deps PROPERTIES
   COMPILE_FLAGS "-e -w all -m cmake_fb_deps"
+  LINK_FLAGS "-Wl -z,relro"
   )
 
 
