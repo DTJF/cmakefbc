@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+
+###############################
+# Clean up cmake
+###############################
+#rm -rf `find . -name CMakeFiles -print`
+
+###############################
+# Run cmake
+###############################
+cmake -D CMAKE_INSTALL_PREFIX:PATH=/usr .
