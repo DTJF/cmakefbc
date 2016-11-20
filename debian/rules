@@ -13,14 +13,16 @@ clean:
 	dh $@ 
 	rm -rf debian/cmakefbc
 	rm -rf debian/cmakefbc.*.*
-	rm -rf MakeFile doxy/Makefile
+	rm -rf `find . -name MakeFile -print`
 	rm -rf `find . -name CMakeCache.txt -print`
+	rm -rf `find . -name CMakeFiles -print`
 	rm -rf `find . -name cmake_install.cmake -print`
 	rm -rf `find . -name install_manifest.txt -print`
 	rm -rf doxy/DoxyExtension doxy/HtmOut doxy/PdfOut 
 	rm -rf doxy/html/ doxy/latex/
 
 build:
+	./configure
 	dh $@ 
 	make doc
 

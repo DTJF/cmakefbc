@@ -4,7 +4,7 @@
 ###############################
 # Clean up cmake
 ###############################
-rm -rf `find . -name CMakeFiles -print`
+#rm -rf `find . -name CMakeFiles -print`
 
 ###############################
 # Run cmake
