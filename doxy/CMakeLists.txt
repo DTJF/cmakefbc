@@ -24,3 +24,5 @@ DEPENDS
   cmakefbc.css
   cmakefbc.xml
   )
+
+#INSTALL(DIRECTORY html DESTINATION /usr/share/doc/${PROJ_NAME})
