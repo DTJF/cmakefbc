@@ -24,7 +24,7 @@ clean:
 build:
 	./configure
 	dh $@ 
-	make doc
+	make doc_htm
 
 %:
 	dh $@ 
