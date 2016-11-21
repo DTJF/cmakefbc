@@ -1,4 +1,4 @@
-cmakefbc (0.11.2) wheezy; urgency=low
+cmakefbc (0.11.3) wheezy; urgency=low
 
   * Strict dependency on cmake did not work. 
 
