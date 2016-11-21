@@ -1,5 +1,11 @@
 cmakefbc (0.11.2) wheezy; urgency=low
 
+  * Strict dependency on cmake did not work. 
+
+ -- Arend Lammertink <lamare@gmail.com>  Mon, 21 Nov 2016 23:04:29 +0000
+
+cmakefbc (0.11.2) wheezy; urgency=low
+
   * Separate package for html documentation.
   * Binay package now dependent on the major.minor version of cmake.
 
