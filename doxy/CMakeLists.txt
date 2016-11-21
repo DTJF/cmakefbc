@@ -25,4 +25,4 @@ DEPENDS
   cmakefbc.xml
   )
 
-#INSTALL(DIRECTORY html DESTINATION /usr/share/doc/${PROJ_NAME})
+#INSTALL(DIRECTORY html DESTINATION /usr/share/doc/${PROJ_NAME}) #TEST
