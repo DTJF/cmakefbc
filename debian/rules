@@ -22,9 +22,14 @@ clean:
 	rm -rf doxy/html/ doxy/latex/
 
 build:
-	./configure
+	cmake -D CMAKE_INSTALL_PREFIX:PATH=/usr .
 	dh $@ 
 	make doc_htm
+
+override_dh_shlibdeps:
+	dh_shlibdeps $@
+	echo -n "cmake:Version=" >> debian/cmakefbc.substvars
+	cmake --version | sed -nre 's/^[^0-9]*(([0-9]+\.)*[0-9]+).*/\1/p' | cut -d. -f1-2 >> debian/cmakefbc.substvars
 
 %:
 	dh $@ 
