@@ -6,14 +6,11 @@ Build-Depends: debhelper (>= 8.0.0), cmake (>= 2.8.3), fb-doc
 Standards-Version: 3.9.3
 Homepage: https://github.com/DTJF/cmakefbc
 Vcs-Git: git://github.com/DTJF/cmakefbc
-#Vcs-Git: git://git.debian.org/collab-maint/cmakefbc.git
-#Vcs-Browser: http://git.debian.org/?p=collab-maint/cmakefbc.git;a=summary
 
 Package: cmakefbc
 Architecture: any
-#Depends: cmake (=${cmake:Version}.*), ${shlibs:Depends}, ${misc:Depends}
-#Depends: cmake (<< 2.9), ${shlibs:Depends}, ${misc:Depends}
-Depends: cmake (>=${cmake:Version}), ${shlibs:Depends}, ${misc:Depends}
+Depends: cmake (>= ${cmake:Version}), ${shlibs:Depends}, ${misc:Depends}
+#Depends: cmake (>= 2.8), ${shlibs:Depends}, ${misc:Depends}
 Description: FreeBASIC (FB) programming language support for CMake
  The package includes:
  .

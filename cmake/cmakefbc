@@ -1,0 +1,16 @@
+#!/bin/bash
+# Wrapper script for cmake, which adds freebasic support modules to
+# cmake.
+
+export CMAKE_FBC_DIR="/usr/share/cmakefbc";
+
+if [ -z ${__BOOTSTRAP__CMAKE_FBC__+x} ]; then
+   # Don't set when bootstrapping cmakefbc
+   export CMAKE_MODULE_PATH="$CMAKE_FBC_DIR/Modules";
+fi
+
+echo $CMAKE_FBC_DIR
+echo $CMAKE_MODULE_PATH
+
+echo cmake -D CMAKE_INSTALL_PREFIX:PATH=/usr -D CMAKE_MODULE_PATH=$CMAKE_MODULE_PATH -D CMAKE_FBC_DIR=$CMAKE_FBC_DIR "$@" 
+cmake -D CMAKE_INSTALL_PREFIX:PATH=/usr -D CMAKE_MODULE_PATH=$CMAKE_MODULE_PATH -D CMAKE_FBC_DIR=$CMAKE_FBC_DIR "$@" 
