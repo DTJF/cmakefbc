@@ -28,3 +28,4 @@ PROJECT(${PROJ_NAME} NONE)
 
 CONFIGURE_FILE(_ReadMe.md.in ${CMAKE_SOURCE_DIR}/ReadMe.md @ONLY)
 INSTALL(DIRECTORY cmake/Modules DESTINATION share/cmakefbc)
+INSTALL(FILES cmake/cmakefbc DESTINATION bin)
