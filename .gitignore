@@ -6,7 +6,7 @@ cmakefbc.geany
 cmake_install.cmake
 install_manifest.txt
 CMakeCache.txt
-cmake_fb_deps/cmake_fb_deps
+cmakefbc_deps/cmakefbc_deps
 fbp.txt
 doxy/fb-doc.lfn
 
@@ -18,4 +18,4 @@ build/**/*
 doxy/html/**/*
 doxy/latex/**/*
 CMakeFiles/**/*
-cmake_fb_deps/CMakeFiles/**/*
+cmakefbc_deps/CMakeFiles/**/*

@@ -1,14 +1,14 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.3)
 
 # declare the project name and the language (compiler) to use
-PROJECT(cmake_fb_deps Fbc)
+PROJECT(cmakefbc_deps Fbc)
 
 # declare the target name and the source file[s]
-ADD_EXECUTABLE(cmake_fb_deps cmake_fb_deps.bas)
+ADD_EXECUTABLE(cmakefbc_deps cmakefbc_deps.bas)
 
 # define the compiler options (should have -m for executables)
-SET_TARGET_PROPERTIES(cmake_fb_deps PROPERTIES
-  COMPILE_FLAGS "-e -w all -m cmake_fb_deps"
+SET_TARGET_PROPERTIES(cmakefbc_deps PROPERTIES
+  COMPILE_FLAGS "-e -w all -m cmakefbc_deps"
   LINK_FLAGS "-Wl -z,relro"
   )
 
@@ -20,6 +20,6 @@ SET(dir bin)
 
 # declare installation rule
 INSTALL(
-  TARGETS cmake_fb_deps
+  TARGETS cmakefbc_deps
   RUNTIME DESTINATION ${dir}
   )

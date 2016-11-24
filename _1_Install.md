@@ -2,7 +2,7 @@ Installation  {#PagInstall}
 ============
 \tableofcontents
 
-The package includes the \CMake macros and the tool cmake_fb_deps.bas.
+The package includes the \CMake macros and the tool cmakefbc_deps.bas.
 This chapter describes two alternative ways to install the components
 
 - Standard build (all in one go, in-source or out-f-source) and
@@ -50,7 +50,7 @@ The package is prepared to perform a standard build. This can either be done
 - out-of-source (\CMake generates auxiliary files in a separate folder).
 
 In both cases the shipped \CMake macros will be used to build the
-subproject called cmake_fb_deps first, before both components, the
+subproject called cmakefbc_deps first, before both components, the
 \CMake macros and the tool \FbDeps, get installed on your system.
 
 
@@ -71,7 +71,7 @@ The output, when executing the above command tripple, should look like
 $ cd cmakefbc/
 
 cmakefbc$ cmake .
--- Tool cmake_fb_deps not available -> no Fbc extensions!
+-- Tool cmakefbc_deps not available -> no Fbc extensions!
 -- Check for working Fbc compiler OK ==> /usr/bin/fbc (FreeBASIC 1.01.0)
 -- fb-doc tool not executable! (tried command fb-doc)
 -- fb-doc tool not found ==> doc targets not available!
@@ -80,14 +80,14 @@ cmakefbc$ cmake .
 -- Build files have been written to:  .../cmakefbc
 
 cmakefbc$ make
-Scanning dependencies of target cmake_fb_deps
-[100%] Building Fbc object cmake_fb_deps/CMakeFiles/cmake_fb_deps.dir/cmake_fb_deps.bas.o
-Linking Fbc executable cmake_fb_deps
-[100%] Built target cmake_fb_deps
+Scanning dependencies of target cmakefbc_deps
+[100%] Building Fbc object cmakefbc_deps/CMakeFiles/cmakefbc_deps.dir/cmakefbc_deps.bas.o
+Linking Fbc executable cmakefbc_deps
+[100%] Built target cmakefbc_deps
 
 cmakefbc$ sudo make install
 [sudo] password for username:
-[100%] Built target cmake_fb_deps
+[100%] Built target cmakefbc_deps
 Install the project...
 -- Install configuration: ""
 -- Installing: /usr/share/cmake-2.8/Modules
@@ -100,7 +100,7 @@ Install the project...
 -- Installing: /usr/share/cmake-2.8/Modules/UseFb-Doc.cmake
 -- Installing: /usr/share/cmake-2.8/Modules/CMakeDetermineFbcCompiler.cmake
 -- Installing: /usr/share/cmake-2.8/Modules/CMakeFbcInformation.cmake
--- Installing: /usr/local/bin/cmake_fb_deps
+-- Installing: /usr/local/bin/cmakefbc_deps
 ~~~
 
 
@@ -145,7 +145,7 @@ information on the documentation build in section \ref SubSecMacroUse.
 
 # Testing Build  {#SecBuild1}
 
-The above instructions build the subproject cmake_fb_deps first, by
+The above instructions build the subproject cmakefbc_deps first, by
 using the local \CMake macros in the folder `cmakefbc/cmake/Modules`.
 Here's an other installation method, which installs the macros first,
 and then uses this fresh install to build the subproject.
@@ -158,11 +158,11 @@ In the fresh unpacked package root directory, load the file
 ~~~{.cmake}
 # Uncomment the next two lines to perform a standard build.
 #LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/")
-#ADD_SUBDIRECTORY(cmake_fb_deps)
+#ADD_SUBDIRECTORY(cmakefbc_deps)
 ~~~
 
 Then save the result (overriding the existend file). This removes the
-subproject cmake_fb_deps from the build tree.
+subproject cmakefbc_deps from the build tree.
 
 
 ## Step 2 CMake FB Extension Macros  {#SubSecStep2}
@@ -218,7 +218,7 @@ complex source file trees. We compile its source with \CMake in the next
 step, and thereby test the newly installed configuration files.
 
 
-## Step 3 cmake_fb_deps tool  {#SubSecStep3}
+## Step 3 cmakefbc_deps tool  {#SubSecStep3}
 
 The \FbDeps tool auto-generates a \CMake include file declaring the \FB
 source file dependencies. So it's an essential component of this
@@ -229,7 +229,7 @@ Once you installed the \CMake \FB extension macros (step 2), you can use
 \CMake to build the executable of this tool by executing those commands
 
 ~~~{.sh}
-cd cmake_fb_deps
+cd cmakefbc_deps
 cmake .
 make
 sudo make install
@@ -243,26 +243,26 @@ non-LINUX systems).
 The interaction in the terminal should look like (Debian LINUX)
 
 ~~~{.sh}
-cmakefbc$ cd cmake_fb_deps
+cmakefbc$ cd cmakefbc_deps
 
-cmakefbc/cmake_fb_deps$ cmake .
--- Tool cmake_fb_deps not available -> no Fbc extensions!
+cmakefbc/cmakefbc_deps$ cmake .
+-- Tool cmakefbc_deps not available -> no Fbc extensions!
 -- Check for working compiler: /usr/local/bin/fbc ==> FreeBASIC 1.01.0
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/user/projects/git/cmakefbc/cmake_fb_deps
+-- Build files have been written to: /home/user/projects/git/cmakefbc/cmakefbc_deps
 
-cmakefbc/cmake_fb_deps$ make
-Scanning dependencies of target cmake_fb_deps
-[100%] Building Fbc object CMakeFiles/cmake_fb_deps.dir/cmake_fb_deps.bas.o
-Linking Fbc executable cmake_fb_deps
-[100%] Built target cmake_fb_deps
+cmakefbc/cmakefbc_deps$ make
+Scanning dependencies of target cmakefbc_deps
+[100%] Building Fbc object CMakeFiles/cmakefbc_deps.dir/cmakefbc_deps.bas.o
+Linking Fbc executable cmakefbc_deps
+[100%] Built target cmakefbc_deps
 
-cmakefbc/cmake_fb_deps$ sudo make install
-[100%] Built target cmake_fb_deps
+cmakefbc/cmakefbc_deps$ sudo make install
+[100%] Built target cmakefbc_deps
 Install the project...
 -- Install configuration: ""
--- Installing: /usr/local/bin/cmake_fb_deps
+-- Installing: /usr/local/bin/cmakefbc_deps
 ~~~
 
 Now your CMake installation is complete. It's ready to use all features

@@ -11,7 +11,7 @@ ENDIF()
 
 FB_DOCUMENTATION(
 BAS_SRC
-  ../cmake_fb_deps/cmake_fb_deps.bas
+  ../cmakefbc_deps/cmakefbc_deps.bas
 DEPENDS
   ../CMakeLists.txt
   ../ReadMe.md

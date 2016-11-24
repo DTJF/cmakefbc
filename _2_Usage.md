@@ -112,7 +112,7 @@ are related to the changed source files.
 
 \note The macro `ADD_Fbc_SRC_DEPS` is only available when the
       \FbDeps tool is installed. (Otherwise you'll get a message on the
-      initial cmake call, like `Tool cmake_fb_deps not available -> no
+      initial cmake call, like `Tool cmakefbc_deps not available -> no
       Fbc extensions!`.
 
 
@@ -213,9 +213,9 @@ Where the argument separators have the following meanings
 All further parameters (not prepended by one of the above separators)
 get interpreted as FB source file names.
 
-\note The function `BAS_2_C` is only available when the cmake_fb_deps
+\note The function `BAS_2_C` is only available when the cmakefbc_deps
       tool is installed. (Otherwise you'll get a message on the initial
-      cmake call, like `Tool cmake_fb_deps not available -> no Fbc
+      cmake call, like `Tool cmakefbc_deps not available -> no Fbc
       extensions!` and you'll find a similar entry in
       CMakeFiles/CMakeOutput.log.
 

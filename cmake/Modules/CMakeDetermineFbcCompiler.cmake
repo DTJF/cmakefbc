@@ -51,10 +51,10 @@ IF(NOT CMAKE_Fbc_COMPILER)
 ENDIF()
 
 IF(NOT CMAKE_Fbc_DEPS_TOOL)
-  FIND_PROGRAM(CMAKE_Fbc_DEPS_TOOL cmake_fb_deps DOC "FreeBASIC dependencies tool.")
+  FIND_PROGRAM(CMAKE_Fbc_DEPS_TOOL cmakefbc_deps DOC "FreeBASIC dependencies tool.")
   IF(CMAKE_Fbc_DEPS_TOOL)
     SET(CMAKE_Fbc_DEPS_TOOL "${CMAKE_Fbc_DEPS_TOOL}" CACHE FILEPATH "cmake FB dependency tool" FORCE)
-    MESSAGE(STATUS "Check for working cmake_fb_deps tool OK ==> ${CMAKE_Fbc_DEPS_TOOL}")
+    MESSAGE(STATUS "Check for working cmakefbc_deps tool OK ==> ${CMAKE_Fbc_DEPS_TOOL}")
   ENDIF()
 ENDIF()
 
