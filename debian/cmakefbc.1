@@ -1,21 +1,18 @@
-.TH CMAKE_FB_DEPS 1 "2016-07-14" "FreeBASIC dependencies for CMake"
+.TH CMAKEFBC 1 "2016-11-24" "FreeBASIC wrapper script for CMake"
 .SH NAME
-cmake_fb_deps \- FreeBASIC dependency scanning for CMake
+cmakefbc \- FreeBASIC wrapper script for CMake
 .SH DESCRIPTION
-Extracts FreeBASIC source code file dependencies (*.bas, *.bi) to CMake script.
+Calls cmake with CMAKE_MODULE_PATH set to FreeBASIC extension scripts. Use it to configure your build tree (instead of 'cmake').
 .SH SYNOPSIS
-.B cmake_fb_deps\fR \fIoutput-file\fR \fIinput-file\fR [\fIinput-files\fR]
+.B cmakefbc \fR[\fIcmake-options\fR]
 
 .SH OPTIONS
 .TP
-.I output-file\fR
-file name to write the output to (*.cmake)
-.TP
-.I input-files\fR
-files to extract the dependencies from (*.bas = source, *.bi = header)
-
+.I cmake-options\fR
+Any option understood by CMake command line.
 .SH "SEE ALSO"
 A detailed documentation is available in html format at
+.B
 http://users.freebasic-portal.de/tjf/Projekte/cmakefbc/doc/html/
 .SH COPYRIGHT
 Copyright \(co 2014\-2016 Thomas{ doT ]Freiherr[ At ]gmx[ DoT }net
