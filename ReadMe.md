@@ -14,7 +14,7 @@ The package is [hosted at GitHub](https://github.com/DTJF/cmakefbc) and it inclu
   - declare a macro to scan dependencies in FB source code, and
   - declare a function to pre-compile FB source to C source.
 
-- the tool [cmake_fb_deps](#PagCmakeFbDeps) to
+- the tool [cmakefbc_deps](#PagCmakeFbDeps) to
   - scan the dependency files in FB source trees and
   - integrate them in to a projects build tree.
 
