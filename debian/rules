@@ -10,8 +10,7 @@
 #export DH_VERBOSE=1
 
 CWD := $(strip $(shell pwd))
-export CMAKE_MODULE_PATH=$(CWD)/cmake/Modules
-export __BOOTSTRAP__CMAKE_FBC__=1
+export CMAKEMODULE_PATH=$(CWD)/cmake/Modules
 
 clean:
 	dh $@ 
@@ -26,10 +25,18 @@ clean:
 	rm -rf doxy/html/ doxy/latex/
 
 build:
-	cmake . -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_MODULE_PATH=$$(pwd)/cmake/Modules
+	cd _build && cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_MODULE_PATH=${CMAKEMODULE_PATH}
 	dh $@ 
-	make doc_htm
+	cd _build && make doc_htm
 
+override_dh_auto_configure:
+	cd _build && dh_auto_configure
+
+override_dh_auto_build:
+	cd _build && dh_auto_build
+
+override_dh_auto_install:
+	cd _build && dh_auto_install
 
 override_dh_shlibdeps:
 	dh_shlibdeps

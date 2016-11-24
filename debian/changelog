@@ -1,3 +1,9 @@
+cmakefbc (0.11.5) stable; urgency=low
+
+  * Don't know yet...
+
+ -- Arend Lammertink <lamare@gmail.com>  Thu, 24 Nov 2016 13:42:50 +0000
+
 cmakefbc (0.11.4) wheezy; urgency=low
 
   * Install cmake modules in /usr/share/cmakefbc
