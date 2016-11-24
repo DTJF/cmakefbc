@@ -116,12 +116,12 @@ FB_DOCUMENTATION(
     ../_Usage.md
     ../_ChangeLog.md
     ../_FileFold.md
-    ../cmake_fb_deps/_Tool.md
+    ../cmakefbc_deps/_Tool.md
     Doxyfile
     cmakefbc.xml
     ../CMakeLists.txt
   BAS_SRC
-    ../cmake_fb_deps/cmake_fb_deps.bas
+    ../cmakefbc_deps/cmakefbc_deps.bas
   )
 ~~~
 
@@ -152,12 +152,12 @@ FB_DOCUMENTATION(
     ../_Usage.md
     ../_ChangeLog.md
     ../_FileFold.md
-    ../cmake_fb_deps/_Tool.md
+    ../cmakefbc_deps/_Tool.md
     Doxyfile
     cmakefbc.xml
     ../CMakeLists.txt
   BAS_SRC
-    ../cmake_fb_deps/cmake_fb_deps.bas
+    ../cmakefbc_deps/cmakefbc_deps.bas
   DOXYCONF
 "
 ALIASES    +=\"Top= the original \\p cmakefbc package\"
@@ -310,11 +310,11 @@ prepend your settings by
 ~~~
 
 
-# cmake_fb_deps {#SecFoldTool}
+# cmakefbc_deps {#SecFoldTool}
 
 This folder contains the source code for the tool \FbDeps, namely
 
-- `cmake_fb_deps.bas` : the \FB source code,
+- `cmakefbc_deps.bas` : the \FB source code,
 - `_Tool.md` : the documentation context, and
 - `CMakelists.txt` : the build script to compile and install the executable.
 

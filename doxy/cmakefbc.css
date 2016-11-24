@@ -25,10 +25,10 @@ span.stringliteral {
 }
 
 div.line {
-  font-size: 85%;
+	font-size: 85%;
 	min-height: 13px;
 }
 
 code {
-  font-size: 85%;
+	font-size: 85%;
 }

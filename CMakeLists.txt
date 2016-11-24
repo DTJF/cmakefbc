@@ -22,7 +22,7 @@ SET(PROJ_YEAR "2016"               CACHE STRING "project year" FORCE)
 
 ADD_SUBDIRECTORY(doxy)
 
-ADD_SUBDIRECTORY(cmake_fb_deps)
+ADD_SUBDIRECTORY(cmakefbc_deps)
 
 PROJECT(${PROJ_NAME} NONE)
 

@@ -7,7 +7,7 @@
     <tab type="usergroup" title="Description">
       <tab type="user" url="@ref PagInstall" title="Installation"/>
       <tab type="user" url="@ref PagUsage" title="Usage"/>
-      <tab type="user" url="@ref PagCmakeFbDeps" title="Tool cmake_fb_deps"/>
+      <tab type="user" url="@ref PagCmakeFbDeps" title="Tool cmakefbc_deps"/>
       <tab type="user" url="@ref PagFileFold" title="Files and Folders"/>
       <tab type="user" url="@ref PagChangelog" title="Changelog and Credits"/>
     </tab>
