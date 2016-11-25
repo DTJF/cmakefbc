@@ -24,10 +24,9 @@ clean:
 	rm -rf doxy/DoxyExtension doxy/HtmOut doxy/PdfOut 
 	rm -rf doxy/html/ doxy/latex/
 	rm -rf tmp
-	mkdir tmp
 
 override_dh_auto_configure:
-	cd tmp && cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_MODULE_PATH=${CMAKEMODULE_PATH}
+	mkdir tmp && cd tmp && cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_MODULE_PATH=${CMAKEMODULE_PATH}
 
 override_dh_auto_build:
 	cd tmp && make && make doc_htm
