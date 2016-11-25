@@ -23,20 +23,18 @@ clean:
 	rm -rf `find . -name install_manifest.txt -print`
 	rm -rf doxy/DoxyExtension doxy/HtmOut doxy/PdfOut 
 	rm -rf doxy/html/ doxy/latex/
-
-build:
-	cd _build && cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_MODULE_PATH=${CMAKEMODULE_PATH}
-	dh $@ 
-	cd _build && make doc_htm
+	rm -rf tmp
+	mkdir tmp
 
 override_dh_auto_configure:
-	cd _build && dh_auto_configure
+	cd tmp && cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_MODULE_PATH=${CMAKEMODULE_PATH}
 
 override_dh_auto_build:
-	cd _build && dh_auto_build
+	cd tmp && make && make doc_htm
 
 override_dh_auto_install:
-	cd _build && dh_auto_install
+	cd tmp && make install DESTDIR=../debian/tmp
+
 
 override_dh_shlibdeps:
 	dh_shlibdeps
