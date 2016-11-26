@@ -5,34 +5,37 @@ IF(NOT deb_exe)
   RETURN()
 ENDIF()
 
+IF(DEBUILD_FLAGS)                          # append flags (if any)
+  SET(deb_exe "${deb_exe} ${DEBUILD_FLAGS}")
+ENDIF()
 
+CONFIGURE_FILE(rules.in rules @ONLY)       # create rules file
 
-# files to copy from root dir
-SET(fsrc
-  CMakeLists.txt
-  *.md
-  *.md.in
-  )
-
-# create rules file
-CONFIGURE_FILE(rules.in rules @ONLY)
-
-# create clean build folder and execute debuild
+# create target deb for in-source debuild
 IF(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
-  ADD_CUSTOM_TARGET(deb debuild -d WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+  ADD_CUSTOM_TARGET(deb ${deb_exe} WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 ELSE()
-  # folder for package building
-  SET(tar ${CMAKE_CURRENT_BINARY_DIR}/deb)
+  # out-of-source: create clean build folder
+  SET(tar ${CMAKE_CURRENT_BINARY_DIR}/deb) # subfolder name for package building
+  SET(fsrc                                 # files to copy from root dir
+    CMakeLists.txt
+    *.md
+    *.md.in
+    )
+  SET(dsrc                                 # folders to copy from root dir
+    cmake
+    cmakefbc_deps
+    debian
+    doxy
+    )
+  # create target deb for out-of-source debuild
   ADD_CUSTOM_TARGET(deb ${CMAKE_COMMAND} -E remove_directory ${tar}
     COMMAND ${CMAKE_COMMAND} -E make_directory ${tar}
-    COMMAND ${CMAKE_COMMAND} -E copy ${fsrc} ${tar}
-    COMMAND ${CMAKE_COMMAND} -E copy_directory cmake ${tar}/cmake
-    COMMAND ${CMAKE_COMMAND} -E copy_directory cmakefbc_deps ${tar}/cmakefbc_deps
-    COMMAND ${CMAKE_COMMAND} -E copy_directory debian ${tar}/debian
-    COMMAND ${CMAKE_COMMAND} -E copy_directory doxy ${tar}/doxy
+    COMMAND ${CMAKE_COMMAND} -E chdir ${tar} ${CMAKE_COMMAND} -E make_directory ${dsrc}
+    COMMAND ${CMAKE_COMMAND} -E copy ${dsrc} ${fsrc} ${tar}
 
     COMMAND ${CMAKE_COMMAND} -E rename ${CMAKE_CURRENT_BINARY_DIR}/rules ${tar}/debian/rules
-    COMMAND ${CMAKE_COMMAND} -E chdir ${tar} debuild -d
+    COMMAND ${CMAKE_COMMAND} -E chdir ${tar} ${deb_exe}
 
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     )
