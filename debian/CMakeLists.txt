@@ -21,8 +21,7 @@ CONFIGURE_FILE(rules.in rules @ONLY)
 IF(${CMAKE_SOURCE_DIR} EQUAL ${CMAKE_BINARY_DIR})
   # folder for package building
   ADD_CUSTOM_TARGET(deb
-    COMMAND ${CMAKE_COMMAND} -E debuild -d
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_SOURCE_DIR} debuild -d
     )
 ELSE()
   # folder for package building
