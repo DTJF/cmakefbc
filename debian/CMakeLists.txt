@@ -19,7 +19,7 @@ CONFIGURE_FILE(rules.in rules @ONLY)
 
 # create clean build folder and execute debuild
 IF(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
-  ADD_CUSTOM_TARGET(deb debuild -d ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR} debuild -d)
+  ADD_CUSTOM_TARGET(deb debuild -d WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 ELSE()
   # folder for package building
   SET(tar ${CMAKE_CURRENT_BINARY_DIR}/deb)
