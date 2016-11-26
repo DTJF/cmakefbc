@@ -6,8 +6,6 @@ IF(NOT deb_exe)
 ENDIF()
 
 
-# folder for package building
-SET(tar ${CMAKE_CURRENT_BINARY_DIR}/deb)
 
 # files to copy from root dir
 SET(fsrc
@@ -21,11 +19,14 @@ CONFIGURE_FILE(rules.in rules @ONLY)
 
 # create clean build folder and execute debuild
 IF(${CMAKE_SOURCE_DIR} EQUAL ${CMAKE_BINARY_DIR})
-  ADD_CUSTOM_TARGET(deb ${CMAKE_COMMAND} -E remove_directory ${tar}
+  # folder for package building
+  ADD_CUSTOM_TARGET(deb
     COMMAND ${CMAKE_COMMAND} -E debuild -d
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     )
-ELSE
+ELSE()
+  # folder for package building
+  SET(tar ${CMAKE_CURRENT_BINARY_DIR}/deb)
   ADD_CUSTOM_TARGET(deb ${CMAKE_COMMAND} -E remove_directory ${tar}
     COMMAND ${CMAKE_COMMAND} -E make_directory ${tar}
     COMMAND ${CMAKE_COMMAND} -E copy ${fsrc} ${tar}
