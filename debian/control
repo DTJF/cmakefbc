@@ -9,7 +9,7 @@ Vcs-Git: git://github.com/DTJF/cmakefbc
 
 Package: cmakefbc
 Architecture: any
-Depends: cmake (>= ${cmake:Version}), ${shlibs:Depends}, ${misc:Depends}
+Depends: cmake (>= 2.8.3), ${shlibs:Depends}, ${misc:Depends}
 #Depends: cmake (>= 2.8), ${shlibs:Depends}, ${misc:Depends}
 Description: FreeBASIC (FB) programming language support for CMake
  The package includes:

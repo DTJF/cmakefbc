@@ -19,12 +19,13 @@ SET(PROJ_WEBS "https://github.com/DTJF/cmakefbc" CACHE STRING "project website" 
 SET(PROJ_LICE "GPLv3"              CACHE STRING "project licence" FORCE)
 SET(PROJ_YEAR "2016"               CACHE STRING "project year" FORCE)
 
+PROJECT(${PROJ_NAME} NONE)
 
 ADD_SUBDIRECTORY(doxy)
 
 ADD_SUBDIRECTORY(cmakefbc_deps)
 
-PROJECT(${PROJ_NAME} NONE)
+ADD_SUBDIRECTORY(debian)
 
 CONFIGURE_FILE(_ReadMe.md.in ${CMAKE_SOURCE_DIR}/ReadMe.md @ONLY)
 INSTALL(DIRECTORY cmake/Modules DESTINATION share/cmakefbc)
