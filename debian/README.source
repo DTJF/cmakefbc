@@ -1,9 +1,40 @@
 cmakefbc for Debian
 -------------------
 
-<this file describes information about the source package, see Debian policy
-manual section 4.14. You WILL either need to modify or delete this file>
+In order to build a Debian package from this source just execute
+'debuild' in its root directory and find the resulting files in the
+directory above the root folder. This will perform an in-source build,
+the source tree is polluted by configuration files afterwards (that
+doesn't matter if you just need a package for your platform).
 
+Note: The package builds on all platforms supported by the FreeBASIC
+compiler, see
+http://www.freebasic.net/wiki/wikka.php?wakka=CompilerInstalling for
+details.
+
+In contrast, when you intent to adapt the source code, it's strongly
+recommended to perfom an out-of-source build that keeps the source tree
+clean. Therefor create your build folder (named 'build' in the
+following example) and start the process by executing in the root
+directory
+
+make build
+cd build
+cmake .. -DCMAKE_MODULE_PATH=../cmake/Modules
+make deb
+
+Afterwards, find the resulting package files in folder build/debian.
+
+Note: The package is self-hosting, meaning it needs its content to
+build. Therefor you have to care about a boot-strapping issue by
+setting the variable 'CMAKE_MODULE_PATH'. Once installed, you can
+replace
+
+cmake .. -DCMAKE_MODULE_PATH=../cmake/Modules
+
+by
+
+cmakefbc ..
 
 
 

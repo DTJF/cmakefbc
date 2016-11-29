@@ -25,7 +25,9 @@ ADD_SUBDIRECTORY(doxy)
 
 ADD_SUBDIRECTORY(cmakefbc_deps)
 
-ADD_SUBDIRECTORY(debian)
+IF(UNIX)
+  ADD_SUBDIRECTORY(debian)
+ENDIF()
 
 CONFIGURE_FILE(_ReadMe.md.in ${CMAKE_SOURCE_DIR}/ReadMe.md @ONLY)
 INSTALL(DIRECTORY cmake/Modules DESTINATION share/cmakefbc)

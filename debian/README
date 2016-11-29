@@ -1,6 +1,8 @@
 The Debian Package cmakefbc
 ----------------------------
 
-Comments regarding the Package
+This directory contians the configuration and input files for building
+Debian packages. Its context is useful on Debian Linux platforms, only.
 
+ -- Thomas Freiherr <Thomas.Freiherr@gmx.net> Di 29 Nov 2016 22:03:05 CET
  -- Arend Lammertink <lamare@gmail.com>  Wed, 13 Jul 2016 21:38:19 +0000

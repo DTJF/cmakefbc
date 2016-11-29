@@ -1,8 +1,17 @@
 cmakefbc for Debian
 -------------------
 
-TODO:
+I. Configuring a build tree
 
-<possible notes regarding this package - if none, delete this file>
+For FreeBASIC code replace the default command 'cmake' by 'cmakefbc'.
+Ie instead of 'cmake ..' execute 'cmakefbc ..'.
 
+II. Managing a build tree
+
+In order to find detailed information on how to manage the FreeBASIC
+source compiling, install the documentation package cmakefbc-doc. Or
+check the online documentation at
+http://users.freebasic-portal.de/tjf/Projekte/cmakefbc/doc/html.
+
+ -- Thomas Freiherr <Thomas.Freiherr@gmx.net> Mo 28 Nov 2016 10:45:37 CET
  -- Arend Lammertink <lamare@gmail.com>  Wed, 13 Jul 2016 21:38:19 +0000

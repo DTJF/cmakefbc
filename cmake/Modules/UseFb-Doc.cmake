@@ -25,6 +25,10 @@ ENDIF()
 # check for parser macro
 IF(NOT COMMAND CMAKE_PARSE_ARGUMENTS)
   INCLUDE(CMakeParseArguments)
+  IF(NOT COMMAND CMAKE_PARSE_ARGUMENTS)
+    MESSAGE(STATUS "include CMakeParseArguments failed -> no function FB_DOCUMENTATION")
+    RETURN()
+  ENDIF()
 ENDIF()
 
 
@@ -55,7 +59,7 @@ FUNCTION(FB_DOCUMENTATION)
     SET(FbDoc_SYNTAX ${CMAKE_COMMAND} -E echo no syntax highlighting for)
   ENDIF()
 
-  SET(doxyext ${CMAKE_CURRENT_BINARY_DIR}/DoxyExtension) # ext file name
+  SET(doxyext ${CMAKE_CURRENT_BINARY_DIR}/DoxyExtension) # extension file
   IF(NOT ARG_DOXYFILE) #                      default configuration file
     SET(ARG_DOXYFILE "${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile")
   ENDIF()
