@@ -10,7 +10,20 @@ CONFIGURE_FILE(rules.in rules @ONLY)  # create rules file
 
 # create target deb for in-source debuild
 IF(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
-  ADD_CUSTOM_TARGET(deb ${deb_exe} ${DEBUILD_FLAGS} WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+  ADD_CUSTOM_TARGET(deb
+    COMMAND rm -rf debian/cmakefbc
+    COMMAND rm -rf debian/cmakefbc.*.*
+    COMMAND rm -rf `find . -iname Makefile -print`
+    COMMAND rm -rf `find . -name CMakeCache.txt -print`
+    COMMAND rm -rf `find . -name CMakeFiles -print`
+    COMMAND rm -rf `find . -name cmake_install.cmake -print`
+    COMMAND rm -rf `find . -name install_manifest.txt -print`
+    COMMAND rm -rf doxy/DoxyExtension doxy/HtmOut doxy/PdfOut
+    COMMAND rm -rf doxy/html/ doxy/latex/
+
+    COMMAND ${deb_exe} ${DEBUILD_FLAGS}
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    )
 ELSE()
   # out-of-source: create clean build folder
   SET(tar deb_package)                # subfolder name for package building
