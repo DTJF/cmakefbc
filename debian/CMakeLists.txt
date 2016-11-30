@@ -6,9 +6,7 @@ IF(NOT deb_exe)
 ENDIF()
 
 
-CONFIGURE_FILE(rules.in rules @ONLY)  # create rules file
-
-# create target deb for in-source debuild
+# in-source: create target deb for in-source debuild
 IF(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
   ADD_CUSTOM_TARGET(deb
     COMMAND rm -rf debian/cmakefbc
@@ -24,24 +22,29 @@ IF(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
     COMMAND ${deb_exe} ${DEBUILD_FLAGS}
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     )
-ELSE()
-  # out-of-source: create clean build folder
-  SET(tar deb_package)                # subfolder name for package building
-  SET(src                             # files&dirs to copy from root dir
-    CMakeLists.txt
-    *.md
-    *.md.in
-    cmake
-    cmakefbc_deps
-    debian
-    doxy
-    )
-  # create target deb for out-of-source debuild
-  ADD_CUSTOM_TARGET(deb rm -rf ${tar}
-    COMMAND mkdir ${tar}
-    COMMAND cd ${CMAKE_SOURCE_DIR} && cp -r ${src} ${CMAKE_CURRENT_BINARY_DIR}/${tar}
-
-    COMMAND cp -f rules ${tar}/debian/
-    COMMAND cd ${tar} && ${deb_exe} ${DEBUILD_FLAGS}
-    )
+  RETURN()
 ENDIF()
+
+# out-of-source:
+## create rules file with local settings
+#CONFIGURE_FILE(rules.in rules @ONLY)  # create rules file
+
+# create clean build folder
+SET(tar deb_package)                # subfolder name for package building
+SET(src                             # files&dirs to copy from root dir
+  CMakeLists.txt
+  *.md
+  *.md.in
+  cmake
+  cmakefbc_deps
+  debian
+  doxy
+  )
+# create target deb for out-of-source debuild
+ADD_CUSTOM_TARGET(deb rm -rf ${tar}
+  COMMAND mkdir ${tar}
+  COMMAND cd ${CMAKE_SOURCE_DIR} && cp -r ${src} ${CMAKE_CURRENT_BINARY_DIR}/${tar}
+
+  COMMAND cp -f rules ${tar}/debian/
+  COMMAND cd ${tar} && ${deb_exe} ${DEBUILD_FLAGS}
+  )
