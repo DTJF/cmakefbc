@@ -27,17 +27,21 @@ ADD_SUBDIRECTORY(cmakefbc_deps)
 
 IF(UNIX)
   ADD_SUBDIRECTORY(debian)
-  ADD_CUSTOM_TARGET(distclean make clean
-    COMMAND rm -rf debian/cmakefbc
-    COMMAND rm -rf debian/cmakefbc.*.*
-    COMMAND rm -rf `find . -iname Makefile -print`
-    COMMAND rm -rf `find . -name CMakeCache.txt -print`
-    COMMAND rm -rf `find . -name CMakeFiles -print`
-    COMMAND rm -rf `find . -name cmake_install.cmake -print`
-    COMMAND rm -rf `find . -name install_manifest.txt -print`
-    COMMAND rm -rf doxy/DoxyExtension doxy/HtmOut doxy/PdfOut doxy/fb-doc.lfn doxy/doxygen_sqlite3.db
-    COMMAND rm -rf doxy/html/ doxy/latex/
-    )
+  IF(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)             # in-source
+    ADD_CUSTOM_TARGET(distclean make clean
+      COMMAND rm -rf debian/cmakefbc
+      COMMAND rm -rf debian/cmakefbc.*.*
+      COMMAND rm -rf `find . -iname Makefile -print`
+      COMMAND rm -rf `find . -name CMakeCache.txt -print`
+      COMMAND rm -rf `find . -name CMakeFiles -print`
+      COMMAND rm -rf `find . -name cmake_install.cmake -print`
+      COMMAND rm -rf `find . -name install_manifest.txt -print`
+      COMMAND rm -rf doxy/DoxyExtension doxy/HtmOut doxy/PdfOut doxy/fb-doc.lfn doxy/doxygen_sqlite3.db
+      COMMAND rm -rf doxy/html/ doxy/latex/
+      )
+  ELSE()                                                 # out-of-source
+    ADD_CUSTOM_TARGET(distclean rm -R *)
+  ENDIF()
 ENDIF()
 
 CONFIGURE_FILE(_ReadMe.md.in ${CMAKE_SOURCE_DIR}/ReadMe.md @ONLY)

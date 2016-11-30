@@ -14,9 +14,8 @@ IF(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
   RETURN()
 ENDIF()
 
-# out-of-source:
-# create clean build subfolder
-SET(src                             # files&dirs to copy from root dir
+# out-of-source: create clean build subfolder
+SET(src # files & dirs to copy from root dir
   CMakeLists.txt
   *.md
   *.md.in
