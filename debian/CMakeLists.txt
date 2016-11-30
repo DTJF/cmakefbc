@@ -16,7 +16,7 @@ IF(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
     COMMAND rm -rf `find . -name CMakeFiles -print`
     COMMAND rm -rf `find . -name cmake_install.cmake -print`
     COMMAND rm -rf `find . -name install_manifest.txt -print`
-    COMMAND rm -rf doxy/DoxyExtension doxy/HtmOut doxy/PdfOut
+    COMMAND rm -rf doxy/DoxyExtension doxy/HtmOut doxy/PdfOut doxy/fb-doc.lfn
     COMMAND rm -rf doxy/html/ doxy/latex/
 
     COMMAND ${deb_exe} ${DEBUILD_FLAGS}
@@ -26,9 +26,6 @@ IF(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
 ENDIF()
 
 # out-of-source:
-## create rules file with local settings
-#CONFIGURE_FILE(rules.in rules @ONLY)  # create rules file
-
 # create clean build folder
 SET(tar deb_package)                # subfolder name for package building
 SET(src                             # files&dirs to copy from root dir
@@ -45,6 +42,5 @@ ADD_CUSTOM_TARGET(deb rm -rf ${tar}
   COMMAND mkdir ${tar}
   COMMAND cd ${CMAKE_SOURCE_DIR} && cp -r ${src} ${CMAKE_CURRENT_BINARY_DIR}/${tar}
 
-  COMMAND cp -f rules ${tar}/debian/
   COMMAND cd ${tar} && ${deb_exe} ${DEBUILD_FLAGS}
   )

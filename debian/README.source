@@ -25,6 +25,9 @@ make deb
 
 Afterwards, find the resulting package files in folder build/debian.
 
+Note: Don't create the build folder inside the source tree when you
+intent to execute a further in-source build later.
+
 Note: The package is self-hosting, meaning it needs its content to
 build. Therefor you have to care about a boot-strapping issue by
 setting the variable 'CMAKE_MODULE_PATH'. Once installed, you can
