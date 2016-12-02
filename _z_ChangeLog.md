@@ -28,6 +28,17 @@ or feel free to send your ideas directly to the author (\Mail).
 
 Here's a list of the published versions:
 
+## cmakefbc-0.4.4 {#SecV-0-4-4}
+
+- new: Debian package building (src/bin/doc)
+- new: non-versioned install folder share/cmakefbc/Modules
+- new: cmakefbc wrapper script to configure a build tree
+- fix: tool cmake_fb_deps.bas renamed to cmakefbc_deps.bas
+- fix: adapted documentation for cmakefbc_deps.bas
+
+Released on 2016 November, 26.
+
+
 ## cmakefbc-0.4.2 {#SecV-0-4-2}
 
 - new: CMake script files for fb-doc: FindFb-Doc.cmake; UseFb-Doc.cmake
@@ -38,11 +49,13 @@ Here's a list of the published versions:
 - bugfix: file in folder Platform renamed (camel case -> consistent shema)
 - bugfix: install CMAKE_MODULE_PATH issue fixed
 
+Released on 2016 March, 16.
+
 
 ## cmakefbc-0.4 {#SecV-0-4}
 
-- cmakefbc_deps.bas: Improved path handling
-- cmakefbc_deps.bas: Warnings when #`INCLUDE` file not present (warns for each standard header)
+- cmake_fb_deps.bas: Improved path handling
+- cmake_fb_deps.bas: Warnings when #`INCLUDE` file not present (warns for each standard header)
 - doc/CMakeLists.txt: out-of-source build for documentation
 
 Released on 2015 March, 16.

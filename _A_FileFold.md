@@ -2,11 +2,18 @@ Files and Folders  {#PagFileFold}
 =================
 \tableofcontents
 
-The package contains the folders
+The package contains the subfolders
 
 - \ref SecFoldCMake : containing the \CMake macros and scripts related to the \FB compiler and \FbDoc
 - \ref SecFoldTool : containing the source code for the tool \FbDeps
-- \ref SecFoldDoc : containing configuration files to build the documentation (where \Doxygen executes in a manual build).
+- \ref SecFoldDoxy : containing configuration files to build the documentation (where \Doxygen executes in a manual build)
+- \ref SecFoldDebian : containing configuration files to build Debian packages
+
+In the root folder contains the source files for the desription pages.
+The files end by suffix `.md`. The file `ReadMe.md.in` is a
+configuration file that is used to create the file `ReadMe.md` with
+individual parameters. Files named `CMakeLists.txt` are CMake scripts,
+designed to control the build and installation processes.
 
 
 # cmake {#SecFoldCMake}
@@ -319,7 +326,7 @@ This folder contains the source code for the tool \FbDeps, namely
 - `CMakelists.txt` : the build script to compile and install the executable.
 
 
-# doc {#SecFoldDoc}
+# doxy {#SecFoldDoxy}
 
 This folder contains the configuration files to build the
 documentation, namely
@@ -329,3 +336,21 @@ documentation, namely
 - `fb-doc.lfn` : the list of function names file,
 - `logo.png` : the image file, and
 - `CMakelists.txt` : the build script to compile and upload the documentation.
+
+
+# dedian {#SecFoldDebian}
+
+This folder contains the configuration files to build Debian Linux
+packages from the source tree. Find detailed information about package
+building in the Debian documentation. Three packages are configured:
+
+- `binary` : containing CMake macros, cmakefbc_deps binary, cmakefbc wrapper and man pages (any platform)
+- `doc` : containing the documentation in html format (all platforms)
+- `source` : containing the source code (all platforms)
+
+\note: Instead of using CPack, this configuration is designed to work
+       with the original Debian tools. It works inside the source tree,
+       polluting it with a bunch of configuration files.
+
+Start the build process by executing `debuild` in the root folder. The
+resulting output gets generated in the directory above the root folder.

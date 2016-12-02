@@ -67,15 +67,29 @@ In the above example there's just one FB source file in the
       find the main code.
 
 \CMake scans dependency trees for source files, but only for native
-languages (C, C++, RC, ASM, Fortran and Java). This is a useful feature
-since an object file only gets re-build when one of the related source
-files changed. Since FB isn't a native language, this package has to
-provide an external solution for this feature. Therefor, and in
-contrast to the \CMake documentation, only the compilable source files
-(`*.bas`) gets specified in an `ADD_EXECUTABLE` or `ADD_LIBRARY`
-command (it also works for the `ADD_CUSTOM_TARGTET` command). The
-command `ADD_Fbc_SRC_DEPS` builds the dependency trees later for all
-source files of that target:
+languages (C, C++, RC, ASM, Fortran and Java). This is a useful
+feature, since an object file gets re-compiled when one of the related
+source files changed. Otherwise the already compiled object file is
+used by the linker, in order to speed up the build process.
+
+Since FB isn't a native language, this doesn't work with FB source.
+Only a change in the files listed in the `ADD_EXECUTABLE` statement
+trigger a re-compilation, but changes files loaded by #`INCLUDE`
+statements get ignored by default.
+
+Therefor this package provides an external solution for this feature, a
+tool named \FbDeps that scans the source files and creates the
+dependency tree in a format readable for \CMake. The macro
+`ADD_Fbc_SRC_DEPS` starts this process, calls the tool for each source
+file and binds the generated dependency tree to the build process, so
+that changes in source files loaded by an #`INCLUDE` statement also
+trigger the re-compilation of the related object file.
+
+Therefor, and in contrast to the \CMake documentation, for FB projects
+only the compilable source files (`*.bas`) gets specified in an
+`ADD_EXECUTABLE` or `ADD_LIBRARY` command (it also works for the
+`ADD_CUSTOM_TARGTET` command). But header files (`*.bi`) don't get
+listed. Here's an example using that macro to build a library:
 
 ~~~{.cmake}
 # declare the required CMake version (optional)
@@ -99,13 +113,13 @@ SET_TARGET_PROPERTIES(MyLib PROPERTIES
   )
 ~~~
 
-This `ADD_Fbc_SRC_DEPS` command requires a single parameter, which is
-the name of the target. The related \CMake macro reads all source files
-from the target properties and calls the \FbDeps tool to create a file
-with the dependency trees. Then, this macro includes the generated file
-in to your CMakeLists.txt file. The generated file also contains a
-custom command which re-builds the file (itself) when one of the source
-files in the dependency tree changed.
+This `ADD_Fbc_SRC_DEPS` command (macro) requires a single parameter,
+which is the name of the target. The related \CMake macro reads all
+source files from the target properties and calls the \FbDeps tool to
+create a file with the dependency trees. Then, this macro includes the
+generated file in to your CMakeLists.txt file. The generated file also
+contains a custom command which re-builds the file (itself) when one of
+the source files in the dependency tree changes.
 
 This mechanism ensures that only those object files get re-build that
 are related to the changed source files.
@@ -135,10 +149,10 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 # declare the project name and the languages (compilers) to use
 PROJECT(MyProject Fbc C)
 
-# pre-compile the C source, variable C_SRC contains the names of the C files
+# pre-compile the C source, afterwards variable C_SRC lists the names of the C files
 BAS_2_C(C_SRC MyProject.bas)
 
-# declare the target name and the source file[s]
+# declare the target name and pass the source file[s]
 ADD_EXECUTABLE(MyProject C_SRC)
 ~~~
 
@@ -157,11 +171,10 @@ written to the same directory where the FB files are from. This
 function also creates the dependency tree file using the \FbDeps tool
 and includes it in to your CMakeLists.txt file. By default the file is
 named CMakeFiles/bas2c_deps.cmake. This means you can have only one
-default `BAS_2_C` command per CMakeLists.txt file, since a second call
-will oerride the dependency file from the first call.
-
-Therefor the function can also be used in a more complex signature to
-customize its behavior, like
+default `BAS_2_C` command per CMakeLists.txt file (directory), since a
+second call will override the dependency file from the first call. A
+more complex signature of that function allows to customize its
+behavior, like
 
 ~~~{.cmake}
 BAS_2_C(<c_src_var>
@@ -224,8 +237,8 @@ get interpreted as FB source file names.
 
 When shipping your project, the recipient needs the new CMake macros in
 order to manage your project. Since they do not come with the original
-\CMake install yet (effective 2015, Jan.), you have to include the
-macros to your project (as it is done in this package).
+downstream \CMake install yet (effective 2016, Nov.), you have to
+include the macros to your project (as it is done in this package).
 
 Therefor just copy the folder `cmake` to the root directory of your
 project and add the following line at the beginning of your root
