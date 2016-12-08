@@ -1,48 +1,54 @@
-cmakefbc (0.11.6) jessie; urgency=low
+cmakefbc (0.6.0-ubuntu) ubuntu; urgency=low
+
+  * Build for kernel 4.4.
+
+ -- Thomas Freiherr <Thomas.Freiherr@gmx.net>  Thu, 08 Dec 2016 08:46:05 +0100
+
+cmakefbc (0.1.8) jessie; urgency=low
 
   * Build for Jessie.
 
  -- Thomas Freiherr <Thomas.Freiherr@gmx.net>  Mon, 05 Dec 2016 12:04:42 +0100
 
-cmakefbc (0.11.5) wheezy; urgency=low
+cmakefbc (0.1.7) wheezy; urgency=low
 
   * Implemented out-of source build with cmake.
 
  -- Arend Lammertink <lamare@gmail.com>  Thu, 24 Nov 2016 13:42:50 +0000
 
-cmakefbc (0.11.4) wheezy; urgency=low
+cmakefbc (0.1.6) wheezy; urgency=low
 
   * Install cmake modules in /usr/share/cmakefbc
   * Install general include file to /etc/fbc.cmake
 
  -- Arend Lammertink <lamare@gmail.com>  Tue, 22 Nov 2016 15:11:01 +0000
 
-cmakefbc (0.11.3) wheezy; urgency=low
+cmakefbc (0.1.5) wheezy; urgency=low
 
   * Strict dependency on cmake did not work.
 
  -- Arend Lammertink <lamare@gmail.com>  Mon, 21 Nov 2016 23:04:29 +0000
 
-cmakefbc (0.11.2) wheezy; urgency=low
+cmakefbc (0.1.4) wheezy; urgency=low
 
   * Separate package for html documentation.
   * Binay package now dependent on the major.minor version of cmake.
 
  -- Arend Lammertink <lamare@gmail.com>  Mon, 21 Nov 2016 22:34:13 +0000
 
-cmakefbc (0.11.1) wheezy; urgency=low
+cmakefbc (0.1.3) wheezy; urgency=low
 
   * Implemented build clean-up, included documentation.
 
  -- Arend Lammertink <lamare@gmail.com>  Sun, 20 Nov 2016 16:35:26 +0000
 
-cmakefbc (0.11) wheezy; urgency=low
+cmakefbc (0.1.2) wheezy; urgency=low
 
   * rebuild for wheezy.
 
  -- Arend Lammertink <lamare@gmail.com>  Tue, 27 Sep 2016 00:59:30 +0200
 
-cmakefbc (0.11) unstable; urgency=low
+cmakefbc (0.1.1) unstable; urgency=low
 
   * rebuild with fb-doc installed from debian package
 
