@@ -8,8 +8,7 @@ Changelog and Credits {#PagChangelog}
 \Proj is already a powerful tool to build FB projects with the \CMake
 manager. But there's still some optimization potential, like:
 
-- finish OOP support (... when the fbc got it)
-- more automated features like sorting the order or resolving double DECLARES
+- conditional #`INCLUDE` handling in cmakefbc_deps
 - ...
 
 Feel free to post your ideas, bug reports, wishes or patches, either
@@ -28,15 +27,18 @@ or feel free to send your ideas directly to the author (\Mail).
 
 Here's a list of the published versions:
 
-## cmakefbc-0.4.4 {#SecV-0-4-4}
+## cmakefbc-0.6 {#SecV-0-6}
 
-- new: Debian package building (src/bin/doc)
+- new: folder debian for Debian package building (src, bin, doc)
+- new: target deb to build Debian packages
+- new: Unix target distclear (to build Debian packages)
 - new: non-versioned install folder share/cmakefbc/Modules
 - new: cmakefbc wrapper script to configure a build tree
-- fix: tool cmake_fb_deps.bas renamed to cmakefbc_deps.bas
-- fix: adapted documentation for cmakefbc_deps.bas
+- fix: timestamp for target doc_www
+- fix: renamed cmake_fb_deps.bas --> cmakefbc_deps.bas
+- fix: adapted documentation
 
-Released on 2016 November, 26.
+Released on 2016 December, 26.
 
 
 ## cmakefbc-0.4.2 {#SecV-0-4-2}
@@ -45,9 +47,9 @@ Released on 2016 November, 26.
 - new: doc page Files and Folders (+ minor fixes and improvements)
 - new: documentational comments stripped in listing
 - new: flag NO_SYNTAX in UseFb-Doc
-- bugfix: ReadMe.md.in file replaces aliases by text (for GitHub start page)
-- bugfix: file in folder Platform renamed (camel case -> consistent shema)
-- bugfix: install CMAKE_MODULE_PATH issue fixed
+- fix: ReadMe.md.in file replaces aliases by text (for GitHub start page)
+- fix: file in folder Platform renamed (camel case -> consistent shema)
+- fix: install CMAKE_MODULE_PATH issue fixed
 
 Released on 2016 March, 16.
 
@@ -56,7 +58,7 @@ Released on 2016 March, 16.
 
 - cmake_fb_deps.bas: Improved path handling
 - cmake_fb_deps.bas: Warnings when #`INCLUDE` file not present (warns for each standard header)
-- doc/CMakeLists.txt: out-of-source build for documentation
+- doxy/CMakeLists.txt: out-of-source build for documentation
 
 Released on 2015 March, 16.
 

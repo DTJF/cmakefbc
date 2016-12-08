@@ -7,7 +7,7 @@ Find further information on that components at the following links
 
 The package is [hosted at GitHub](https://github.com/DTJF/cmakefbc) and it includes
 
-- CMake macros to extend the CMake build management system, in order to
+- CMake extension macros, in order to
   - check for the FB compiler and its version,
   - test the compiler,
   - declare internal CMake language variables (CMAKE_Fbc_...),

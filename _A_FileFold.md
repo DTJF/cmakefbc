@@ -9,51 +9,61 @@ The package contains the subfolders
 - \ref SecFoldDoxy : containing configuration files to build the documentation (where \Doxygen executes in a manual build)
 - \ref SecFoldDebian : containing configuration files to build Debian packages
 
-In the root folder contains the source files for the desription pages.
-The files end by suffix `.md`. The file `ReadMe.md.in` is a
-configuration file that is used to create the file `ReadMe.md` with
-individual parameters. Files named `CMakeLists.txt` are CMake scripts,
-designed to control the build and installation processes.
+And some files in the root folder.
+
+
+# Root {#SecFoldRoot}
+
+The root directory contains the file
+
+\Item{CMakeLists.txt} main configuration for the CMake build process
+
+and the documentation context in human readable markup format
+
+\Item{%ReadMe.md} general information
+
+\Item{%_1_Install.md} install instructions
+
+\Item{%_2_Usage.md} usage informations
+
+\Item{%_3_Tool.md} description of tool cmakefbc_deps
+
+\Item{%_A_FileFold.md} this chapter
+
+\Item{%_z_ChangeLog.md} Version information and credits
+
+\Item{_ReadMe.md.in} configuration file for %ReadMe.md
 
 
 # cmake {#SecFoldCMake}
 
-This folder contains the script files for \CMake in a subfolder called
-`Modules`. The directory structure and also the file names are stated
-by \CMake. The subfolders and their files get copied to your local CMake
-installation when the install target gets build by executing `make
-install`. And also they are used to build the default target by
-executing `make` (since in file `CMakeLists.txt` in the root directory
-the statement
+This folder contains the FB extension scripts for \CMake in a subfolder
+called `Modules`, and also two further scripts to control the build
+process of this documentation with Doxygen and fb-doc. The later are
+included in order to build this project, namely
 
-~~~{.cmake}
-LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/")
-~~~
+- \ref SubFindFbDoc : find and check the fb-doc executable
 
-adds this directory to the module paths, in order to make the scripts
-available for the initial build).
+- \ref SubUseFbDoc : create targets to control the documentation build
 
-Those script files are not in the \CMake distribution yet, so you've to
-ship them with your projects (similar as it is done in this project),
-in order to provide them to the users. See section \ref SecShipping for
-details.
+Target `install` copies them all to your system folder, since the
+fb-doc scripts may be useful for your projects as well. The destination
+folder is declared as `${CMAKE_INSTALL_PREFIX}/share/${PROJ_NAME}`.
+Variable `CMAKE_INSTALL_PREFIX` depends on your system, find details in
+the [CMake
+documantation](https://cmake.org/cmake/help/v3.7/variable/CMAKE_INSTALL_PREFIX.html).
 
+
+## FB extension scripts {#SubFbExtension}
+
+The directory structure and also the file names are stated by \CMake.
 It's beyond the scope of this documentation to explain details about
 the files and the integration of a new language in to \CMake. Find
-further information in its documentation.
-
-But there're two more files, rather related to the tool \FbDoc than to
-the compiler integration
-
-- \ref SubSecScriptFind and
-- \ref SubSecMacroUse.
-
-Those files are included because they're used to build this
-documentation (the text you're currently reading). You may find them
-helpful for your projects as well.
+further information in the [CMake
+documentation](https://cmake.org/documentation/).
 
 
-## FindFb-Doc.cmake  {#SubSecScriptFind}
+## FindFb-Doc.cmake  {#SubFindFbDoc}
 
 This file is a \CMake script file that searches for the \FbDoc tool. It
 tries to find the executable `fb-doc`, and on success it determines its
@@ -61,7 +71,9 @@ version. The script reports an error on versions smaller than 0.4.0.
 Otherwise the following variables get set
 
 \Item{FbDoc_EXECUTABLE} The full path to the \FbDoc executable.
+
 \Item{FbDoc_WORKS} The status if the \FbDoc tool was found, is working and has a proper version number.
+
 \Item{FbDoc_VERSION} The version number reported by command `fb-doc --version`.
 
 Here's an example on how to use the script in your `CMakeLists.txt` code
@@ -74,13 +86,13 @@ ENDIF()
 ~~~
 
 
-## UseFb-Doc.cmake  {#SubSecMacroUse}
+## UseFb-Doc.cmake  {#SubUseFbDoc}
 
 This file is a \CMake macro file that declares a function to add custom
 targets for a default documentation build. This function
 
 - checks for proper tool installation of the \FbDoc tool (using the
-  script \ref SubSecScriptFind) and the \Doxygen generator,
+  script \ref SubFindFbDoc) and the \Doxygen generator,
 
 - adapts Doxygen configuration to the build path, and
 
@@ -88,12 +100,12 @@ targets for a default documentation build. This function
 
 The process is designed to build the documentation either
 
-- manually controlled in folder `doc` (ie. by using `doxywizard`), as well as
-- automated by \CMake in-source in folder `doc`, or
+- manually controlled in folder `doxy` (ie. by using `doxywizard`), as well as
+- automated by \CMake in-source in folder `doxy`, or
 - automated by \CMake out-of-source in any folder of your choise.
 
 This is, the basis configuration gets loaded from the \Doxygen
-configuration file (default is `doc/Doxyfile`) and in case of an
+configuration file (default is `doxy/Doxyfile`) and in case of an
 automated build some tags in that file get overridden, in order to
 
 - adapt input and output paths,
@@ -101,12 +113,7 @@ automated build some tags in that file get overridden, in order to
 - control the type of the generated output.
 
 The file provides a function named `FB_DOCUMENTATION`, which declares
-the custom targets
-
-\Item{`doc`} build PDF file and HTML tree
-\Item{`doc_pdf`} build PDF file (output `doc/${PROJ_NAME}.pdf`)
-\Item{`doc_htm`} build HTML tree (startfile `doc/html/index.html`)
-\Item{`doc_www`} mirror local HTML tree to a web server
+the custom targets listed in section \ref SubDocTargets.
 
 Here's an minimal example on how to use this macro file and the
 function in your `CMakeLists.txt` code
@@ -184,7 +191,7 @@ STRIP_FROM_INC_PATH    = xyz/abc
 
 \Item{NO_WWW} A flag to drop the default target `doc_www`. By default
   this target mirrors the local HTML tree to a webserver by executing a
-  batch script, see \ref SubSubSecDocWww for details. Set this flag to
+  batch script, see target \ref SubDocWww for details. Set this flag to
   suppress the target declaration.
 
 \Item{NO_LFN} A flag to drop the preparation of the file fb-doc-lfn. If
@@ -220,7 +227,7 @@ STRIP_FROM_INC_PATH    = xyz/abc
 
 \Item{MIRROR_CMD} A keyword followed by a single string containing the
   command to mirror the local HTML tree to a webserver (`BatchScript.sh`
-  in the above example). See \ref SubSubSecDocWww for details.
+  in the above example). See target \ref SubDocWww for details.
 
 \Item{BAS_SRC} A keyword followed by a list (on or more strings)
   containing filenames (\FB source files) to be used as dependencies
@@ -236,23 +243,60 @@ STRIP_FROM_INC_PATH    = xyz/abc
         \Doxygen nor for \FbDoc (in modi `--list-mode` or
         `--syntax-mode`).
 
-\Item{DOXYCONF} A keyword followed by a list (on or more strings)
-  containing additional tags to override the basis \Doxygen
-  configuration. Those tags get inserted after the settings for paths
+\Item{DOXYCONF} A keyword followed by a single string (or a list of
+  strings) containing additional tags to override the basis \Doxygen
+  configuration. Those strings get inserted after the settings for paths
   and project data, but before the output settings (so changes to tags
   like `GENERATE_LATEX` or `GENERATE_XML` will get overriden further
   on).
   \note Those strings get parsed by \CMake, so you have to escape
-        special charaters like `"` or `\`. See \ref
-        SubSubSecExtensionFile for an alternative.
+        special charaters like `"` (gets `\"`) or `\` (gets `\\`). See
+        \ref SubDoxyControl for an alternative.
 
 
-### Target doc_www  {#SubSubSecDocWww}
+### Targets  {#SubDocTargets}
+
+The function `FB_DOCUMENTATION` creates new targets:
+
+- \ref SubDocHtm : build the documentation in html format
+- \ref SubDocPdf : build the documentation in pdf format (LaTeX required)
+- doc: build the former targets doc_htm and doc_pdf
+- \ref SubDocWww : upload the html tree to a server by executing a script
+
+\note Those targets get created anyway, regardless if your systems
+      provides the depending tools. \Proj cannot check all dependencies
+      that may be specified in the Doxygen configuration file.
+
+
+#### doc_htm  {#SubDocHtm}
+
+This target uses the specified `DOXYFILE`, extends it by fb-doc
+specific code and sets the output format to html in subfolder `html`.
+Afterwards it calls Doxygen to generate the html tree. When finished,
+find the start page at `html/index.html` in your Doxygen build folder,
+or in the subfolder `html` in the directory specified by `Doxyfile` tag
+`OUTPUT_DIRECTORY`.
+
+\note The subfoldername `html` is fixed.
+
+
+#### doc_pdf  {#SubDocPdf}
+
+This target uses the specified `DOXYFILE`, extends it by fb-doc
+specific code and sets the output format to pdf in subfolder `latex`.
+Afterwards it calls Doxygen to generate the pdf file. When finished,
+find the output named `${PROJ_NAME}.pdf` in your Doxygen build folder,
+or in the folder specified by `Doxyfile` tag `OUTPUT_DIRECTORY`.
+
+\note The subfoldername `latex` is fixed.
+
+
+#### doc_www  {#SubDocWww}
 
 This target mirrors the local HTML tree to a webserver by executing a
 batch script. By default it executes
 
-~~~{.sh}
+~~~{.txt}
 MirrorDoc.sh '--reverse --delete --verbose ${CMAKE_CURRENT_BINARY_DIR}/html public_html/Projekte/${PROJ_NAME}/doc/html'
 ~~~
 
@@ -260,7 +304,7 @@ Whereby the batch file `MirrorDoc.sh` contains the commands to mirror
 the folders. Ie. when using [<tt>lftp</tt>](http://lftp.yar.ru/) for
 mirroring, the context may look like
 
-~~~{.sh}
+~~~{.txt}
 #!/bin/bash
 HOST='ftp://your.server.adr'
 USER='UserName'
@@ -282,48 +326,58 @@ bye
       see keyword `MIRROR_CMD`.
 
 
-### Configure by extension file  {#SubSubSecExtensionFile}
+### Controling Doxygen  {#SubDoxyControl}
 
-When the \CMake build should override some settings in the basis
-configuration file, the keyword `DOXYCONF` can do the job.
-Unfortunately the context has to get through the \CMake parser, so that
-special characters have to get escaped. \Doxygen makes use of charaters
-`"` and `\` in the configuration file syntax, so the context gets
-unreadable soon.
+In order to control the Doxygen generation process, the function does
+not override the original configuration file (default name `Doxyfile`).
+Instead, the related tags controlling the CMake build process get
+written to extension files, a general
 
-As an alternative you can write your customized settings in to a
-further configuration file and chain up this file with the basis
-configuration by prepending an `@INCLUDE` command, like
+\Item{DoxyExtension} global extensions for all output types (macros and filter tags)
 
-~~~
+and output format specific
+
+\Item{HtmOut} setting for html output
+
+\Item{PDFOut} setting for pdf output
+
+The CMake function passes the latest output specific file to Doxygen,
+which `@INCLUDE`s the general extension, which finally `@INCLUDE`s the
+original configuration. Doxygen reads the original configuration first,
+then overrides the general tags, and finally overrides the output tags.
+
+\note This concept ensures that Doxygen can either get controlled by
+      the CMake build, or manually at the command line, or by any GUI
+      (ie. like `doxywizzard`).
+
+In case of CMake build, use keyword `DOXYFILE` to override the default
+file name of the original configuration file. And use keyword
+`DOXYCONF` to append further tags to the general extension file
+(optional).
+
+As an alternative you can chain up your customized settings from a
+further configuration file, like
+
+~~~{.txt}
 # file MyCustomDoxyfile
 
-@INCLUDE = Doxyfile
+@INCLUDE = Doxyfile                    # the original config file
 
-ALIASES += "Macro1=\p typewriter" \
+ALIASES += "Macro1=\p typewriter" \    # extension tags
            "Macro2=Macro2 \e Context"
 ~~~
 
-Then pass this configuration file name to \Doxygen (by applying
-`DOXYFILE MyCustomDoxyfile` in the `FB_DOCUMENTATION` function call, as
-in the above example).
-
-This process is also used in the function `FB_DOCUMENTATION` itself. If
-you want to chain up with the functions configuration file, then
-prepend your settings by
-
-~~~
-@INCLUDE = ${CMAKE_CURRENT_BINARY_DIR}/DoxyExtension
-~~~
+Then pass this configuration file to \Doxygen (by applying `DOXYFILE
+MyCustomDoxyfile`).
 
 
 # cmakefbc_deps {#SecFoldTool}
 
 This folder contains the source code for the tool \FbDeps, namely
 
-- `cmakefbc_deps.bas` : the \FB source code,
-- `_Tool.md` : the documentation context, and
-- `CMakelists.txt` : the build script to compile and install the executable.
+\Item{cmakefbc_deps.bas} the \FB source code,
+
+\Item{CMakelists.txt} the build script to compile and install the executable.
 
 
 # doxy {#SecFoldDoxy}
@@ -331,26 +385,34 @@ This folder contains the source code for the tool \FbDeps, namely
 This folder contains the configuration files to build the
 documentation, namely
 
-- `Doxyfile` : the \Doxygen basis configuration file,
-- `cmakefbc.xml` : the html index file,
-- `fb-doc.lfn` : the list of function names file,
-- `logo.png` : the image file, and
-- `CMakelists.txt` : the build script to compile and upload the documentation.
+\Item{Doxyfile} the \Doxygen basis configuration file,
+
+\Item{cmakefbc.xml} the html index file,
+
+\Item{logo.png} the image file, and
+
+\Item{CMakelists.txt} the build script to compile and upload the documentation.
 
 
-# dedian {#SecFoldDebian}
+# debian {#SecFoldDebian}
 
 This folder contains the configuration files to build Debian Linux
 packages from the source tree. Find detailed information about package
 building in the Debian documentation. Three packages are configured:
 
-- `binary` : containing CMake macros, cmakefbc_deps binary, cmakefbc wrapper and man pages (any platform)
-- `doc` : containing the documentation in html format (all platforms)
-- `source` : containing the source code (all platforms)
+\Item{cmakefbc} containing CMake macros, cmakefbc_deps binary, cmakefbc wrapper and man pages (any platform)
 
-\note: Instead of using CPack, this configuration is designed to work
-       with the original Debian tools. It works inside the source tree,
-       polluting it with a bunch of configuration files.
+\Item{cmakefbc-doc} containing the documentation in html format (all platforms)
 
-Start the build process by executing `debuild` in the root folder. The
-resulting output gets generated in the directory above the root folder.
+\Item{cmakefbc-src} containing the source code (all platforms)
+
+\note Instead of using CPack, this configuration is designed to work
+      with the original Debian tools, started by `debuild` command.
+
+Either start the build process by executing `debuild` in the root
+folder. In this case the resulting output gets generated in the
+directory above the root folder.
+
+Or let CMake handle it by executing `make deb` and find the resulting
+output either in the directory above the root folder (in-source build)
+or in subfolder debian.

@@ -1,3 +1,9 @@
+cmakefbc (0.11.6) jessie; urgency=low
+
+  * Build for Jessie.
+
+ -- Thomas Freiherr <Thomas.Freiherr@gmx.net>  Mon, 05 Dec 2016 12:04:42 +0100
+
 cmakefbc (0.11.5) wheezy; urgency=low
 
   * Implemented out-of source build with cmake.
@@ -13,7 +19,7 @@ cmakefbc (0.11.4) wheezy; urgency=low
 
 cmakefbc (0.11.3) wheezy; urgency=low
 
-  * Strict dependency on cmake did not work. 
+  * Strict dependency on cmake did not work.
 
  -- Arend Lammertink <lamare@gmail.com>  Mon, 21 Nov 2016 23:04:29 +0000
 

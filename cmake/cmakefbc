@@ -1,6 +1,0 @@
-#!/bin/bash
-# Wrapper script for cmake, which adds freebasic support modules to
-# cmake.
-
-echo cmake "$@" -DCMAKE_MODULE_PATH=/usr/share/cmakefbc/Modules
-cmake "$@" -DCMAKE_MODULE_PATH=/usr/share/cmakefbc/Modules

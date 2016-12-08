@@ -8,7 +8,7 @@ install_manifest.txt
 CMakeCache.txt
 cmakefbc_deps/cmakefbc_deps
 fbp.txt
-doxy/fb-doc.lfn
+fb-doc.lfn
 
 # Use wildcards as well
 CPack*
@@ -18,4 +18,6 @@ build/**/*
 doxy/html/**/*
 doxy/latex/**/*
 CMakeFiles/**/*
+doxy/CMakeFiles/**/*
+debian/CMakeFiles/**/*
 cmakefbc_deps/CMakeFiles/**/*

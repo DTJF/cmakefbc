@@ -77,16 +77,29 @@ ALIASES += \"Mail=${PROJ_MAIL}\" \\
       )
     LIST(APPEND msg "PROJDATA")
   ENDIF()
+  IF(NOT ARG_NO_LFN) #                          generate file fb-doc.lfn
+    SET(lfn ${CMAKE_CURRENT_BINARY_DIR}/fb-doc.lfn)
+    LIST(APPEND ARG_DEPENDS ${lfn})
+    ADD_CUSTOM_COMMAND(OUTPUT ${lfn}
+      COMMAND ${FbDoc_EXECUTABLE} -l -L ${lfn} ${doxyext}
+      DEPENDS ${ARG_BAS_SRC}
+      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+      )
+    LIST(APPEND msg "LFN")
+    SET(filt_cmd "${FbDoc_EXECUTABLE} -L ${lfn}")
+  ELSE()
+    SET(filt_cmd "${FbDoc_EXECUTABLE}")
+  ENDIF()
   FILE(WRITE ${doxyext} #                           write extension file
 "
 @INCLUDE = ${ARG_DOXYFILE}
 EXTENSION_MAPPING      = bi=C++ bas=C++
 OUTPUT_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}
-FILTER_PATTERNS        = *.bas=${FbDoc_EXECUTABLE} \\
-                          *.bi=${FbDoc_EXECUTABLE}
+FILTER_PATTERNS        = \"*.bas=\\\"${filt_cmd}\\\"\" \\
+                          \"*.bi=\\\"${filt_cmd}\\\"\"
 FILTER_SOURCE_FILES    = YES
-FILTER_SOURCE_PATTERNS = *.bas=${FbDoc_EXECUTABLE} \\
-                          *.bi=${FbDoc_EXECUTABLE}
+FILTER_SOURCE_PATTERNS = \"*.bas=\\\"${filt_cmd}\\\"\" \\
+                          \"*.bi=\\\"${filt_cmd}\\\"\"
 "
     ${projconf}
     "\n"
@@ -94,16 +107,6 @@ FILTER_SOURCE_PATTERNS = *.bas=${FbDoc_EXECUTABLE} \\
     )
   ADD_CUSTOM_TARGET(doc) #                           generate target doc
 
-  IF(NOT ARG_NO_LFN) #                          generate file fb-doc.lfn
-    SET(lfn ${CMAKE_CURRENT_SOURCE_DIR}/fb-doc.lfn)
-    LIST(APPEND ARG_DEPENDS ${lfn})
-    ADD_CUSTOM_COMMAND(OUTPUT ${lfn}
-      COMMAND ${FbDoc_EXECUTABLE} -l ${doxyext}
-      DEPENDS ${ARG_BAS_SRC}
-      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-      )
-    LIST(APPEND msg "LFN")
-  ENDIF()
   SET(targets "doc")
   SET(nout
 "

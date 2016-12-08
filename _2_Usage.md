@@ -8,21 +8,72 @@ this build management system is far beyond the scope of this
 documentation (see http://www.cmake.org/documentation/ for
 details). Find here some specials regarding the FB adaptions.
 
-This package binds the FB compiler in to the \CMake build management
-system. It supports two ways how to use the FB compiler:
+The CMake scripts that binds the FB compiler in to the \CMake build
+management system live in the folder `cmake/Modules` and get copied to
+a fresh folder `share/cmakefbc/Modules` in your system path when
+executing target `install`. (Check file `cmake/cmakefbc[.bat]` in your
+configured build directory for the complete path information.) The
+target doesn't install to the `${CMAKE_ROOT}` folder (like other
+extensions do).
 
-- Direct compiling (.bas to binaries = object files), and
-- indirect compiling (.bas to .c).
+The downside is that the implementation isn't fully transparant:
+instead of `cmake`, you have to use `cmakefbc` in order to configure
+the build tree. But the advantage is that installations of \CMake and
+\Proj are separate. You can update either of them, regardless of the
+other. Ie. when you update CMake and get a new folder `${CMAKE_ROOT}`,
+you need not re-install \Proj.
+
+Instead of using `cmakefbc` there're alternatives to tell CMake where
+to find the scripts. Ie. you can place a line in the root
+`CMakeLists.txt` file like
+
+~~~{.txt}
+LIST(APPEND CMAKE_MODULE_PATH cmake/Modules)
+~~~
+
+before the projects declaration
+
+~~~{.txt}
+PROJECT(YourProject Fbc)
+~~~
+
+This only works when you ship your project with a copy of the scripts,
+see section \ref SecShipping for details.
+
+An other alternative is to use option `-DCMAKE_MODULE_PATH=` in a
+conventional call, like (adapt the path for your system)
+
+~~~{.txt}
+cmake .. -DCMAKE_MODULE_PATH=/usr/local/share/cmake/Modules
+~~~
+
+Anyway, in order to use that scripts you have to enable the FreeBASIC
+language for your project
+
+~~~{.txt}
+PROJECT(YourProject Fbc)
+~~~
+
+\note Mind the camel case `Fbc` declaration.
+
+This makes CMake to check for the compiler and test it in the
+configuration process for your build tree. In case of failure error
+messages get thrown and the configuration aborts. Otherwise the
+extension scripts now support two ways of using the FB compiler:
+
+\ref SecDirect : `.bas` to binaries (= object files), and
+
+\ref SecIndirect : `.bas` to `.c`
 
 For direct compiling only the FB compiler is necessary (and its
 tools). In contrast, for indirect compiling you'll need a further C
 compiler to be installed on your system (which is the case when you use
-a 64 bit FB version).
+a 64 bit or armhf FB version).
 
 The later (indirect compiling) may be beneficial when porting a project
-to new platforms or when packing Debian packages (.deb) with source
+to new platforms or when packing Debian packages (.deb) with C source
 code. But in most cases it's more convenient to compile directly, since
-you'll have less files in your project folders.
+you'll have less files on your hard disk.
 
 
 # Direct Compiling  {#SecDirect}
@@ -242,7 +293,8 @@ include the macros to your project (as it is done in this package).
 
 Therefor just copy the folder `cmake` to the root directory of your
 project and add the following line at the beginning of your root
-CMakeLists.txt file (right below `CMAKE_MINIMUM_REQUIRED(...)`)
+CMakeLists.txt file (right below `CMAKE_MINIMUM_REQUIRED(...)` and
+before the projects declaration `PROJECT(YourProject Fbc)`)
 
 ~~~{.cmake}
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/")
