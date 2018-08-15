@@ -115,7 +115,8 @@ ELSE()
     SET(_file ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${Tar}_deps.cmake)
     GET_TARGET_PROPERTY(_src ${Tar} SOURCES)
     EXECUTE_PROCESS(
-      COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} cmakefbc_deps ${_file} ${_src}
+      COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_Fbc_DEPS_TOOL} ${_file} ${_src}
+      VERBATIM
       )
     INCLUDE(${_file})
     ADD_CUSTOM_TARGET(${Tar}_deps OUTPUT ${_file})
@@ -178,7 +179,7 @@ ELSE()
 
     IF(NOT ARG_NO_DEPS)
       EXECUTE_PROCESS(
-        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} cmakefbc_deps ${_deps} ${fbc_src}
+        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_Fbc_DEPS_TOOL} ${_deps} ${fbc_src}
         )
       INCLUDE(${_deps})
       ADD_CUSTOM_TARGET(${_tar} OUTPUT ${_deps})
