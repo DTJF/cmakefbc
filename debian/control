@@ -3,7 +3,7 @@ Section: devel
 Priority: extra
 Maintainer: Arend Lammertink <lamare@gmail.com>
 Build-Depends: debhelper (>= 8.0.0), cmake (>= 2.8.3), freebasic (>= 1.0.0), fb-doc (>= 0.4.2), doxygen (>= 1.8.1), graphviz (>= 2.26.3)
-Standards-Version: 3.9.7
+Standards-Version: 3.9.8
 Homepage: https://github.com/DTJF/cmakefbc
 Vcs-Git: git://github.com/DTJF/cmakefbc
 
@@ -33,5 +33,6 @@ Section: doc
 Architecture: all
 Depends: ${misc:Depends}
 Description: html documentation for cmakefbc
- Html documentation for FreeBASIC (FB) programming language support for CMake.
+ Html documentation for FreeBASIC (FB) programming language support in
+ CMake build system manager.
 

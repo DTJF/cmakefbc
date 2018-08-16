@@ -116,7 +116,6 @@ ELSE()
     GET_TARGET_PROPERTY(_src ${Tar} SOURCES)
     EXECUTE_PROCESS(
       COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_Fbc_DEPS_TOOL} ${_file} ${_src}
-      VERBATIM
       )
     INCLUDE(${_file})
     ADD_CUSTOM_TARGET(${Tar}_deps OUTPUT ${_file})

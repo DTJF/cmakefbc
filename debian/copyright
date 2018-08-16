@@ -2,13 +2,13 @@ Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: cmakefbc
 Source: <https://github.com/DTJF/cmakefbc>
 
-Files: *
-Copyright: 2016 Thomas Freiherr <Thomas.Freiherr@gmx.net>
+Files: debian/*
+Copyright: 2018 Arend Lammertink <lamare@gmail.com>
+           2018 Thomas Freiherr <Thomas.Freiherr@gmx.net>
 License: GPL-3.0+
 
-Files: debian/*
-Copyright: 2016 Arend Lammertink <lamare@gmail.com>
-           2016 Thomas Freiherr <Thomas.Freiherr@gmx.net>
+Files: *
+Copyright: 2018 Thomas Freiherr <Thomas.Freiherr@gmx.net>
 License: GPL-3.0+
 
 License: GPL-3.0+
