@@ -1,6 +1,7 @@
 cmakefbc (0.6.2) jessie; urgency=low
 
-  * Fixes for paths in Debian package builds
+  * Non-maintainer upload.
+  * Fixed paths for Debian package builds.
 
  -- Thomas Freiherr <Thomas.Freiherr@gmx.net>  Mon, 20 Aug 2018 13:14:45 +0200
 
