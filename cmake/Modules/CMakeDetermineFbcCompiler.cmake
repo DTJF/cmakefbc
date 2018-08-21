@@ -1,7 +1,7 @@
 #
 # CMakeFbc - CMake module for FreeBASIC Language
 #
-# Copyright (C) 2014-2016, Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT }net
+# Copyright (C) 2014-2018, Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT }net
 #
 # All rights reserved.
 #
@@ -50,9 +50,14 @@ IF(NOT CMAKE_Fbc_COMPILER)
 ENDIF()
 
 IF(NOT CMAKE_Fbc_DEPS_TOOL)
-  FIND_PROGRAM(CMAKE_Fbc_DEPS_TOOL cmakefbc_deps DOC "FreeBASIC dependencies tool." HINTS /usr/local/bin)
-  IF(CMAKE_Fbc_DEPS_TOOL)
-    SET(CMAKE_Fbc_DEPS_TOOL "${CMAKE_Fbc_DEPS_TOOL}" CACHE FILEPATH "cmake FB dependency tool" FORCE)
+  FIND_PROGRAM(pathnam cmakefbc_deps DOC "FreeBASIC dependencies tool." HINTS /usr/local/bin)
+  IF(pathnam)
+    GET_FILENAME_COMPONENT(fbpath ${CMAKE_Fbc_COMPILER} PATH)
+    IF(fbpath)
+      SET(CMAKE_Fbc_DEPS_TOOL "${pathnam} -p ${fbpath}" CACHE FILEPATH "cmake FB dependency tool" FORCE)
+    ELSE()
+      SET(CMAKE_Fbc_DEPS_TOOL "${pathnam}" CACHE FILEPATH "cmake FB dependency tool" FORCE)
+    ENDIF()
     MESSAGE(STATUS "Check for working cmakefbc_deps tool OK ==> ${CMAKE_Fbc_DEPS_TOOL}")
   ENDIF()
 ENDIF()

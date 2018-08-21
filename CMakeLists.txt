@@ -8,6 +8,7 @@
 #
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.3)
+SET(CMAKE_MODULE_PATH ../cmake/Modules)
 
 # constants
 SET(PROJ_NAME "cmakefbc"           CACHE STRING "project name" FORCE)
