@@ -8,7 +8,7 @@
 #
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.3)
-SET(CMAKE_MODULE_PATH ../cmake/Modules)
+SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/Modules)
 
 # constants
 SET(PROJ_NAME "cmakefbc"           CACHE STRING "project name" FORCE)
@@ -19,6 +19,11 @@ SET(PROJ_MAIL "Thomas{ doT ]Freiherr[ At ]gmx[ DoT }net"  CACHE STRING "project 
 SET(PROJ_WEBS "https://github.com/DTJF/cmakefbc" CACHE STRING "project website" FORCE)
 SET(PROJ_LICE "GPLv3"              CACHE STRING "project licence" FORCE)
 SET(PROJ_YEAR "2018"               CACHE STRING "project year" FORCE)
+
+FUNCTION(MSG_LOG Txt)
+  FILE(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeOutput.log "${Txt}\n\n")
+  MESSAGE(STATUS ${Txt})
+ENDFUNCTION()
 
 PROJECT(${PROJ_NAME} NONE)
 

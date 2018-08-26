@@ -1,9 +1,10 @@
 # check for Debian packaging tools
 FIND_PROGRAM(deb_exe debuild)
 IF(NOT deb_exe)
-  MESSAGE(STATUS "no Debian tools found (tried command debuild) -> no target deb")
+  MSG_LOG("!! no target <deb> (missing command 'debuild')")
   RETURN()
 ENDIF()
+MSG_LOG(">> target <deb> OK (working command 'debuild')")
 
 
 # in-source: create target deb for in-source debuild
@@ -24,10 +25,10 @@ SET(src # files & dirs to copy from root dir
   debian
   doxy
   )
+SET(bdir ${CMAKE_CURRENT_BINARY_DIR}/${PROJ_NAME})
 # create target deb for out-of-source debuild
 ADD_CUSTOM_TARGET(deb rm -rf ${PROJ_NAME} ${CMAKE_SOURCE_DIR}/doxy/fb-doc.lfn
   COMMAND mkdir ${PROJ_NAME}
-  COMMAND cd ${CMAKE_SOURCE_DIR} && cp -r ${src} ${CMAKE_CURRENT_BINARY_DIR}/${PROJ_NAME}
-
-  COMMAND cd ${PROJ_NAME} && ${deb_exe} ${DEBUILD_FLAGS}
+  COMMAND cd ${CMAKE_SOURCE_DIR} && cp -r ${src} ${bdir}
+  COMMAND cd ${bdir} && ${deb_exe} ${DEBUILD_FLAGS}
   )

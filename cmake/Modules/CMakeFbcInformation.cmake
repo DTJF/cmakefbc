@@ -114,13 +114,13 @@ ELSE()
   MACRO(ADD_Fbc_SRC_DEPS Tar)
     SET(_file ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${Tar}_deps.cmake)
     GET_TARGET_PROPERTY(_src ${Tar} SOURCES)
-
-message(STATUS "HIER: ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} '${CMAKE_Fbc_DEPS_TOOL} ${_file} ${_src}'")
-
-    EXECUTE_PROCESS(
-      #COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_Fbc_DEPS_TOOL} ${_file} ${_src}
-      COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_Fbc_DEPS_TOOL} ${_file} ${_src}
-      )
+    IF(CMAKE_Fbc_INST_PATH)
+      SET(_args ${CMAKE_Fbc_INST_PATH} -i=${CMAKE_CURRENT_SOURCE_DIR} ${_file} ${_src})
+      EXECUTE_PROCESS(COMMAND "${CMAKE_Fbc_DEPS_TOOL}" ${_args})
+    ELSE()
+      EXECUTE_PROCESS(COMMAND ${CMAKE_COMMAND} -E
+        chdir ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_Fbc_DEPS_TOOL} ${_file} ${_src})
+    ENDIF()
     INCLUDE(${_file})
     ADD_CUSTOM_TARGET(${Tar}_deps OUTPUT ${_file})
   ENDMACRO(ADD_Fbc_SRC_DEPS)
@@ -181,9 +181,13 @@ message(STATUS "HIER: ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} '${C
     ENDFOREACH()
 
     IF(NOT ARG_NO_DEPS)
-      EXECUTE_PROCESS(
-        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_Fbc_DEPS_TOOL} ${_deps} ${fbc_src}
-        )
+      IF(CMAKE_Fbc_INST_PATH)
+        SET(_args ${CMAKE_Fbc_INST_PATH} -i=${CMAKE_CURRENT_SOURCE_DIR} ${_deps} ${fbc_src})
+        EXECUTE_PROCESS(COMMAND "${CMAKE_Fbc_DEPS_TOOL}" ${_args})
+      ELSE()
+        EXECUTE_PROCESS(COMMAND ${CMAKE_COMMAND} -E
+          chdir ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_Fbc_DEPS_TOOL} ${_deps} ${fbc_src})
+      ENDIF()
       INCLUDE(${_deps})
       ADD_CUSTOM_TARGET(${_tar} OUTPUT ${_deps})
     ENDIF()
