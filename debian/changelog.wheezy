@@ -1,15 +1,3 @@
-cmakefbc (0.6.0-ubuntu) ubuntu; urgency=low
-
-  * Build for kernel 4.4.
-
- -- Thomas Freiherr <Thomas.Freiherr@gmx.net>  Thu, 08 Dec 2016 08:46:05 +0100
-
-cmakefbc (0.1.8) jessie; urgency=low
-
-  * Build for Jessie.
-
- -- Thomas Freiherr <Thomas.Freiherr@gmx.net>  Mon, 05 Dec 2016 12:04:42 +0100
-
 cmakefbc (0.1.7) wheezy; urgency=low
 
   * Implemented out-of source build with cmake.

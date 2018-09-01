@@ -1,0 +1,17 @@
+cmakefbc (0.6.2) jessie; urgency=low
+
+  * Fixed path problems for Debian package builds.
+
+ -- Thomas Freiherr <Thomas.Freiherr@gmx.net>  Mon, 20 Aug 2018 13:14:45 +0200
+
+cmakefbc (0.6.0-ubuntu) ubuntu; urgency=low
+
+  * Build for kernel 4.4.
+
+ -- Thomas Freiherr <Thomas.Freiherr@gmx.net>  Thu, 08 Dec 2016 08:46:05 +0100
+
+cmakefbc (0.1.8) jessie; urgency=low
+
+  * First build for Jessie.
+
+ -- Thomas Freiherr <Thomas.Freiherr@gmx.net>  Mon, 05 Dec 2016 12:04:42 +0100

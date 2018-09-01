@@ -3,7 +3,7 @@
 #
 # It defines the following ...
 #
-# Copyright (C) 2014-2016, Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT }net
+# Copyright (C) 2014-2018, Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT }net
 # License GPLv3 (see http://www.gnu.org/licenses/gpl-3.0.html)
 #
 # See ReadMe.md for details.
@@ -25,10 +25,6 @@ ENDIF()
 # check for parser macro
 IF(NOT COMMAND CMAKE_PARSE_ARGUMENTS)
   INCLUDE(CMakeParseArguments)
-  IF(NOT COMMAND CMAKE_PARSE_ARGUMENTS)
-    MESSAGE(STATUS "include CMakeParseArguments failed -> no function FB_DOCUMENTATION")
-    RETURN()
-  ENDIF()
 ENDIF()
 
 
@@ -59,7 +55,7 @@ FUNCTION(FB_DOCUMENTATION)
     SET(FbDoc_SYNTAX ${CMAKE_COMMAND} -E echo no syntax highlighting for)
   ENDIF()
 
-  SET(doxyext ${CMAKE_CURRENT_BINARY_DIR}/DoxyExtension) # extension file
+  SET(doxyext ${CMAKE_CURRENT_BINARY_DIR}/DoxyExtension) # ext file name
   IF(NOT ARG_DOXYFILE) #                      default configuration file
     SET(ARG_DOXYFILE "${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile")
   ENDIF()
@@ -77,29 +73,16 @@ ALIASES += \"Mail=${PROJ_MAIL}\" \\
       )
     LIST(APPEND msg "PROJDATA")
   ENDIF()
-  IF(NOT ARG_NO_LFN) #                          generate file fb-doc.lfn
-    SET(lfn ${CMAKE_CURRENT_BINARY_DIR}/fb-doc.lfn)
-    LIST(APPEND ARG_DEPENDS ${lfn})
-    ADD_CUSTOM_COMMAND(OUTPUT ${lfn}
-      COMMAND ${FbDoc_EXECUTABLE} -l -L ${lfn} ${doxyext}
-      DEPENDS ${ARG_BAS_SRC}
-      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-      )
-    LIST(APPEND msg "LFN")
-    SET(filt_cmd "${FbDoc_EXECUTABLE} -L ${lfn}")
-  ELSE()
-    SET(filt_cmd "${FbDoc_EXECUTABLE}")
-  ENDIF()
   FILE(WRITE ${doxyext} #                           write extension file
 "
 @INCLUDE = ${ARG_DOXYFILE}
 EXTENSION_MAPPING      = bi=C++ bas=C++
 OUTPUT_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}
-FILTER_PATTERNS        = \"*.bas=\\\"${filt_cmd}\\\"\" \\
-                          \"*.bi=\\\"${filt_cmd}\\\"\"
+FILTER_PATTERNS        = *.bas=${FbDoc_EXECUTABLE} \\
+                          *.bi=${FbDoc_EXECUTABLE}
 FILTER_SOURCE_FILES    = YES
-FILTER_SOURCE_PATTERNS = \"*.bas=\\\"${filt_cmd}\\\"\" \\
-                          \"*.bi=\\\"${filt_cmd}\\\"\"
+FILTER_SOURCE_PATTERNS = *.bas=${FbDoc_EXECUTABLE} \\
+                          *.bi=${FbDoc_EXECUTABLE}
 "
     ${projconf}
     "\n"
@@ -107,6 +90,16 @@ FILTER_SOURCE_PATTERNS = \"*.bas=\\\"${filt_cmd}\\\"\" \\
     )
   ADD_CUSTOM_TARGET(doc) #                           generate target doc
 
+  IF(NOT ARG_NO_LFN) #                          generate file fb-doc.lfn
+    SET(lfn ${CMAKE_CURRENT_SOURCE_DIR}/fb-doc.lfn)
+    LIST(APPEND ARG_DEPENDS ${lfn})
+    ADD_CUSTOM_COMMAND(OUTPUT ${lfn}
+      COMMAND ${FbDoc_EXECUTABLE} -l ${doxyext}
+      DEPENDS ${ARG_BAS_SRC}
+      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+      )
+    LIST(APPEND msg "LFN")
+  ENDIF()
   SET(targets "doc")
   SET(nout
 "
@@ -147,7 +140,7 @@ HTML_OUTPUT      = html
       COMMAND ${FbDoc_SYNTAX} ${htmconf}
       DEPENDS ${ARG_BAS_SRC} ${ARG_DEPENDS}
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-      VERBATIM
+      #VERBATIM
       )
     ADD_CUSTOM_TARGET(doc_htm DEPENDS ${htmfile})
     ADD_DEPENDENCIES(doc doc_htm)
@@ -172,7 +165,7 @@ LATEX_OUTPUT     = latex
       COMMAND ${CMAKE_COMMAND} -E rename ${reffile} ${pdffile}
       DEPENDS ${ARG_BAS_SRC} ${ARG_DEPENDS}
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-      VERBATIM
+      #VERBATIM
       )
     ADD_CUSTOM_TARGET(doc_pdf DEPENDS ${pdffile})
     ADD_DEPENDENCIES(doc doc_pdf)

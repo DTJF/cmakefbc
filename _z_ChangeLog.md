@@ -27,6 +27,15 @@ or feel free to send your ideas directly to the author (\Mail).
 
 Here's a list of the published versions:
 
+## cmakefbc-0.6.2 {#SecV-0-6-2}
+
+- new: help and version output for cmakefbc_deps tool
+- new: path options for cmakefbc_deps tool (header, src)
+- new: no more (false) warnings on existant fbc headers in default path
+
+Released on 2018 August.
+
+
 ## cmakefbc-0.6 {#SecV-0-6}
 
 - new: folder debian for Debian package building (src, bin, doc)

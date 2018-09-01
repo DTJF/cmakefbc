@@ -1,7 +1,7 @@
 #
 # CMakeFbc - CMake module for FreeBASIC Language
 #
-# Copyright (C) 2014-2016, Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT }net
+# Copyright (C) 2014-2018, Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT }net
 #
 # All rights reserved.
 #
@@ -50,10 +50,25 @@ IF(NOT CMAKE_Fbc_COMPILER)
 ENDIF()
 
 IF(NOT CMAKE_Fbc_DEPS_TOOL)
-  FIND_PROGRAM(CMAKE_Fbc_DEPS_TOOL cmakefbc_deps DOC "FreeBASIC dependencies tool." HINTS /usr/local/bin)
-  IF(CMAKE_Fbc_DEPS_TOOL)
-    SET(CMAKE_Fbc_DEPS_TOOL "${CMAKE_Fbc_DEPS_TOOL}" CACHE FILEPATH "cmake FB dependency tool" FORCE)
-    MESSAGE(STATUS "Check for working cmakefbc_deps tool OK ==> ${CMAKE_Fbc_DEPS_TOOL}")
+  FIND_PROGRAM(pathnam cmakefbc_deps DOC "FreeBASIC dependencies tool." HINTS /usr/local/bin)
+  IF(pathnam)
+    EXECUTE_PROCESS(COMMAND ${pathnam} -v
+      OUTPUT_VARIABLE version_string OUTPUT_STRIP_TRAILING_WHITESPACE)
+    GET_FILENAME_COMPONENT(fbpath ${CMAKE_Fbc_COMPILER} PATH)
+    IF(fbpath AND (NOT ${version_string} MATCHES "Too less parameters"))
+      IF(UNIX)
+        SET(fbpath "${fbpath}/../include/freebasic")
+      ELSE()
+        SET(fbpath "${fbpath}/inc")
+      ENDIF()
+      SET(CMAKE_Fbc_DEPS_TOOL "${pathnam}" CACHE INTERNAL "cmake FB dependency tool" FORCE)
+      SET(CMAKE_Fbc_INST_PATH "-f=${fbpath}" CACHE INTERNAL "install path for Fbc headers" FORCE)
+    ELSE()
+      SET(version_string "${pathnam}: version 0.0")
+      SET(CMAKE_Fbc_DEPS_TOOL "${pathnam}" CACHE INTERNAL "cmake FB dependency tool" FORCE)
+      SET(CMAKE_Fbc_INST_PATH "" CACHE INTERNAL "install path for Fbc headers" FORCE)
+    ENDIF()
+    MESSAGE(STATUS "Check for working cmakefbc_deps tool OK ==> ${version_string}")
   ENDIF()
 ENDIF()
 
@@ -77,5 +92,6 @@ CONFIGURE_FILE(
 MARK_AS_ADVANCED(
   CMAKE_Fbc_COMPILER
   CMAKE_Fbc_DEPS_TOOL
+  CMAKE_Fbc_INST_PATH
   )
 SET(CMAKE_Fbc_COMPILER_ENV_VAR "FBC")
