@@ -6,33 +6,3 @@ Build-Depends: debhelper (>= 8.0.0), cmake (>= 2.8.3), freebasic (>= 1.0.0), fb-
 Standards-Version: 3.9.5
 Homepage: https://github.com/DTJF/cmakefbc
 Vcs-Git: git://github.com/DTJF/cmakefbc
-
-Package: cmakefbc
-Architecture: any
-Depends: cmake (>= 2.8.3), ${shlibs:Depends}, ${misc:Depends}
-Description: FreeBASIC (FB) programming language support for CMake
- The package includes:
- .
- CMake macros to extend the CMake build management system, in order to
-        check for the FB compiler and its version,
-        test the compiler,
-        declare internal CMake language variables (CMAKE_Fbc_...),
-        declare a macro to scan dependencies in FB source code, and
-        declare a function to pre-compile FB source to C source.
- .
- the tool cmakefbc_deps to
-        scan the dependency files in FB source trees and
-        integrate them in to a projects build tree.
- .
- a CMake script and a macro for the tool fb-doc to
-        find the executable and
-        use it to build the documentation with the Doxygen generator
-
-Package: cmakefbc-doc
-Section: doc
-Architecture: all
-Depends: ${misc:Depends}
-Description: html documentation for cmakefbc
- Html documentation for FreeBASIC (FB) programming language support in
- CMake build system manager.
-
