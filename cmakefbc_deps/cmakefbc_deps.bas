@@ -26,7 +26,7 @@ DIM SHARED AS STRING DEPS _ '*< A global variable to collect file specific depen
 #DEFINE GEN_ERROR(_T_) ?COMMAND(0) & ": " & _T_
 
 
-/'* \brief Add a file name two a directory.
+/'* \brief Add a file name to a directory.
 \param P1 The path of the file.
 \param P2 The path (relative or absolute) and name of the file to point to.
 \returns A string of the combined file name.
@@ -131,7 +131,7 @@ FUNCTION Scan(BYREF Fnam AS STRING) AS ZSTRING PTR
       IF r THEN '                        got an error, try fallback path
         inam = absNam(BAS_FOLD, snam)
         r = Scan(inam)
-        IF r THEN SKIP_FILE(r, snam, " in " & Fnam)        : EXIT SELECT ' no chance
+        IF r THEN SKIP_FILE(r, snam, " in " & Fnam)         : EXIT SELECT ' no chance
       END IF
 
       inam = ";" & inam & ";"
