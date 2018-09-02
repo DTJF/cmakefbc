@@ -18,7 +18,7 @@ The package is [hosted at GitHub](https://github.com/DTJF/cmakefbc) and it inclu
   - scan the dependency files in FB source trees and
   - integrate them in to a projects build tree.
 
-- a CMake script and a  macro for the tool [fb-doc](http://github.com/DTJF/fb-doc) to
+- a CMake script and a  macro for the tool [fbdoc](http://github.com/DTJF/fbdoc) to
   - find the executable and
   - use it to build the documentation with the [Doxygen](http://www.doxygen.org/) generator
 

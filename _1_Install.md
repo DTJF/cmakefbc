@@ -74,7 +74,7 @@ packages in their distrubution management system (D), or pre-installed
 | [fbc](http://www.freebasic.net)                     | M    | FreeBASIC compiler to compile the source code                  |
 | [CMake](http://www.cmake.org)                       | M  D | Build management system to build executables and documentation |
 | [GIT](http://git-scm.com/)                          | R  D | Version control system to organize the files                   |
-| [fb-doc](http://github.com/DTJF/fb-doc)             | R    | FreeBASIC extension tool for Doxygen                           |
+| [fbdoc](http://github.com/DTJF/fbdoc)               | R    | FreeBASIC extension tool for Doxygen                           |
 | [Doxygen](http://www.doxygen.org/)                  | R  D | Documentation generator (for html output)                      |
 | [Graphviz](http://www.graphviz.org/)                | R  D | Graph Visualization Software (caller/callee graphs)            |
 | [LaTeX](https://latex-project.org/ftp.html)         | R  D | A document preparation system (for PDF output)                 |
@@ -107,11 +107,11 @@ them on your system:
    sudo  ./install.sh -i
    ~~~
 
--# And finaly, install fb-doc (if wanted) by using GIT and CMake.
+-# And finaly, install fbdoc (if wanted) by using GIT and CMake.
    Execute the commands
    ~~~{.txt}
-   git clone https://github.com/DTJF/fb-doc
-   cd fb-doc
+   git clone https://github.com/DTJF/fbdoc
+   cd fbdoc
    mkdir build
    cd build
    cmake ..
@@ -186,7 +186,7 @@ You should see output like
 
 ~~~{.txt}
 $ cmake .. -DCMAKE_MODULE_PATH=../cmakefbc/Modules
--- Check for working fb-doc tool OK ==> /usr/local/bin/fb-doc (0.4.2)
+-- Check for working fbdoc tool OK ==> /usr/local/bin/fbdoc (1.0)
 -- Found Doxygen: /usr/bin/doxygen (found version "1.8.11")
 -- FB_DOCUMENTATION configured: SELFDEP;SYNTAX;PROJDATA;LFN targets doc;doc_www;doc_htm;doc_pdf
 -- Check for working cmakefbc_deps tool OK ==> /usr/local/bin/cmakefbc_deps
@@ -227,14 +227,14 @@ $ sudo make install
 Install the project...
 -- Install configuration: ""
 -- Installing: /usr/local/share/cmakefbc/Modules
--- Installing: /usr/local/share/cmakefbc/Modules/UseFb-Doc.cmake
+-- Installing: /usr/local/share/cmakefbc/Modules/UseFbDoc.cmake
 -- Installing: /usr/local/share/cmakefbc/Modules/CMakeDetermineFbcCompiler.cmake
 -- Installing: /usr/local/share/cmakefbc/Modules/CMakeTestFbcCompiler.cmake
 -- Installing: /usr/local/share/cmakefbc/Modules/Platform
 -- Installing: /usr/local/share/cmakefbc/Modules/Platform/Windows-Fbc.cmake
 -- Installing: /usr/local/share/cmakefbc/Modules/Platform/Linux-Fbc.cmake
 -- Installing: /usr/local/share/cmakefbc/Modules/CMakeFbcInformation.cmake
--- Installing: /usr/local/share/cmakefbc/Modules/FindFb-Doc.cmake
+-- Installing: /usr/local/share/cmakefbc/Modules/FindFbDoc.cmake
 -- Installing: /usr/local/share/cmakefbc/Modules/CMakeFbcCompiler.cmake.in
 -- Installing: /usr/local/bin/cmakefbc
 -- Installing: /usr/local/bin/cmakefbc_deps
@@ -369,14 +369,14 @@ $ sudo make install
 Install the project...
 -- Install configuration: ""
 -- Installing: /usr/local/share/cmakefbc/Modules
--- Installing: /usr/local/share/cmakefbc/Modules/UseFb-Doc.cmake
+-- Installing: /usr/local/share/cmakefbc/Modules/UseFbDoc.cmake
 -- Installing: /usr/local/share/cmakefbc/Modules/CMakeDetermineFbcCompiler.cmake
 -- Installing: /usr/local/share/cmakefbc/Modules/CMakeTestFbcCompiler.cmake
 -- Installing: /usr/local/share/cmakefbc/Modules/Platform
 -- Installing: /usr/local/share/cmakefbc/Modules/Platform/Windows-Fbc.cmake
 -- Installing: /usr/local/share/cmakefbc/Modules/Platform/Linux-Fbc.cmake
 -- Installing: /usr/local/share/cmakefbc/Modules/CMakeFbcInformation.cmake
--- Installing: /usr/local/share/cmakefbc/Modules/FindFb-Doc.cmake
+-- Installing: /usr/local/share/cmakefbc/Modules/FindFbDoc.cmake
 -- Installing: /usr/local/share/cmakefbc/Modules/CMakeFbcCompiler.cmake.in
 -- Installing: /usr/local/bin/cmakefbc
 ~~~
@@ -425,7 +425,7 @@ The interaction in the terminal should look like (Debian LINUX)
 ~~~{.txt}
 $ cmakefbc ..
 /usr/bin/cmake .. -DCMAKE_MODULE_PATH=/usr/local/share/cmakefbc/Modules
--- Check for working fb-doc tool OK ==> /usr/local/bin/fb-doc (0.4.2)
+-- Check for working fbdoc tool OK ==> /usr/local/bin/fbdoc (1.0)
 -- Found Doxygen: /usr/bin/doxygen (found version "1.8.11")
 -- FB_DOCUMENTATION configured: SELFDEP;SYNTAX;PROJDATA;LFN targets doc;doc_www;doc_htm;doc_pdf
 -- Check for working cmakefbc_deps tool OK ==> /usr/local/bin/cmakefbc_deps
@@ -445,14 +445,14 @@ $ sudo make install
 Install the project...
 -- Install configuration: ""
 -- Up-to-date: /usr/local/share/cmakefbc/Modules
--- Up-to-date: /usr/local/share/cmakefbc/Modules/UseFb-Doc.cmake
+-- Up-to-date: /usr/local/share/cmakefbc/Modules/UseFbDoc.cmake
 -- Up-to-date: /usr/local/share/cmakefbc/Modules/CMakeDetermineFbcCompiler.cmake
 -- Up-to-date: /usr/local/share/cmakefbc/Modules/CMakeTestFbcCompiler.cmake
 -- Up-to-date: /usr/local/share/cmakefbc/Modules/Platform
 -- Up-to-date: /usr/local/share/cmakefbc/Modules/Platform/Windows-Fbc.cmake
 -- Up-to-date: /usr/local/share/cmakefbc/Modules/Platform/Linux-Fbc.cmake
 -- Up-to-date: /usr/local/share/cmakefbc/Modules/CMakeFbcInformation.cmake
--- Up-to-date: /usr/local/share/cmakefbc/Modules/FindFb-Doc.cmake
+-- Up-to-date: /usr/local/share/cmakefbc/Modules/FindFbDoc.cmake
 -- Up-to-date: /usr/local/share/cmakefbc/Modules/CMakeFbcCompiler.cmake.in
 -- Up-to-date: /usr/local/bin/cmakefbc
 -- Installing: /usr/local/bin/cmakefbc_deps

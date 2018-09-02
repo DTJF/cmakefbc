@@ -8,7 +8,7 @@ install_manifest.txt
 CMakeCache.txt
 cmakefbc_deps/cmakefbc_deps
 fbp.txt
-fb-doc.lfn
+fbdoc.lfn
 
 # Use wildcards as well
 CPack*

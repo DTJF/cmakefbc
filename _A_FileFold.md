@@ -39,15 +39,15 @@ and the documentation context in human readable markup format
 
 This folder contains the FB extension scripts for \CMake in a subfolder
 called `Modules`, and also two further scripts to control the build
-process of this documentation with Doxygen and fb-doc. The later are
+process of this documentation with Doxygen and fbdoc. The later are
 included in order to build this project, namely
 
-- \ref SubFindFbDoc : find and check the fb-doc executable
+- \ref SubFindFbDoc : find and check the fbdoc executable
 
 - \ref SubUseFbDoc : create targets to control the documentation build
 
 Target `install` copies them all to your system folder, since the
-fb-doc scripts may be useful for your projects as well. The destination
+fbdoc scripts may be useful for your projects as well. The destination
 folder is declared as `${CMAKE_INSTALL_PREFIX}/share/${PROJ_NAME}`.
 Variable `CMAKE_INSTALL_PREFIX` depends on your system, find details in
 the [CMake
@@ -63,10 +63,10 @@ further information in the [CMake
 documentation](https://cmake.org/documentation/).
 
 
-## FindFb-Doc.cmake  {#SubFindFbDoc}
+## FindFbDoc.cmake  {#SubFindFbDoc}
 
 This file is a \CMake script file that searches for the \FbDoc tool. It
-tries to find the executable `fb-doc`, and on success it determines its
+tries to find the executable `fbdoc`, and on success it determines its
 version. The script reports an error on versions smaller than 0.4.0.
 Otherwise the following variables get set
 
@@ -74,19 +74,19 @@ Otherwise the following variables get set
 
 \Item{FbDoc_WORKS} The status if the \FbDoc tool was found, is working and has a proper version number.
 
-\Item{FbDoc_VERSION} The version number reported by command `fb-doc --version`.
+\Item{FbDoc_VERSION} The version number reported by command `fbdoc --version`.
 
 Here's an example on how to use the script in your `CMakeLists.txt` code
 ~~~
-INCLUDE(FindFb-Doc)
+INCLUDE(FindFbDoc)
 IF(NOT FbDoc_WORKS)
-  MESSAGE(STATUS "fb-doc tool not found ==> doc targets not available!")
+  MESSAGE(STATUS "fbdoc tool not found ==> doc targets not available!")
   RETURN()
 ENDIF()
 ~~~
 
 
-## UseFb-Doc.cmake  {#SubUseFbDoc}
+## UseFbDoc.cmake  {#SubUseFbDoc}
 
 This file is a \CMake macro file that declares a function to add custom
 targets for a default documentation build. This function
@@ -120,7 +120,7 @@ function in your `CMakeLists.txt` code
 
 ~~~{.cmake}
 IF(NOT COMMAND FB_DOCUMENTATION)
-  INCLUDE(UseFb-Doc)
+  INCLUDE(UseFbDoc)
 ENDIF()
 
 FB_DOCUMENTATION(
@@ -143,7 +143,7 @@ Below the keyword `DEPENDS` the dependency files are listed. The
 documentation gets re-build if any of those files get changed. The
 files listed below the keyword `BAS_SRC` also cause a re-build of the
 documentation, but they are in a separate list since they also cause a
-re-build of the file fb-doc.lfn (which is necessary for caller and
+re-build of the file fbdoc.lfn (which is necessary for caller and
 callee graphs, see \FbDoc documentation for details).
 
 In order to customize the target declarations, the function can get
@@ -194,7 +194,7 @@ STRIP_FROM_INC_PATH    = xyz/abc
   batch script, see target \ref SubDocWww for details. Set this flag to
   suppress the target declaration.
 
-\Item{NO_LFN} A flag to drop the preparation of the file fb-doc-lfn. If
+\Item{NO_LFN} A flag to drop the preparation of the file fbdoc-lfn. If
   you don't want caller and callee graphs, you don't need this file.
   Suppress it's generation by setting this flag.
 
@@ -214,7 +214,7 @@ STRIP_FROM_INC_PATH    = xyz/abc
   the flag to suppress this.
 
 \Item{NO_SYNTAX} A flag to drop the default syntax highlighting in
-  source code listings. Set this to skip the `fb-doc -s` execution
+  source code listings. Set this to skip the `fbdoc -s` execution
   after the `doxygen` run, ie. when you don't include source listings
   or when you want to check the intermediate format generation.
 
@@ -232,7 +232,7 @@ STRIP_FROM_INC_PATH    = xyz/abc
 \Item{BAS_SRC} A keyword followed by a list (on or more strings)
   containing filenames (\FB source files) to be used as dependencies
   - for the doc targets and
-  - for the custom command that generates the file fb-doc.lfn (unless `NO_WWW` flag is set).
+  - for the custom command that generates the file fbdoc.lfn (unless `NO_WWW` flag is set).
 
 \Item{DEPENDS} A keyword followed by a list (on or more strings)
   containing file names the build process depend on. List your input
@@ -270,7 +270,7 @@ The function `FB_DOCUMENTATION` creates new targets:
 
 #### doc_htm  {#SubDocHtm}
 
-This target uses the specified `DOXYFILE`, extends it by fb-doc
+This target uses the specified `DOXYFILE`, extends it by fbdoc
 specific code and sets the output format to html in subfolder `html`.
 Afterwards it calls Doxygen to generate the html tree. When finished,
 find the start page at `html/index.html` in your Doxygen build folder,
@@ -282,7 +282,7 @@ or in the subfolder `html` in the directory specified by `Doxyfile` tag
 
 #### doc_pdf  {#SubDocPdf}
 
-This target uses the specified `DOXYFILE`, extends it by fb-doc
+This target uses the specified `DOXYFILE`, extends it by fbdoc
 specific code and sets the output format to pdf in subfolder `latex`.
 Afterwards it calls Doxygen to generate the pdf file. When finished,
 find the output named `${PROJ_NAME}.pdf` in your Doxygen build folder,

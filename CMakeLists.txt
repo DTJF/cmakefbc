@@ -43,7 +43,7 @@ IF(UNIX)
       COMMAND rm -rf `find . -name CMakeFiles -print`
       COMMAND rm -rf `find . -name cmake_install.cmake -print`
       COMMAND rm -rf `find . -name install_manifest.txt -print`
-      COMMAND rm -rf doxy/DoxyExtension doxy/HtmOut doxy/PdfOut doxy/fb-doc.lfn doxy/doxygen_sqlite3.db
+      COMMAND rm -rf doxy/DoxyExtension doxy/HtmOut doxy/PdfOut doxy/fbdoc.lfn doxy/doxygen_sqlite3.db
       COMMAND rm -rf doxy/html/ doxy/latex/
       )
   ELSE()                                                 # out-of-source
