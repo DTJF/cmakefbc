@@ -152,7 +152,7 @@ FUNCTION Scan(BYREF Fnam AS STRING) AS ZSTRING PTR
         CASE 0 :                                                EXIT FOR
         CASE ASC(!"\n") : i -= 1 :                               EXIT DO
         CASE ASC("\") : IF esc THEN i += 1
-        CASE ASC("""") : IF c[i + 1] = ASC("""") THEN i += 1 ELSE EXIT DO
+        CASE ASC("""") : IF c[i+1] = ASC("""") THEN i += 1  ELSE EXIT DO
         END SELECT
       LOOP : IF 0 = fl THEN EXIT SELECT
       VAR snam = LEFT(PEEK(ZSTRING, x), c + i - x) _
@@ -196,6 +196,8 @@ END FUNCTION
 
 
 ' ***** main *****
+
+IF 0 = LEN(COMMAND) THEN PRINT_HELP : END 1
 
 VAR cnr = 1
 WHILE ASC(COMMAND(cnr)) = ASC("-")
