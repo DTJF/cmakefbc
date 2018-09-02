@@ -1,5 +1,5 @@
 # This module prepares a standard doc build by the Doxygen generator,
-# supported by the fb-doc tool (http://github.com/DTJF/fb-doc)
+# supported by the fb-doc tool (http://github.com/DTJF/fbdoc)
 #
 # It defines the following ...
 #
@@ -8,9 +8,9 @@
 #
 # See ReadMe.md for details.
 
-# check for fb-doc tool
+# check for fbdoc tool
 IF(NOT FbDoc_WORKS)
-  INCLUDE(FindFb-Doc)
+  INCLUDE(FindFbDoc)
 ENDIF()
 
 # check for Doxygen
@@ -90,8 +90,8 @@ FILTER_SOURCE_PATTERNS = *.bas=${FbDoc_EXECUTABLE} \\
     )
   ADD_CUSTOM_TARGET(doc) #                           generate target doc
 
-  IF(NOT ARG_NO_LFN) #                          generate file fb-doc.lfn
-    SET(lfn ${CMAKE_CURRENT_SOURCE_DIR}/fb-doc.lfn)
+  IF(NOT ARG_NO_LFN) #                           generate file fbdoc.lfn
+    SET(lfn ${CMAKE_CURRENT_SOURCE_DIR}/fbdoc.lfn)
     LIST(APPEND ARG_DEPENDS ${lfn})
     ADD_CUSTOM_COMMAND(OUTPUT ${lfn}
       COMMAND ${FbDoc_EXECUTABLE} -l ${doxyext}
