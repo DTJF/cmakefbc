@@ -121,10 +121,11 @@ GENERATE_RTF     = NO
     IF(NOT ARG_MIRROR_CMD)
       SET(ARG_MIRROR_CMD MirrorDoc.sh '--reverse --delete --verbose ${CMAKE_CURRENT_BINARY_DIR}/html public_html/Projekte/${PROJ_NAME}/doc/html')
     ENDIF()
-    SET(wwwfile ${CMAKE_CURRENT_BINARY_DIR}/DocWWW.time)
+    SET(wwwfile ${CMAKE_CURRENT_BINARY_DIR}/UseFbDoc~doc_www~target~touch)
     ADD_CUSTOM_COMMAND(OUTPUT ${wwwfile}
-      COMMAND ${ARG_MIRROR_CMD}
-      COMMAND ${CMAKE_COMMAND} -E touch ${wwwfile}
+      #COMMAND ${ARG_MIRROR_CMD}
+      #COMMAND ${CMAKE_COMMAND} -E touch ${wwwfile}
+      COMMAND ${CMAKE_COMMAND} -E time ${ARG_MIRROR_CMD} > ${wwwfile}
       )
     ADD_CUSTOM_TARGET(doc_www DEPENDS ${wwwfile})
     ADD_DEPENDENCIES(doc_www doc_htm)

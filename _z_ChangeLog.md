@@ -27,13 +27,18 @@ or feel free to send your ideas directly to the author (\Mail).
 
 Here's a list of the published versions:
 
-## cmakefbc-0.6.2 {#SecV-0-6-2}
+## cmakefbc-1.0 {#SecV-1-0}
 
+- new: tool renamed fb-doc -> fbdoc
+- new: file renamed UseFb-Doc.cmake -> UseFbDoc.cmake
+- new: file renamed FindFb-Doc.cmake -> FindFbDoc.cmake
 - new: help and version output for cmakefbc_deps tool
-- new: path options for cmakefbc_deps tool (header, src)
-- new: no more (false) warnings on existant fbc headers in default path
+- new: path options for cmakefbc_deps tool (-h: headers, -i: src)
+- new: output upload time for target doc_www in file UseFbDoc~doc_www~target~touch
+- fix: no more (false) warnings on existant fbc headers in default path
+- fix: target doc_www reference file renamed DocWWW.time -> UseFbDoc~doc_www~target~touch
 
-Released on 2018 August.
+Released on 2018 September.
 
 
 ## cmakefbc-0.6 {#SecV-0-6}
