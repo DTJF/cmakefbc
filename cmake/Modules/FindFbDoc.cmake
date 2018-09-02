@@ -42,7 +42,7 @@ IF(NOT FbDoc_WORKS)
     RETURN()
   ENDIF()
 
-  STRING(REGEX MATCH "[0-9][.][0-9][.][0-9]" FbDoc_VERSION "${output}")
+  STRING(REGEX MATCH "version [0-9][.][0-9][.][0-9]" FbDoc_VERSION "${output}")
   STRING(COMPARE LESS "${FbDoc_VERSION}" "${minvers}" not_working)
 
   IF(not_working)

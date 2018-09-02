@@ -1,10 +1,18 @@
-cmakefbc (0.6.2) jessie; urgency=low
+cmakefbc (1.0.0) jessie; urgency=low
 
   * Fixed path problems for Debian package builds.
+  * new: tool renamed fb-doc -> fbdoc
+  * new: file renamed UseFb-Doc.cmake -> UseFbDoc.cmake
+  * new: file renamed FindFb-Doc.cmake -> FindFbDoc.cmake
+  * new: help and version output for cmakefbc_deps tool
+  * new: path options for cmakefbc_deps tool (-h: headers, -i: src)
+  * new: output upload time doc_www in file UseFbDoc~doc_www~target~touch
+  * fix: no more (false) warnings on existant fbc headers in default path
+  * fix: target doc_www file renamed -> UseFbDoc~doc_www~target~touch
 
- -- Thomas Freiherr <Thomas.Freiherr@gmx.net>  Mon, 20 Aug 2018 13:14:45 +0200
+ -- Thomas Freiherr <Thomas.Freiherr@gmx.net>  Sun, 02 Sep 2018 14:38:24 +0200
 
-cmakefbc (0.6.0-ubuntu) ubuntu; urgency=low
+cmakefbc (0.6.0) jessie; urgency=low
 
   * Build for kernel 4.4.
 

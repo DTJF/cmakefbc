@@ -107,16 +107,6 @@ FILTER_SOURCE_PATTERNS = \"*.bas=\\\"${filt_cmd}\\\"\" \\
     )
   ADD_CUSTOM_TARGET(doc) #                           generate target doc
 
-  IF(NOT ARG_NO_LFN) #                           generate file fbdoc.lfn
-    SET(lfn ${CMAKE_CURRENT_SOURCE_DIR}/fbdoc.lfn)
-    LIST(APPEND ARG_DEPENDS ${lfn})
-    ADD_CUSTOM_COMMAND(OUTPUT ${lfn}
-      COMMAND ${FbDoc_EXECUTABLE} -l ${doxyext}
-      DEPENDS ${ARG_BAS_SRC}
-      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-      )
-    LIST(APPEND msg "LFN")
-  ENDIF()
   SET(targets "doc")
   SET(nout
 "
