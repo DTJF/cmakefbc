@@ -27,6 +27,13 @@ or feel free to send your ideas directly to the author (\Mail).
 
 Here's a list of the published versions:
 
+## cmakefbc-1.0 {#SecV-1-0-2}
+
+- fix: fbdoc calls in UseFbDoc.cmake
+
+Released on 2018 ???.
+
+
 ## cmakefbc-1.0 {#SecV-1-0}
 
 - new: tool renamed fb-doc -> fbdoc
