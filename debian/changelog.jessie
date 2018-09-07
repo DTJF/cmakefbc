@@ -1,8 +1,20 @@
-cmakefbc (1.0.2) jessie; urgency=low
+cmakefbc (1.0.0c) jessie; urgency=low
+
+  * fix: UseFbDoc call for sh in quotes
+
+ -- Thomas Freiherr <Thomas.Freiherr@gmx.net>  Fri, 07 Sep 2018 13:35:20 +0200
+
+cmakefbc (1.0.0b) jessie; urgency=low
+
+  * fix: size problems @ upload (mini-dinstall)
+
+ -- Thomas Freiherr <Thomas.Freiherr@gmx.net>  Fri, 07 Sep 2018 07:56:08 +0200
+
+cmakefbc (1.0.0a) jessie; urgency=low
 
   * fix: PATTERN tags in UseFbDoc.cmake
 
- -- Thomas Freiherr <Thomas.Freiherr@gmx.net>
+ -- Thomas Freiherr <Thomas.Freiherr@gmx.net>  Fri, 07 Sep 2018 07:46:08 +0200
 
 cmakefbc (1.0.0) jessie; urgency=low
 
