@@ -1,3 +1,9 @@
+cmakefbc (1.0.2) jessie; urgency=low
+
+  * fix: PATTERN tags in UseFbDoc.cmake
+
+ -- Thomas Freiherr <Thomas.Freiherr@gmx.net>
+
 cmakefbc (1.0.0) jessie; urgency=low
 
   * Fixed path problems for Debian package builds.
