@@ -11,17 +11,19 @@ IF(NOT COMMAND FB_DOCUMENTATION)
 ENDIF()
 MSG_LOG(">> targets <doc...> OK")
 
+CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/src/doc/ReadMe.md.in ${CMAKE_SOURCE_DIR}/ReadMe.md @ONLY)
+
 FB_DOCUMENTATION(
 BAS_SRC
-  ../cmakefbc_deps/cmakefbc_deps.bas
+  ../src/bas/cmakefbc_deps.bas
 DEPENDS
   ../CMakeLists.txt
   ../ReadMe.md
-  ../_1_Install.md
-  ../_2_Usage.md
-  ../_3_Tool.md
-  ../_A_FileFold.md
-  ../_z_ChangeLog.md
+  ../src/doc/_1_Install.md
+  ../src/doc/_2_Usage.md
+  ../src/doc/_3_Tool.md
+  ../src/doc/_A_FileFold.md
+  ../src/doc/_z_ChangeLog.md
   Doxyfile
   cmakefbc.css
   cmakefbc.xml

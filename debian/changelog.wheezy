@@ -1,3 +1,24 @@
+cmakefbc (1.0.0d) wheezy; urgency=low
+
+  * NMU new source
+  * fix: standard directory structure
+  * fix: redundant entries in Doxyfile removed
+  * fix: CMAKE_Fbc_COMPILER_WORKS in cache (CMakeTestFbc.cmake)
+  * fix: UseFbDoc call for sh in quotes
+  * fix: size problems @ upload (mini-dinstall)
+  * fix: PATTERN tags in UseFbDoc.cmake
+  * fix: path problems for Debian package builds.
+  * new: tool renamed fb-doc -> fbdoc
+  * new: file renamed UseFb-Doc.cmake -> UseFbDoc.cmake
+  * new: file renamed FindFb-Doc.cmake -> FindFbDoc.cmake
+  * new: help and version output for cmakefbc_deps tool
+  * new: path options for cmakefbc_deps tool (-h: headers, -i: src)
+  * new: output upload time doc_www in file UseFbDoc~doc_www~target~touch
+  * fix: no more (false) warnings on existant fbc headers in default path
+  * fix: target doc_www file renamed -> UseFbDoc~doc_www~target~touch
+
+ -- Thomas Freiherr <Thomas.Freiherr@gmx.net>  Wed, 12 Sep 2018 06:26:37 +0200
+
 cmakefbc (0.1.7) wheezy; urgency=low
 
   * Implemented out-of source build with cmake.

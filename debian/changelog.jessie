@@ -1,3 +1,11 @@
+cmakefbc (1.0.0d) jessie; urgency=low
+
+  * fix: standard directory structure
+  * fix: redundant entries in Doxyfile removed
+  * fix: CMAKE_Fbc_COMPILER_WORKS in cache (CMakeTestFbc.cmake)
+
+ -- Thomas Freiherr <Thomas.Freiherr@gmx.net>  Wed, 12 Sep 2018 06:26:37 +0200
+
 cmakefbc (1.0.0c) jessie; urgency=low
 
   * fix: UseFbDoc call for sh in quotes

@@ -31,6 +31,8 @@ or feel free to send your ideas directly to the author (\Mail).
 - new: help and version output for cmakefbc_deps tool
 - new: path options for cmakefbc_deps tool (-h: headers, -i: src)
 - new: output upload time for target doc_www in file UseFbDoc~doc_www~target~touch
+- fix: standard directory structure
+- fix: redundant entries in Doxyfile removed
 - fix: CMAKE_Fbc_COMPILER_WORKS in cache (CMakeTestFbc.cmake)
 - fix: Doxygen FILTER_[SOURCE_]PATTERN setting in UseFbDoc.cmake
 - fix: no more (false) warnings on existant fbc headers in default path
