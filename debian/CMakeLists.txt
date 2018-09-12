@@ -20,6 +20,7 @@ IF(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
     COMMAND cp   control.${osvers} control
     COMMAND cat   control.packages >> control
     COMMAND cp changelog.${osvers} changelog
+    COMMAND echo doxy/html > ${PROJ_NAME}-doc.docs
     COMMAND cd ${CMAKE_SOURCE_DIR} && ${deb_exe} ${DEBUILD_FLAGS}
     )
   RETURN()
@@ -29,9 +30,8 @@ ENDIF()
 SET(src # files & dirs to copy from root dir
   CMakeLists.txt
   *.md
-  *.md.in
   cmake
-  cmakefbc_deps
+  src
   debian
   doxy
   )
@@ -45,5 +45,6 @@ ADD_CUSTOM_TARGET(deb rm -rf ${PROJ_NAME} ${CMAKE_SOURCE_DIR}/doxy/fbdoc.lfn
   COMMAND cp   ${CMAKE_CURRENT_SOURCE_DIR}/control.${osvers} ${debdir}/control
   COMMAND cat  ${CMAKE_CURRENT_SOURCE_DIR}/control.packages >> ${debdir}/control
   COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/changelog.${osvers} ${debdir}/changelog
+  COMMAND echo ../../doxy/html > ${debdir}/${PROJ_NAME}-doc.docs
   COMMAND cd ${bdir} && ${deb_exe} ${DEBUILD_FLAGS}
   )

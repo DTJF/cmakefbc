@@ -2,7 +2,7 @@ Source: cmakefbc
 Section: devel
 Priority: extra
 Maintainer: Arend Lammertink <lamare@gmail.com>
-Build-Depends: debhelper (>= 8.0.0), cmake (>= 2.8.3), freebasic (>= 1.0.0), fbdoc (>= 1.0), doxygen (>= 1.8.1), graphviz (>= 2.26.3)
-Standards-Version: 3.9.5
+Build-Depends: debhelper (>= 9.0.0), cmake (>= 2.8.3), freebasic (>= 1.0.0), fbdoc (>= 1.0), doxygen (>= 1.8.1), graphviz (>= 2.26.3)
+Standards-Version: 3.9.4
 Homepage: https://github.com/DTJF/cmakefbc
 Vcs-Git: git://github.com/DTJF/cmakefbc
