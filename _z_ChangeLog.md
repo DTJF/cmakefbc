@@ -23,18 +23,7 @@ or to the
 or feel free to send your ideas directly to the author (\Mail).
 
 
-# Versions  {#SecVersions}
-
-Here's a list of the published versions:
-
-## cmakefbc-1.0 {#SecV-1-0-2}
-
-- fix: fbdoc calls in UseFbDoc.cmake
-
-Released on 2018 ???.
-
-
-## cmakefbc-1.0 {#SecV-1-0}
+## cmakefbc-1.0 {#SecV-1-0-0}
 
 - new: tool renamed fb-doc -> fbdoc
 - new: file renamed UseFb-Doc.cmake -> UseFbDoc.cmake
@@ -42,13 +31,15 @@ Released on 2018 ???.
 - new: help and version output for cmakefbc_deps tool
 - new: path options for cmakefbc_deps tool (-h: headers, -i: src)
 - new: output upload time for target doc_www in file UseFbDoc~doc_www~target~touch
+- fix: CMAKE_Fbc_COMPILER_WORKS in cache (CMakeTestFbc.cmake)
+- fix: Doxygen FILTER_[SOURCE_]PATTERN setting in UseFbDoc.cmake
 - fix: no more (false) warnings on existant fbc headers in default path
 - fix: target doc_www reference file renamed DocWWW.time -> UseFbDoc~doc_www~target~touch
 
 Released on 2018 September.
 
 
-## cmakefbc-0.6 {#SecV-0-6}
+## cmakefbc-0.6 {#SecV-0-6-0}
 
 - new: folder debian for Debian package building (src, bin, doc)
 - new: target deb to build Debian packages
