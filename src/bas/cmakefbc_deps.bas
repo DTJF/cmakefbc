@@ -172,7 +172,7 @@ FUNCTION Scan(BYREF Fnam AS STRING) AS ZSTRING PTR
           DEPS &= inam & ";" ' add to output anyway, user should know ...
         END IF
       END IF : inam = ";" & inam & ";"
-      IF 0 = INSTR(ALL_DEPS, inam) THEN ALL_DEPS &= MID(inam, 2) : ? "HIER: ";inam
+      IF 0 = INSTR(ALL_DEPS, inam) THEN ALL_DEPS &= MID(inam, 2)
     CASE ASC("'")
       i += 1
       WHILE c[i] <> ASC(!"\n")
