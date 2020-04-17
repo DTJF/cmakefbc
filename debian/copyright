@@ -3,12 +3,12 @@ Upstream-Name: cmakefbc
 Source: <https://github.com/DTJF/cmakefbc>
 
 Files: debian/*
-Copyright: 2018 Arend Lammertink <lamare@gmail.com>
-           2018 Thomas Freiherr <Thomas.Freiherr@gmx.net>
+Copyright: 2018-2020 Arend Lammertink <lamare@gmail.com>
+           2018-2020 Thomas Freiherr <Thomas.Freiherr@gmx.net>
 License: GPL-3.0+
 
 Files: *
-Copyright: 2018 Thomas Freiherr <Thomas.Freiherr@gmx.net>
+Copyright: 2018-2020 Thomas Freiherr <Thomas.Freiherr@gmx.net>
 License: GPL-3.0+
 
 License: GPL-3.0+
