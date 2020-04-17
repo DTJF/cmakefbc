@@ -11,7 +11,7 @@ See page \ref PagCmakeFbDeps for a detailed description.
 '/
 
 '* The current version
-#DEFINE VERSION "0.2"
+#DEFINE VERSION "0.2.2"
 
 #IFDEF __FB_UNIX__
   CONST SLASH = "/" _ '*< The directory separator.
@@ -27,7 +27,7 @@ DIM SHARED AS STRING DEPS _ '*< A global variable to collect file specific depen
                , BAS_FOLD   '*< A global variable containing the folder of the current bas file.
 
 '* Generate output in case of skipping a file
-#DEFINE SKIP_FILE(_E_,_N_,_M_) ?COMMAND(0) & ": skipping " & _N_ & " (" & *_E_ & _M_ & ")"
+#DEFINE SKIP_MSG(_E_,_N_,_M_) ?COMMAND(0) & ": skipping " & _N_ & " (" & *_E_ & _M_ & ")"
 '* Generate output for an error message
 #DEFINE GEN_ERROR(_T_) ?COMMAND(0) & ": " & _T_
 '* Generate version message
@@ -99,14 +99,14 @@ Scan a file for #`INCLUDE` statements, and do
 
 '/
 FUNCTION Scan(BYREF Fnam AS STRING) AS ZSTRING PTR
-  IF INSTRREV(DEPS, ";" & Fnam & ";") THEN  RETURN 0
+  IF INSTRREV(DEPS, ";" & Fnam & ";")   /' already done '/ THEN RETURN 0
 
   VAR fnr = FREEFILE
-  IF OPEN(Fnam FOR INPUT AS fnr) THEN              RETURN @"open failed"
+  IF OPEN(Fnam FOR INPUT AS fnr)              THEN RETURN @"open failed"
   DEPS &= Fnam & ";"
 
   VAR le = LOF(fnr), p = ALLOCATE(le)
-  IF 0 = p THEN                    CLOSE #fnr : RETURN @ "out of memory"
+  IF 0 = p                    THEN CLOSE #fnr : RETURN @ "out of memory"
   VAR  c = CAST(UBYTE PTR, p) _
     , fl = 0 _
   , fold = LEFT(Fnam, INSTRREV(Fnam, SLASH) - 1)
@@ -160,14 +160,16 @@ FUNCTION Scan(BYREF Fnam AS STRING) AS ZSTRING PTR
       VAR r = Scan(inam)
       IF r THEN '                        got an error, try fallback path
         IF BAS_FOLD <> fold THEN
-          inam = absNam(fold, snam)
+          inam = absNam(BAS_FOLD, snam)
           r = Scan(inam)
         END IF
         IF r THEN '                    again error, try fbc include path
           VAR fd = FREEFILE
-          IF OPEN(absNam(FBC_FOLD, snam) FOR INPUT AS #fd) _ ' in global headers?
-                    THEN SKIP_FILE(r, snam, " in " & Fnam) : EXIT SELECT
-          CLOSE #fd          /' global headers, drop it '/ : EXIT SELECT
+          IF 0 = OPEN(absNam(FBC_FOLD, snam) FOR INPUT AS #fd) _
+               THEN /' global header, drop it '/ CLOSE #fd : EXIT SELECT
+          SKIP_MSG(r, snam, " in " & Fnam)
+          inam = absNam(fold, snam) ' orig. name
+          DEPS &= inam & ";" ' add to output anyway, user should know ...
         END IF
       END IF : inam = ";" & inam & ";"
       IF 0 = INSTR(ALL_DEPS, inam) THEN ALL_DEPS &= MID(inam, 2)
@@ -243,7 +245,7 @@ FOR i AS INTEGER = cnr + 1 TO __FB_ARGC__ - 1
     MID(DEPS, INSTR(2, DEPS, ";"), 1) = " "
     PRINT #fnr, "ADD_FILE_DEPENDENCIES(" & MID(DEPS, 2, LEN(DEPS) - 2) & ")"
   CASE ELSE
-    SKIP_FILE(r, fnam, " from input list")
+    SKIP_MSG(r, fnam, " from input list")
     PRINT #fnr, !"\n# Dropped: " & COMMAND(i) & " (" & *r & ")"
   END SELECT
 NEXT
