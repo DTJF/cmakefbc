@@ -81,12 +81,12 @@ ALIASES += \"Mail=${PROJ_MAIL}\" \\
     SET(lfn ${CMAKE_CURRENT_BINARY_DIR}/fbdoc.lfn)
     LIST(APPEND ARG_DEPENDS ${lfn})
     ADD_CUSTOM_COMMAND(OUTPUT ${lfn}
-      COMMAND ${FbDoc_EXECUTABLE} -l -L ${lfn} ${doxyext}
+      COMMAND ${FbDoc_EXECUTABLE} -l -L ${lfn} ${ARG_DOXYFILE}
       DEPENDS ${ARG_BAS_SRC}
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
       )
     LIST(APPEND msg "LFN")
-    SET(filt_cmd "\\\"${FbDoc_EXECUTABLE} -L ${lfn}\\\"")
+    SET(filt_cmd "${FbDoc_EXECUTABLE} \\\"-L ${lfn}\\\"")
   ELSE()
     SET(filt_cmd "${FbDoc_EXECUTABLE}")
   ENDIF()
