@@ -1,7 +1,7 @@
 #
 # CMakeFbc - CMake module for FreeBASIC Language
 #
-# Copyright (C) 2014-2020, Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT }net
+# Copyright (C) 2014-2021, Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT }net
 # License GPLv3 (see http://www.gnu.org/licenses/gpl-3.0.html)
 #
 # See ReadMe.md for details.
@@ -18,7 +18,7 @@ SET(PROJ_AUTH "DTJF"               CACHE STRING "project authors" FORCE)
 SET(PROJ_MAIL "Thomas{ doT ]Freiherr[ At ]gmx[ DoT }net"  CACHE STRING "project mail address" FORCE)
 SET(PROJ_WEBS "https://github.com/DTJF/cmakefbc" CACHE STRING "project website" FORCE)
 SET(PROJ_LICE "GPLv3"              CACHE STRING "project licence" FORCE)
-SET(PROJ_YEAR "2020"               CACHE STRING "project year" FORCE)
+SET(PROJ_YEAR "2021"               CACHE STRING "project year" FORCE)
 
 FUNCTION(MSG_LOG Txt)
   FILE(APPEND ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeOutput.log "${Txt}\n\n")
