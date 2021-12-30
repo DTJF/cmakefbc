@@ -4,11 +4,11 @@ Source: <https://github.com/DTJF/cmakefbc>
 
 Files: debian/*
 Copyright: 2018-2020 Arend Lammertink <lamare@gmail.com>
-           2018-2021 Thomas Freiherr <Thomas.Freiherr@gmx.net>
+           2018-2022 Thomas Freiherr <Thomas.Freiherr@gmx.net>
 License: GPL-3.0+
 
 Files: *
-Copyright: 2018-2021 Thomas Freiherr <Thomas.Freiherr@gmx.net>
+Copyright: 2018-2022 Thomas Freiherr <Thomas.Freiherr@gmx.net>
 License: GPL-3.0+
 
 License: GPL-3.0+

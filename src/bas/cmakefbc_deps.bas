@@ -2,7 +2,7 @@
 \brief The source code of the tool cmakefbc_deps.
 \since 0.0
 
-Copyright (C) 2014-2021, Thomas{ doT ]Freiherr[ At ]gmx[ DoT }net
+Copyright (C) 2014-2022, Thomas{ doT ]Freiherr[ At ]gmx[ DoT }net
 Licence GPLv3
 
 See page \ref PagCmakeFbDeps for a detailed description.
