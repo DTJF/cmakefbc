@@ -23,6 +23,13 @@ or to the
 or feel free to send your ideas directly to the author (\Mail).
 
 
+## cmakefbc-1.0.4 {#SecV-1-0-4}
+
+- fix: path for target doc_htm extension file in UseFBDoc.cmake
+
+Released on 2023 May.
+
+
 ## cmakefbc-1.0 {#SecV-1-0-0}
 
 - new: tool renamed fb-doc -> fbdoc
