@@ -1,13 +1,13 @@
 #
 # CMakeFbc - CMake module for FreeBASIC Language
 #
-# Copyright (C) 2014-2022, Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT }net
+# Copyright (C) 2014-2023, Thomas{ dOt ]Freiherr[ aT ]gmx[ DoT }net
 # License GPLv3 (see http://www.gnu.org/licenses/gpl-3.0.html)
 #
 # See ReadMe.md for details.
 #
 
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.3)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/Modules)
 
 # constants
